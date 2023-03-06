@@ -1,11 +1,18 @@
-import { Module } from '@nestjs/common';
+import {CacheModule, Module} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {AppEntity} from "./app.entity";
+import {RedisClientOptions} from "redis";
+import { redisStore } from 'cache-manager-redis-store';
 
 @Module({
   imports: [
+    CacheModule.register({
+      store: 'redisStore',
+      host: process.env.redis_host || 'localhost',
+      port: process.env.redis_port || 6379,
+    }),
     TypeOrmModule.forFeature([AppEntity]),
     TypeOrmModule.forRoot({
       type: 'postgres',
