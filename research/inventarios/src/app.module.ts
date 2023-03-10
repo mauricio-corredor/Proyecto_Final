@@ -5,11 +5,19 @@ import { AppService } from './app.service';
 import {AppEntity} from "./app.entity";
 import {RedisClientOptions} from "redis";
 import { redisStore } from 'cache-manager-redis-store';
+import { ScheduleModule } from '@nestjs/schedule';
+import { SqsModule } from '@ssut/nestjs-sqs';
+import * as AWS from 'aws-sdk';
+
+AWS.config.update({
+  region: process.env.aws_region,
+  accessKeyId: process.env.aws_access_key_id,
+  secretAccessKey: process.env.aws_secret_access_key,
+});
 
 @Module({
   imports: [
     CacheModule.register({
-      store: 'redisStore',
       host: process.env.redis_host || 'localhost',
       port: process.env.redis_port || 6379,
     }),
@@ -25,6 +33,16 @@ import { redisStore } from 'cache-manager-redis-store';
       entities: [AppEntity],
       dropSchema: false,
       synchronize: false,
+    }),
+    SqsModule.register({
+      consumers: [
+        {
+          name: process.env.queue_name,
+          queueUrl: process.env.queue_url,
+          region: process.env.aws_region
+        },
+      ],
+      producers: [],
     }),
   ],
   controllers: [AppController],

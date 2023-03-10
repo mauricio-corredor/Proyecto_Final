@@ -9,13 +9,13 @@ export class AppController {
 
   @Post('bodega')
   async enviaMensaje(@Body() body: any){
-  
+
     const {idProducto, pais, cantidad} = body;
-    
+
     try {
-      await this.sqsService.send("ColaInventario", {
+      await this.sqsService.send(process.env.queue_name, {
         id: 'msj1',
-        body: { body },       
+        body: { body },
         messageAttributes: { },
         delaySeconds: 0,
       });
