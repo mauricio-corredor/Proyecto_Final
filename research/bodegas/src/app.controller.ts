@@ -1,28 +1,31 @@
-/* eslint-disable prettier/prettier */
 import { Body, Controller, Post } from '@nestjs/common';
 import { SqsService } from '@ssut/nestjs-sqs';
+import { AppDto } from './app.dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly sqsService: SqsService) {}
 
-
   @Post('bodega')
-  async enviaMensaje(@Body() body: any){
-
-    const {idProducto, pais, cantidad} = body;
+  async sendMessage(@Body() body: AppDto) {
+    const data = {
+      productId: body.productId,
+      countryCode: body.countryCode,
+      count: body.count,
+    };
+    const key = `${body.countryCode}_${body.countryCode}`;
 
     try {
       await this.sqsService.send(process.env.queue_name, {
-        id: 'msj1',
-        body: { body },
-        messageAttributes: { },
+        id: key,
+        body: { data },
+        messageAttributes: {},
         delaySeconds: 0,
       });
-    } catch (error) {
-      console.log(error)
-        return {'message': 'error'};
+    } catch (er) {
+      console.log(er);
+      return { message: 'error, dont send message' };
     }
-    return { 'message': 'Mensaje enviado a la cola'}
+    return { message: 'Message send to queue' };
   }
 }
