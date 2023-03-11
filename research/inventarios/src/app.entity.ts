@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name: 'inventario'})
+@Entity()
 export class AppEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

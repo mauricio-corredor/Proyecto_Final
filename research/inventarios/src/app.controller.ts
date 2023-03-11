@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
   @Get('inventario/:countryCode/:productId')
-  async findOne(@Param('countryCode') countryCode: string, @Param('productId') productId: string){
-    return await this.appService.findOne(countryCode, productId)
+  findOne(@Param('countryCode') countryCode: string, @Param('productId') productId: string){
+    return this.appService.findOne(countryCode, productId)
   }
 }

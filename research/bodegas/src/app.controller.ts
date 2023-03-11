@@ -1,31 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { SqsService } from '@ssut/nestjs-sqs';
 import { AppDto } from './app.dto';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly sqsService: SqsService) {}
+  constructor(private readonly appService: AppService) {}
 
   @Post('bodega')
-  async sendMessage(@Body() body: AppDto) {
-    const data = {
-      productId: body.productId,
-      countryCode: body.countryCode,
-      count: body.count,
-    };
-    const key = `${body.countryCode}_${body.countryCode}`;
-
-    try {
-      await this.sqsService.send(process.env.queue_name, {
-        id: key,
-        body: { data },
-        messageAttributes: {},
-        delaySeconds: 0,
-      });
-    } catch (er) {
-      console.log(er);
-      return { message: 'error, dont send message' };
-    }
-    return { message: 'Message send to queue' };
+  async post(@Body() body: AppDto) {
+    return this.appService.sendMessage(body);
   }
 }

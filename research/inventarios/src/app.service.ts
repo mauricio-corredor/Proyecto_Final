@@ -6,6 +6,8 @@ import {Repository} from "typeorm";
 import { Cron } from '@nestjs/schedule';
 import { CronExpression } from '@nestjs/schedule/dist';
 import { SqsMessageHandler } from '@ssut/nestjs-sqs';
+import { plainToInstance } from 'class-transformer';
+import {type} from "os";
 
 @Injectable()
 export class AppService {
@@ -15,19 +17,25 @@ export class AppService {
   }
   private readonly logger = new Logger(AppService.name);
   constructor(
+    @InjectRepository(AppEntity)
+    private readonly appRepository: Repository<AppEntity>,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache
   ) {}
   async findOne(countryCode: string, productId: string): Promise<any> {
     let key = `${countryCode}_${productId}`
     try{
-    const val = await this.cacheManager.get(key)
+      this.logger.log(`findOne id: ${key}`);
+      const val = await this.cacheManager.get(key)
+      this.logger.log(`findOne data: ${val}`);
       return {
         data: val,
         from: 'cache'
       }
     }
     catch (er) {
+      this.logger.log(`findOne id: ${key}`);
+      this.logger.log(er);
       let response = this.response_default
       response['productId'] = productId
       response['country'] = countryCode
@@ -40,13 +48,25 @@ export class AppService {
 
   @Cron(CronExpression.EVERY_5_SECONDS)
   @SqsMessageHandler(process.env.queue_name, false)
-  async handleMessage(message: AWS.SQS.Message){
+  handleMessage(message: AWS.SQS.Message){
     try{
-      const body: any = message.Body;
-      console.log(`body: ${body}`);
+      const appEntity = new AppEntity();
+      let body = JSON.parse(message.Body);
+      this.logger.log(`body: ${body}`);
+      appEntity.productId = body["productId"]
+      appEntity.countryCode = body["countryCode"]
+      appEntity.count = body["count"]
+      appEntity.productName = "product"
+      appEntity.productDescription = "prueba"
+      let key = `${appEntity.countryCode}_${appEntity.productId}`
+      this.logger.log(`handleMessage key: ${key}`)
+      this.appRepository.save(appEntity)
+      this.logger.log(`handleMessage save db body: ${JSON.stringify(appEntity)}`)
+      this.cacheManager.set(key, JSON.stringify(appEntity), 9000000000000000)
+      this.logger.log(`handleMessage save cache body: ${JSON.stringify(appEntity)}`)
     }
     catch(er){
-      console.log("queue not found");
+      this.logger.log("queue not found");
     }
   }
 }
