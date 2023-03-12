@@ -33,14 +33,12 @@
     "cache-manager": "^5.1.7",
     "cache-manager-redis-store": "^3.0.1",
     "cache-manager-redis-yet": "^4.1.1",
-    "class-transformer": "^0.5.1",
-    "pg": "^8.9.0",
-    "redis": "^4.6.5",
+    "class-validator": "^0.13.2",
+    "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.12",
-    "util": "^0.12.5"
+    "typeorm": "^0.3.12"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
