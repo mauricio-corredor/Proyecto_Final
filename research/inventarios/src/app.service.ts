@@ -46,23 +46,36 @@ export class AppService {
     }
   }
 
+  async updateEntity(productId: string, countryCode: string, count: number): Promise<AppEntity> {
+    const persistedApp: AppEntity = await this.appRepository.findOne({where: {
+      productId: productId, countryCode: countryCode
+      }});
+    this.logger.log(`updateEntity persistedApp: ${JSON.stringify(persistedApp)}`)
+    const appEntity = new AppEntity();
+    appEntity.productId = productId
+    appEntity.countryCode = countryCode
+    appEntity.productName = persistedApp.productName
+    appEntity.productDescription = persistedApp.productDescription
+    appEntity.count = persistedApp.count - count
+    this.logger.log(`updateEntity update value count: ${appEntity.count}`)
+    await this.appRepository.save({...persistedApp, ...appEntity});
+    this.logger.log(`updateEntity save db appEntity: ${JSON.stringify(appEntity)}`)
+    return appEntity
+  }
+
   @Cron(CronExpression.EVERY_5_SECONDS)
   @SqsMessageHandler(process.env.queue_name, false)
   handleMessage(message: AWS.SQS.Message){
     try{
-      const appEntity = new AppEntity();
       let body = JSON.parse(message.Body);
-      this.logger.log(`body: ${body}`);
-      appEntity.productId = body["productId"]
-      appEntity.countryCode = body["countryCode"]
-      appEntity.count = body["count"]
-      appEntity.productName = "product"
-      appEntity.productDescription = "prueba"
-      let key = `${appEntity.countryCode}_${appEntity.productId}`
+      this.logger.log(`handleMessage body: ${JSON.stringify(body)}`);
+      let productId = body["productId"]
+      let countryCode = body["countryCode"]
+      let count = body["count"]
+      let key = `${countryCode}_${productId}`
       this.logger.log(`handleMessage key: ${key}`)
-      this.appRepository.save(appEntity)
-      this.logger.log(`handleMessage save db body: ${JSON.stringify(appEntity)}`)
-      this.cacheManager.set(key, JSON.stringify(appEntity), 9000000000000000)
+      let appEntity = this.updateEntity(productId, countryCode, count)
+      this.cacheManager.set(key, JSON.stringify(appEntity), 9000)
       this.logger.log(`handleMessage save cache body: ${JSON.stringify(appEntity)}`)
     }
     catch(er){
