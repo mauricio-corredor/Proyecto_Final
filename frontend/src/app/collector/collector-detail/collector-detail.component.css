@@ -1,0 +1,20 @@
+table .image-container {
+  height: 10rem;
+}
+
+@media screen and (max-width: 90rem) {
+  table .image-container {
+    height: 11.12vw;
+  }
+}
+
+
+.maxw-10 {
+  max-width: 10rem;
+}
+
+@media screen and (max-width: 90rem) {
+  .maxw-10 {
+    max-width: 11.12vw;
+  }
+}

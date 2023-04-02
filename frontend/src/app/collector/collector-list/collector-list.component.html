@@ -1,0 +1,42 @@
+<div class="collector-list-container transition-container" [ngClass]="{'two-cols': selected}">
+  <div class="collector-list col" [ngClass]="{'left-col': selected}">
+    <h1 id="collectors-table" class="py-3 text-center" i18n>Calculo de Almacenamiento</h1>
+    <div class="add-collector-container d-flex justify-content-end pb-2">
+      <button class="btn btn-standard btn-sm" type="button" routerLink="/collector/create" i18n>Add Collector</button>
+    </div>
+    <div class="add-collector-container d-flex justify-content-end pb-2">
+      <button class="btn btn-standard btn-sm" type="button" routerLink="/collector/album/add" i18n>Add Album to Collector</button>
+    </div>
+    <table *ngIf="collectors?.length > 0"
+      class="table table-striped"
+      aria-describedby="collectors-table">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center" i18n>Name</th>
+          <th scope="col" class="text-center" i18n>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of collectors" class="p-2">
+          <td class="p-3 align-middle">{{c.name}}</td>
+          <td class="p-3 text-center">
+            <button
+              type="button"
+              class="btn btn-standard btn-sm"
+              [ngClass]="{'active': actbtn == c.id}"
+              (click)="onSelected(c);actbtn = c.id"
+              i18n>More info</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!(collectors?.length > 0)" class="no-collectors display-4 text-center" i18n>
+      No hay ninguna
+    </div>
+  </div>
+  <div class="collector-list-detail right-col col align-self-center">
+    <div *ngIf="selected">
+      <app-collector-detail [collectorDetail]="selectedCollector"></app-collector-detail>
+    </div>
+  </div>
+</div>

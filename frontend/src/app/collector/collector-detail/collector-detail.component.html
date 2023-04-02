@@ -1,0 +1,49 @@
+<div class="container-fluid c-detail">
+  <div class="row">
+    <div class="col">
+      <h1 *ngIf="collectorId > 0" class="py-3 text-center">{{collectorDetail?.name}}</h1>
+      <h2 *ngIf="collectorId === undefined" class="py-3 text-center">{{collectorDetail?.name}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p id="collector_albums" class="text-center" i18n>Albums for sale or exchange</p>
+    </div>
+  </div>
+  <table *ngIf="collectorDetail?.collectorAlbums?.length > 0"
+    class="col-lg-8 offset-lg-2 table table-striped"
+    aria-describedby="collector_albums">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center" i18n>Cover</th>
+        <th scope="col" class="text-center" i18n>Album</th>
+        <th scope="col" class="text-center" i18n>Available</th>
+        <th scope="col" class="text-center" i18n>Price</th>
+        <th scope="col" class="text-center" i18n>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of collectorAlbums" class="p-2">
+        <td class="p-2">
+          <div class="image-container text-center">
+            <img src="{{a.album.cover}}" alt="Carátula de álbum" class="maxw-10">
+          </div>
+        </td>
+        <td class="p-2 text-center align-middle">{{a.album.name}}</td>
+        <td class="p-2 text-center align-middle" i18n>Sale</td>
+        <td class="p-2 text-center align-middle">{{ strToCurrency(a.price) }}</td>
+        <td class="p-2 text-center align-middle">
+          <button
+            type="button"
+            class="btn btn-standard btn-sm"
+            routerLink="/albums/{{a.album.id}}"
+            >Ver</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!(collectorDetail?.collectorAlbums?.length > 0)"
+    class="no-albums col-lg-6 offset-lg-3 text-center" i18n>
+    This collector doesn't have any albums for sale or exchange
+  </div>
+</div>

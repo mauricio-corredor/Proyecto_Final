@@ -1,0 +1,132 @@
+<div id="album-detail" class="container-fluid my-5">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card ml-3">
+        <div class="text-center">
+          <img [src]="album?.cover" [alt]="album?.name">
+        </div>
+        <div class="card-body">
+          <div class="d-md-flex justify-content-md-end">
+            <button [class]="!openForm ? 'add-track btn btn-standard btn-sm' : 'btn btn-sm btn-light'" type="button" (click)="showTrackForm()">
+              <span i18n *ngIf="openForm">Cancel</span>
+              <span i18n *ngIf="!openForm">+ Add tracks</span>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <app-track-create (reloadTracks)="reloadTracks($event)" (showTrackForm)="showTrackForm($event)" *ngIf="openForm" [openForm]="openForm" [albumId]="album?.id" [tracks]="album?.tracks"></app-track-create>
+        </div>
+        <ul class="list-group list-group-flush card-borders" >
+          <li class="list-group-item card-borders" *ngFor="let track of album?.tracks">
+            <span class="track-name">{{track.name}}</span>
+            <span class="float-right">{{track.duration}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col ml-3">
+      <div class="row">
+        <div class="col-12 align-self-start">
+          <h1 class="text-left pt-3">{{album?.name}}</h1>
+          <div class="row mt-3">
+            <div class="col-lg-7 col-md-7">
+              <span title="Genre" i18n-title>
+                <a routerLink="/albums" [queryParams]="{ genre:album?.genre }">{{album?.genre}}</a>
+              </span>
+              <span title="Record label" class="ml-5" i18n-title>
+                <a routerLink="/albums" [queryParams]="{ label:album?.recordLabel }">{{album?.recordLabel}}</a>
+              </span>
+              <span title="Release date" class="ml-5" i18n-title>{{album?.releaseDate | date: 'yyyy-MM-dd'}}</span>
+            </div>
+            <div class="col-lg-5 col-md-5 align-self-end">
+              <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-sm btn-standard" i18n>+ My collection</button>
+                <button type="button" class="btn btn-sm btn-standard" (click)="openCollectorsModal()" i18n *ngIf="!selected">See collectors</button>
+                <button type="button" class="btn btn-sm btn-standard" (click)="openCollectorsModal()" i18n *ngIf="selected">Hide collectors</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div id="collector-card" class="card" *ngIf="selected">
+            <div class="card-body pb-0">
+                <div class="card">
+                  <div class="card-body">
+                    <ul class="p-0 collectors-list">
+                      <li class="list-group-item bg-red fw-bold" *ngIf="collectorsName.length">
+                        <span i18n>Collector</span>
+                        <span class="float-right" i18n>Price</span>
+                      </li>
+                      <li class="list-group-item card-borders" *ngFor="let c of collectorsName">
+                        {{c}}
+                        <span class="float-right">{{collectorAlbums[c] | currency}}</span>
+                      </li>
+                      <li class="list-group-item text-center text-white" *ngIf="!collectorsName.length">
+                        <span i18n>There are no collectors</span>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+      <div class="row mt-3">
+        <div class="col-11">
+          <div class="card">
+            <div class="card-body px-0">
+              {{album?.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-8">
+          <span i18n>Artists:</span>
+          <span class="ml-3" *ngFor="let p of album?.performers">
+            <a routerLink="/albums" [queryParams]="{ artist:p.name }">{{p.name}}</a>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-11">
+            <div class="float-right">
+              <span class="fa fa-star text-warning ratings-average" *ngFor="let s of returnNumberOfStars(ratingsAverage)" title="Average: {{ratingsAverage}}" i18n-title></span>
+              <span class="ml-2" i18n>{{album?.comments.length}} Opinions</span>
+            </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-11" i18n>
+          <div class="card-header text-white">
+            Comments
+            <span class="float-right">
+              <button class="btn btn-standard btn-sm" type="button">+ Comment</button>
+            </span>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="comments-card" *ngFor="let c of album?.comments">
+                <div class="card mb-2">
+                  <div class="card-body">
+                    <span class="fa fa-user-circle"></span>
+                    <span class="ml-2">{{userName[c.id]}}</span>
+                    <div class="ml-4 pl-2">
+                      <span class="fa fa-star text-warning" *ngFor="let s of returnNumberOfStars(c.rating)" [title]="ratingsAverage"></span>
+                    </div>
+                    <p class="card-text ml-4 pl-2">{{c.description}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
