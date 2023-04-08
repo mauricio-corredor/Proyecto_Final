@@ -3,18 +3,16 @@ package com.miso.g2.ccpappmovil
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.miso.g2.ccpappmovil.ui.theme.CcpAppMovilTheme
 import com.miso.g2.ccpappmovil.viewModel.ProductViewModel
+import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,14 +35,29 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(viewModel: ProductViewModel = hiltViewModel()) {
-    //Text(text = "Hello $name!")
+    Column() {
+        Button(
+            onClick = { viewModel.getProduct() }, elevation = ButtonDefaults.elevation(
+                defaultElevation = 10.dp,
+                pressedElevation = 15.dp,
+                disabledElevation = 0.dp
+            ), modifier = Modifier.padding(10.dp)
+        ) {
+            Text(text = "Consultar Producto")
+        }
+        ProductosConsulta()
+    }
+}
+
+@Composable
+fun ProductosConsulta(viewModel: ProductsViewModel = hiltViewModel()) {
     Button(
-        onClick = { viewModel.getProduct() }, elevation = ButtonDefaults.elevation(
+        onClick = { viewModel.getProducts() }, elevation = ButtonDefaults.elevation(
             defaultElevation = 10.dp,
             pressedElevation = 15.dp,
             disabledElevation = 0.dp
         ), modifier = Modifier.padding(10.dp)
     ) {
-        Text(text = "Consultar Producto")
+        Text(text = "Consultar Productos")
     }
 }
