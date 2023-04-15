@@ -11,16 +11,16 @@ phases:
 
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t producto_app .
-      - docker tag producto_app:latest 443283769835.dkr.ecr.us-east-1.amazonaws.com/producto_app:latest
+      - docker build -t front .
+      - docker tag front:latest 443283769835.dkr.ecr.us-east-1.amazonaws.com/front:latest
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 443283769835.dkr.ecr.us-east-1.amazonaws.com/producto_app:latest
+      - docker push 443283769835.dkr.ecr.us-east-1.amazonaws.com/front:latest
       - echo Writing Imagen Definitions file...
-      - printf '[{"name":"Contenedor-producto", "imageUri":"443283769835.dkr.ecr.us-east-1.amazonaws.com/producto_app:latest"}]' > imagedefinitions.json
+      - printf '[{"name":"Contenedor-front", "imageUri":"443283769835.dkr.ecr.us-east-1.amazonaws.com/front:latest"}]' > imagedefinitions.json
 
 artifacts:
   files: imagedefinitions.json

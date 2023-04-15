@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:3000/api/v1'
+  baseUrl: 'LB-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81/productos'
 };
 
 /*
