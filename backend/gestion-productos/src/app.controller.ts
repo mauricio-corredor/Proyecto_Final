@@ -13,10 +13,15 @@ import { plainToInstance } from 'class-transformer';
 import { AppDto } from './app.dto';
 import { AppEntity } from './app.entity';
 
+
 @Controller('productos')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Get('health')
+  async get(){
+    return 'RPTA OK';
+  }
   @Get()
   async findAll() {
     return this.appService.findAll();

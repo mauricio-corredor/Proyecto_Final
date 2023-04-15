@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 443283769835.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t producto_app .
+      - docker tag producto_app:latest 443283769835.dkr.ecr.us-east-1.amazonaws.com/producto_app:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 443283769835.dkr.ecr.us-east-1.amazonaws.com/producto_app:latest
+      - echo Writing Imagen Definitions file...
+      - printf '[{"name":"Contenedor-Producto", "imageUri":"443283769835.dkr.ecr.us-east-1.amazonaws.com/producto_app:latest"}]' > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json

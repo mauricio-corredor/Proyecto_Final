@@ -22,4 +22,13 @@ export class AppDto {
   @IsString()
   @IsNotEmpty()
   readonly fechaVencimiento: string;
+  @IsString()
+  @IsNotEmpty()
+  readonly codigoProducto: string;
+  @IsString()
+  @IsNotEmpty()
+  readonly precioProducto: number;
+  @IsString()
+  @IsNotEmpty()
+  readonly cantidadDisponible: number;
 }

@@ -18,4 +18,10 @@ export class AppEntity {
   tipoProducto: string;
   @Column()
   fechaVencimiento: string;
+  @Column()
+  codigoProducto: string;
+  @Column()
+  precioProducto: number;
+  @Column()
+  cantidadDisponible: number;
 }
