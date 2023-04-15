@@ -1,9 +1,6 @@
 package com.miso.g2.ccpappmovil.di
 
-import com.miso.g2.ccpappmovil.repository.ProductRepository
-import com.miso.g2.ccpappmovil.repository.ProductRepositoryImp
-import com.miso.g2.ccpappmovil.repository.ProductsRepository
-import com.miso.g2.ccpappmovil.repository.ProductsRepositoryImp
+import com.miso.g2.ccpappmovil.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,5 +17,9 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun productsRepository(repo: ProductsRepositoryImp): ProductsRepository
+
+    @Binds
+    @Singleton
+    abstract fun ordersRepository(repo: OrdersRepositoryImp): OrdersRepository
 
 }

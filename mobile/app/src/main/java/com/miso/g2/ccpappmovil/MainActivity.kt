@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.miso.g2.ccpappmovil.ui.theme.CcpAppMovilTheme
+import com.miso.g2.ccpappmovil.viewModel.OrdersViewModel
 import com.miso.g2.ccpappmovil.viewModel.ProductViewModel
 import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(viewModel: ProductViewModel = hiltViewModel()) {
-    Column() {
+    Column {
         Button(
             onClick = { viewModel.getProduct() }, elevation = ButtonDefaults.elevation(
                 defaultElevation = 10.dp,
@@ -46,6 +47,7 @@ fun Greeting(viewModel: ProductViewModel = hiltViewModel()) {
             Text(text = "Consultar Producto")
         }
         ProductosConsulta()
+        OrdenesConsulta()
     }
 }
 
@@ -59,5 +61,18 @@ fun ProductosConsulta(viewModel: ProductsViewModel = hiltViewModel()) {
         ), modifier = Modifier.padding(10.dp)
     ) {
         Text(text = "Consultar Productos")
+    }
+}
+
+@Composable
+fun OrdenesConsulta(viewModel: OrdersViewModel = hiltViewModel()) {
+    Button(
+        onClick = { viewModel.getOrders() }, elevation = ButtonDefaults.elevation(
+            defaultElevation = 10.dp,
+            pressedElevation = 15.dp,
+            disabledElevation = 0.dp
+        ), modifier = Modifier.padding(10.dp)
+    ) {
+        Text(text = "Consultar Ordenes")
     }
 }

@@ -17,7 +17,8 @@ class DataSourceModule {
     @Singleton
     @Provides
     @Named("BaseUrl")
-    fun providerBaseUrl() = "https://fakestoreapi.com"
+    //fun providerBaseUrl() = "https://fakestoreapi.com"
+    fun providerBaseUrl() = "http://lb-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81"
 
     @Singleton
     @Provides
