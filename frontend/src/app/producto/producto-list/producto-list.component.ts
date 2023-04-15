@@ -60,8 +60,8 @@ export class ProductoListComponent implements OnInit{
   }
 
   constructor(private productoService: ProductoService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    public router: Router,
+    public route: ActivatedRoute) { }
 
   performFilters(): Producto[] {
     let productos: Producto[] = []

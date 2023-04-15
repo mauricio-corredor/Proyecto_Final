@@ -7,112 +7,70 @@ import { Performer } from 'src/models/performer';
 import { RecordLabel } from 'src/models/recordLabel.enum';
 import { Track } from 'src/models/track';
 
+import { TipoProducto } from 'src/models/tipoProducto1.enum';
 import { ProductoService } from './producto.service';
 
+
 describe('ProductoService', () => {
-  let injector: TestBed;
   let service: ProductoService;
-  let httpMock: HttpTestingController;
-  const genres: Genre[] = [
-    Genre.Classical,
-    Genre.Folk,
-    Genre.Rock,
-    Genre.Salsa
-  ];
-  const labels: RecordLabel[] = [
-    RecordLabel.DiscosFuentes,
-    RecordLabel.EMI,
-    RecordLabel.Elektra,
-    RecordLabel.FaniaRecords,
-    RecordLabel.SonyMusic
-  ];
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ProductoService]
     });
-    injector = getTestBed();
     service = TestBed.inject(ProductoService);
-    httpMock = injector.get(HttpTestingController);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify();
+    httpTestingController.verify();
   });
 
-
-  it('should be created', inject([ProductoService], (service: ProductoService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 
+  it('should retrieve all productos from the API via GET', () => {
+    const mockProductos: Producto[] = [
+      new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31'),
+      new Producto('2', 'Producto 2', 'imagen2.jpg', 'Proveedor 2', 'Fabricante 2', '200ml', 'Perecederos', '2024-12-31')
+    ];
 
-  it('getProductos() should return 10 albums', () => {
-    let mockProductos: Producto[] = [];
-    for (let i = 0; i < 10; i++) {
-      let album = new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [], [], []);
-      mockProductos.push(album);
-    }
-    service.getProductos().subscribe((albums) => {
-      expect(albums.length).toBe(10);
-    })
-    const req = httpMock.expectOne(() => true);
+    service.getProductos().subscribe(productos => {
+      expect(productos.length).toBe(2);
+      expect(productos).toEqual(mockProductos);
+    });
+
+    const req = httpTestingController.expectOne(service['apiUrl']);
     expect(req.request.method).toBe('GET');
     req.flush(mockProductos);
   });
 
+  it('should retrieve a single producto from the API via GET', () => {
+    const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31');
 
-  it('getProductoById() should return album with id 24', () => {
-    let album = new Producto(24, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-    faker.random.arrayElement(genres), faker.random.arrayElement(labels), [], [], []);
+    service.getProductoById('1').subscribe(producto => {
+      expect(producto).toEqual(mockProducto);
+    });
 
-    service.getProductoById(24).subscribe((album) => {
-      expect(album.id).toBe(24);
-    })
-    const req = httpMock.expectOne(() => true);
+    const req = httpTestingController.expectOne(service['apiUrl'] + '1');
     expect(req.request.method).toBe('GET');
-    req.flush(album);
+    req.flush(mockProducto);
   });
 
-  it('add album', () => {
-    service.addProducto(new Producto(24, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-    faker.random.arrayElement(genres), faker.random.arrayElement(labels), [], [], [])).subscribe((a) => {
-      expect(a.id).toBe(24);
-    })
-    const req = httpMock.expectOne(() => true);
-    expect(req.request.method).toBe('POST');
-  })
+  it('should add a new producto to the API via POST', () => {
+    const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31');
 
-  it('add musician to album', () => {
-    let name = faker.name.findName()
-    service.addArtistToProducto(
-      new Producto(24, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [], [], []),
-      new Performer(1, name, faker.date.past(), null)).subscribe((a) => {
-        expect(a.performers[0].name).toBe(name);
-    })
-    const req = httpMock.expectOne(() => true);
-    expect(req.request.method).toBe('POST');
-  })
+    service.addProducto(mockProducto).subscribe(producto => {
+      expect(producto).toEqual(mockProducto);
+    });
 
-  it('add band to album', () => {
-    let name = faker.name.findName()
-    service.addArtistToProducto(
-      new Producto(24, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [], [], []),
-      new Performer(1, name, null, faker.date.past())).subscribe((a) => {
-        expect(a.performers[0].name).toBe(name);
-    })
-    const req = httpMock.expectOne(() => true);
+    const req = httpTestingController.expectOne(service['apiUrl']);
     expect(req.request.method).toBe('POST');
-  })
-
-  it('add track to album', () => {
-    service.addTrack(new Track(faker.name.firstName(), faker.datatype.string()), 24).subscribe((t) => {
-      expect(t).toBeTruthy();
-    })
-    const req = httpMock.expectOne(() => true);
-    expect(req.request.method).toBe('POST');
-  })
+    expect(req.request.body).toEqual(mockProducto);
+    req.flush(mockProducto);
+  });
 });
+

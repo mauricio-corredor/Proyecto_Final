@@ -1,171 +1,133 @@
-import { HttpClientModule } from '@angular/common/http';
-import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
-import * as faker from 'faker';
-import { ToastNoAnimationModule } from 'ngx-toastr';
-import { Producto } from 'src/models/producto';
-import { Genre } from 'src/models/genre.enum';
-import { Performer } from 'src/models/performer';
-import { RecordLabel } from 'src/models/recordLabel.enum';
-import { ProductoCreateComponent } from '../producto-create/producto-create.component';
-import { ProductoDetailComponent } from '../producto-detail/producto-detail.component';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
 import { ProductoListComponent } from './producto-list.component';
+import { ProductoService } from '../producto.service';
+import { TipoProducto } from 'src/models/tipoProducto1.enum';
 
-describe('ProductosComponent', () => {
+class MockRouter {
+  navigate(path: string[]) {}
+}
+
+describe('ProductoListComponent', () => {
   let component: ProductoListComponent;
   let fixture: ComponentFixture<ProductoListComponent>;
-  let debug: DebugElement;
-  const genres: Genre[] = [
-    Genre.Classical,
-    Genre.Folk,
-    Genre.Rock,
-    Genre.Salsa
-  ];
-  const labels: RecordLabel[] = [
-    RecordLabel.DiscosFuentes,
-    RecordLabel.EMI,
-    RecordLabel.Elektra,
-    RecordLabel.FaniaRecords,
-    RecordLabel.SonyMusic
+  let productoService: ProductoService;
+  let router: Router;
+  let activatedRoute: ActivatedRoute;
+
+  const productos = [
+    {
+      idProducto: '1',
+      descripcionProducto: 'Producto 1',
+      imagenProducto: 'imagen1.png',
+      proveedor: 'Proveedor 1',
+      fabricanteProducto: 'Fabricante 1',
+      volumenProducto: '1',
+      tipoProducto: TipoProducto.Cereales,
+      fechaVencimiento: '2022-01-01'
+    },
+    {
+      idProducto: '2',
+      descripcionProducto: 'Producto 2',
+      imagenProducto: 'imagen2.png',
+      proveedor: 'Proveedor 2',
+      fabricanteProducto: 'Fabricante 2',
+      volumenProducto: '2',
+      tipoProducto: TipoProducto.Frutas,
+      fechaVencimiento: '2022-02-02'
+    }
   ];
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientModule, FormsModule, ReactiveFormsModule,
-        RouterTestingModule.withRoutes([
-          { path: 'productos/:id', component: ProductoDetailComponent }
-        ]),
-        ToastNoAnimationModule.forRoot()],
-      declarations: [ ProductoListComponent, ProductoCreateComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ ProductoListComponent ],
+      providers: [
+        {
+          provide: ProductoService,
+          useValue: { getProductos: () => of(productos) }
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: { queryParams: of({}) }
+        },
+
+        { provide: Router,useClass: MockRouter } // toca suministrar el objeto mock Router, no pude con el real
+
+      ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductoListComponent);
     component = fixture.componentInstance;
-    component.productos = [];
-    component.filteredProductos = [];
+    productoService = TestBed.inject(ProductoService);
+    router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
-    debug = fixture.debugElement;
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-
-  it('should not display filtered-productos but no-producto div, when array is empty', () => {
-    expect(debug.query(By.css('.filtered-productos'))).toBeNull();
-    expect(debug.query(By.css('.no-productos'))).toBeTruthy();
-  });
-
-
-  it('should display only productos by selected artist', () => {
-    let fakeArtist = "Fake Artist";
-    for (let i = 0; i < 3; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230),
-      faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [],
-      [new Performer(faker.datatype.number(),fakeArtist, faker.datatype.datetime(), faker.datatype.datetime())], []));
-    }
-    for (let i = 0; i < 5; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [],
-      [new Performer(faker.datatype.number(),faker.name.firstName(), faker.datatype.datetime(), faker.datatype.datetime())], []));
-    }
-    for (let i = 0; i < 5; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230), faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [], [], []));
-    }
-    component.filterValues.artist = fakeArtist;
-    component.filteredProductos = component.performFilters();
-    fixture.detectChanges();
-    expect(debug.query(By.css('.filtered-productos')).children.length).toBe(3);
-  });
-
-
-  it('should display only productos by selected genre', () => {
-    for (let i = 0; i < 5; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230),
-      faker.date.past(), faker.lorem.paragraph(),
-      Genre.Classical, faker.random.arrayElement(labels), [], [], []));
-    }
-    for (let i = 0; i < 5; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230),
-      faker.date.past(), faker.lorem.paragraph(),
-      Genre.Folk, faker.random.arrayElement(labels), [], [], []));
-    }
-    component.filterValues.genre = Genre.Classical;
-    component.filteredProductos = component.performFilters();
-    fixture.detectChanges();
-    expect(debug.query(By.css('.filtered-productos')).children.length).toBe(5);
-  });
-
-
-  it('should display only productos by selected record label', () => {
-    for (let i = 0; i < 10; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230),
-      faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), RecordLabel.DiscosFuentes, [], [], []));
-    }
-    for (let i = 0; i < 5; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230),
-      faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), RecordLabel.SonyMusic, [], [], []));
-    }
-    component.filterValues.label = RecordLabel.DiscosFuentes;
-    component.filteredProductos = component.performFilters();
-    fixture.detectChanges();
-    expect(debug.query(By.css('.filtered-productos')).children.length).toBe(10);
-  });
-
-
-  it('should display all productos when no filter is applied', () => {
-    for (let i = 0; i < 10; i++) {
-      component.productos.push(new Producto(i, faker.lorem.slug(), faker.image.cats(250, 230),
-      faker.date.past(), faker.lorem.paragraph(),
-      faker.random.arrayElement(genres), faker.random.arrayElement(labels), [],
-      [new Performer(faker.datatype.number(),faker.name.findName(), faker.datatype.datetime(), faker.datatype.datetime())], []));
-    }
-    component.filterValues.artist = '';
-    component.filterValues.genre = '';
-    component.filterValues.label = '';
-    component.filteredProductos = component.performFilters();
-
-    fixture.detectChanges();
-    expect(debug.query(By.css('.filtered-productos')).children.length).toBe(10);
-  });
-
-  it('select producto', () => {
-    fixture.ngZone.run(() => {
-      component.onSelected(101);
+  it('should have a filterValues object with default values', () => {
+    expect(component.filterValues).toEqual({
+      descripcion: '',
+      proveedor: '',
+      tipo: ''
     });
-    fixture.detectChanges();
-    expect(debug.query(By.css('.container-fluid'))).toBeTruthy();
-  })
+  });
 
-  it('set filters', () => {
-    component.genreFilter = faker.random.arrayElement(genres);
-    component.labelFilter = faker.random.arrayElement(labels);
-    component.artistFilter = "Queen";
-    fixture.detectChanges();
-    expect(debug.query(By.css('.filtered-productos'))).toBeNull();
-  })
+  it('should filter by descripcion', () => {
+    component.descripcionFilter = 'Producto 1';
+    expect(component.filteredProductos.length).toBe(1);
+    expect(component.filteredProductos[0].idProducto).toBe('1');
+  });
 
-  it('show new producto form', () => {
+  it('should filter by proveedor', () => {
+    component.proveedorFilter = 'Proveedor 2';
+    expect(component.filteredProductos.length).toBe(1);
+    expect(component.filteredProductos[0].idProducto).toBe('2');
+  });
+
+  it('should filter by tipo', () => {
+    component.tipoFilter = TipoProducto.Cereales;
+    expect(component.filteredProductos.length).toBe(1);
+    expect(component.filteredProductos[0].idProducto).toBe('1');
+  });
+
+  it('should clear filters', () => {
+    component.descripcionFilter = 'Producto 1';
+    component.proveedorFilter = 'Proveedor 2';
+    component.descripcionFilter = '';
+    component.proveedorFilter = '';
+    expect(component.filteredProductos.length).toBe(2);
+  });
+
+  it('should show/hide form', () => {
     component.showForm();
-    fixture.detectChanges();
-    expect(debug.query(By.css('.producto-form'))).toBeTruthy();
-  })
-
-  it('hide new producto form', () => {
+    expect(component.openForm).toBeTrue();
     component.hideForm();
-    fixture.detectChanges();
-    expect(debug.query(By.css('.producto-form'))).toBeNull();
-  })
-});
+    expect(component.openForm).toBeFalse();
+  });
+
+  it('should navigate to selected producto', () => {
+    spyOn(component['router'], 'navigate').and.stub();
+    component.onSelected(1);
+    expect(component['router'].navigate).toHaveBeenCalledWith(['/productos/1']);
+  });
+
+  it('should show/hide form', () => {
+    component.showForm();
+    expect(component.openForm).toBeTrue();
+    component.hideForm();
+    expect(component.openForm).toBeFalse();
+  });
+
+})
