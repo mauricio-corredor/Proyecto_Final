@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 /* tslint:disable:no-unused-variable */
-import { TestBed, getTestBed, async, inject, ComponentFixture } from '@angular/core/testing';
+import { TestBed, getTestBed, inject, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,7 +23,7 @@ describe('PrizeCreateComponent', () => {
  let component: PrizeCreateComponent;
  let fixture: ComponentFixture<PrizeCreateComponent>;
 
- beforeEach(async(() => {
+ beforeEach(waitForAsync(() => {
    TestBed.configureTestingModule({
      imports: [HttpClientModule,
        HttpClientTestingModule,

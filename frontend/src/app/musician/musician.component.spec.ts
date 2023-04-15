@@ -1,5 +1,5 @@
 import { MusicianComponent } from "./musician.component";
-import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 import * as faker from "faker";
@@ -13,7 +13,7 @@ describe("MusicianComponent", () => {
  let fixture: ComponentFixture<MusicianComponent>;
  let debug: DebugElement;
 
- beforeEach(async(() => {
+ beforeEach(waitForAsync(() => {
    TestBed.configureTestingModule({
      declarations: [MusicianComponent],
      imports: [HttpClientTestingModule],
