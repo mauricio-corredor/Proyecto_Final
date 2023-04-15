@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Producto } from '../../../models/producto';
 import { ProductoService } from '../producto.service';
-import { RecordLabel } from '../../../models/recordLabel.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/models/tipoProducto1.enum';
 

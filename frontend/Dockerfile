@@ -12,10 +12,13 @@ RUN npm install
 COPY . .
 
 # build app
-RUN npm run build --prod
+
+ARG API_PRODUCTO_URL=LB-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81/productos
+ENV API_PRODUCTO_URL=$API_PRODUCTO_URL
+RUN npm run build
 
 # final image
 FROM nginx:1.21.3-alpine
 COPY --from=build /app/dist/front /usr/share/nginx/html
-EXPOSE 8080
+EXPOSE 8000
 CMD ["nginx", "-g", "daemon off;"]
