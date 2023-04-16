@@ -13,8 +13,8 @@ COPY . .
 
 # build app
 
-ARG API_PRODUCTO_URL=LB-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81/productos
-ENV API_PRODUCTO_URL=$API_PRODUCTO_URL
+ARG baseUrl=LB-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81
+ENV baseUrl=$baseUrl
 RUN npm run build
 
 # final image
