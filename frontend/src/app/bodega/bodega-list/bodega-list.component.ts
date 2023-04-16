@@ -69,29 +69,29 @@ export class BodegaListComponent implements OnInit{
       return bodegas = this.bodegas;
     }
     if (this.filterValues.nombre !== "") {
-      this.performDescripcionFilter().forEach(x=> bodegas.push(x));
+      this.performNombreFilter().forEach(x=> bodegas.push(x));
     }
     if (this.filterValues.ubicacionPais !== "") {
-      this.performProveedorFilter().forEach(x=> bodegas.push(x));
+      this.performUbicacionFilter().forEach(x=> bodegas.push(x));
     }
     if (this.filterValues.zonaLocalizacion !== "") {
-      this.performTipoFilter().forEach(x=> bodegas.push(x));
+      this.performZonaFilter().forEach(x=> bodegas.push(x));
     }
 
     return [...new Set(bodegas)].sort((a, b) => (a.nombreBodega < b.nombreBodega ? -1 : 1));
   }
 
-  performDescripcionFilter(): Bodega[] {
+  performNombreFilter(): Bodega[] {
     return this.bodegas.filter((bodega: Bodega) =>
       bodega.nombreBodega.includes(this.filterValues.nombre));
   }
 
-  performProveedorFilter(): Bodega[] {
+  performUbicacionFilter(): Bodega[] {
     return this.bodegas.filter((bodega: Bodega) =>
       bodega.ubicacionPais.includes(this.filterValues.ubicacionPais));
   }
 
-  performTipoFilter(): Bodega[] {
+  performZonaFilter(): Bodega[] {
     return this.bodegas.filter((bodega: Bodega) =>
       bodega.zonaLocalizacion.includes(this.filterValues.zonaLocalizacion));
   }
