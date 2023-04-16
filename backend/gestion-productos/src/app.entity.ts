@@ -20,8 +20,6 @@ export class AppEntity {
   fechaVencimiento: string;
   @Column()
   codigoProducto: string;
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   precioProducto: number;
-  @Column()
-  cantidadDisponible: number;
 }

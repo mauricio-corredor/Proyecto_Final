@@ -20,7 +20,6 @@ describe('App Controller', () => {
         idProducto: '2fe52712-8166-435a-92d3-b0a00fd88068',
         codigoProducto: 'CP01',
         precioProducto: 20.50,
-        cantidadProducto: 150
       },
       {
         descripcionProducto: 'Pepsi',
@@ -34,7 +33,6 @@ describe('App Controller', () => {
         idProducto: '5753fcfa-215e-4b51-939e-ef5c783f1cb8',
         codigoProducto: 'CP02',
         precioProducto: 8.50,
-        cantidadProducto: 100
       },
     ],
   };

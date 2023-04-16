@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsPositive, IsString, IsUrl } from 'class-validator';
 
 export class AppDto {
   @IsString()
@@ -26,9 +26,7 @@ export class AppDto {
   @IsNotEmpty()
   readonly codigoProducto: string;
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty()  
+  @IsPositive()
   readonly precioProducto: number;
-  @IsString()
-  @IsNotEmpty()
-  readonly cantidadDisponible: number;
 }
