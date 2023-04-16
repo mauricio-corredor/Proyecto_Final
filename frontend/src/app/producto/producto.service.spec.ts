@@ -34,8 +34,8 @@ describe('ProductoService', () => {
 
   it('should retrieve all productos from the API via GET', () => {
     const mockProductos: Producto[] = [
-      new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31'),
-      new Producto('2', 'Producto 2', 'imagen2.jpg', 'Proveedor 2', 'Fabricante 2', '200ml', 'Perecederos', '2024-12-31')
+      new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31', '23545', 5000),
+      new Producto('2', 'Producto 2', 'imagen2.jpg', 'Proveedor 2', 'Fabricante 2', '200ml', 'Perecederos', '2024-12-31', '23545', 5000)
     ];
 
     service.getProductos().subscribe(productos => {
@@ -49,7 +49,7 @@ describe('ProductoService', () => {
   });
 
   it('should retrieve a single producto from the API via GET', () => {
-    const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31');
+    const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31', '23545', 5000);
 
     service.getProductoById('1').subscribe(producto => {
       expect(producto).toEqual(mockProducto);
@@ -61,7 +61,7 @@ describe('ProductoService', () => {
   });
 
   it('should add a new producto to the API via POST', () => {
-    const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31');
+    const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31', '23545', 5000);
 
     service.addProducto(mockProducto).subscribe(producto => {
       expect(producto).toEqual(mockProducto);
