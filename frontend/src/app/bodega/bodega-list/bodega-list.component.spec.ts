@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { ProductoListComponent } from './producto-list.component';
-import { ProductoService } from '../producto.service';
+import { ProductoListComponent } from './bodega-list.component';
+import { ProductoService } from '../bodega.service';
 import { TipoProducto } from 'src/models/zonaLocalizacion.enum';
 
 class MockRouter {

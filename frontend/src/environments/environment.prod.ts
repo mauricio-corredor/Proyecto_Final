@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  API_PRODUCTO_URL: process.env.API_PRODUCTO_URL
+  baseUrl: 'http://lb-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81/'
 
 };

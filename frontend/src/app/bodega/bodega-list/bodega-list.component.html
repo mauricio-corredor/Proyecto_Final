@@ -11,31 +11,24 @@
       <h1 class="mb-4" i18n>Productos</h1>
       <h2 i18n>Filtrar por:</h2>
       <div>
-        <label for="descripcion-filter" class="d-block mt-3 mb-1" i18n>Productos</label>
-        <select id="descripcion-filter" class="form-select form-select-sm bg-light" [(ngModel)]="descripcionFilter">
+        <label for="nombre-filter" class="d-block mt-3 mb-1" i18n>Productos</label>
+        <select id="nombre-filter" class="form-select form-select-sm bg-light" [(ngModel)]="nombreFilter">
           <option selected></option>
-          <option *ngFor="let a of productos">{{a.descripcionProducto}}</option>
+          <option *ngFor="let a of productos">{{a.nombreProducto}}</option>
         </select>
       </div>
       <div>
-        <label for="proveedor-filter" class="d-block mt-3 mb-1" i18n>Proveedores</label>
-        <select id="proveedor-filter" class="form-select form-select-sm bg-light" [(ngModel)]="proveedorFilter">
+        <label for="ubicacionPais-filter" class="d-block mt-3 mb-1" i18n>Proveedores</label>
+        <select id="ubicacionPais-filter" class="form-select form-select-sm bg-light" [(ngModel)]="ubicacionPaisFilter">
           <option selected></option>
-          <option *ngFor="let g of productos">{{g.proveedor}}</option>
+          <option *ngFor="let g of productos">{{g.ubicacionPais}}</option>
         </select>
       </div>
       <div>
-        <label for="tipo-filter" class="d-block mt-3 mb-1" i18n>Tipos</label>
+        <label for="tipo-filter" class="d-block mt-3 mb-1" i18n>Tipo</label>
         <select id="tipo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="tipoFilter">
           <option selected></option>
           <option *ngFor="let l of tipos" [value]='l'>{{l}}</option>
-        </select>
-      </div>
-      <div>
-        <label for="codigo-filter" class="d-block mt-3 mb-1" i18n>Codigos</label>
-        <select id="codigo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="codigoFilter">
-          <option selected></option>
-          <option *ngFor="let c of codigos">{{c.codigoProducto}}</option>
         </select>
       </div>
     </div>
@@ -55,16 +48,14 @@
               <th scope="col" class="text-center" i18n>Descripcion</th>
               <th scope="col" class="text-center" i18n>Proveedor</th>
               <th scope="col" class="text-center" i18n>Tipo</th>
-              <th scope="col" class="text-center" i18n>Codigo</th>
               <th scope="col" class="text-center" i18n>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let c of filteredProductos" class="p-2">
-              <td class="p-3 align-middle">{{c.descripcionProducto}}</td>
-              <td class="p-3 align-middle">{{c.proveedor}}</td>
+              <td class="p-3 align-middle">{{c.nombreProducto}}</td>
+              <td class="p-3 align-middle">{{c.ubicacionPais}}</td>
               <td class="p-3 align-middle">{{c.tipoProducto}}</td>
-              <td class="p-3 align-middle">{{c.codigoProducto}}</td>
               <td class="p-3 text-center">
                 <button
                   type="button"

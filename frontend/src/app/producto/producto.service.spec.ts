@@ -7,7 +7,7 @@ import { Performer } from 'src/models/performer';
 import { RecordLabel } from 'src/models/recordLabel.enum';
 import { Track } from 'src/models/track';
 
-import { TipoProducto } from 'src/models/tipoProducto1.enum';
+import { TipoProducto } from 'src/models/zonaLocalizacion.enum';
 import { ProductoService } from './producto.service';
 
 
