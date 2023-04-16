@@ -118,7 +118,7 @@ export class ProductoListComponent implements OnInit{
 
   performCodigoFilter(): Producto[] {
     return this.productos.filter((producto: Producto) =>
-      producto.tipoProducto.includes(this.filterValues.tipo));
+      producto.codigoProducto.includes(this.filterValues.codigo));
   }
 
   onSelected(productoId: number): void {
