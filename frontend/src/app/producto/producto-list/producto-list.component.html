@@ -1,0 +1,97 @@
+<app-producto-create *ngIf="openForm" [openForm]="openForm" (cancelForm)="hideForm($event)"></app-producto-create>
+
+<div class="container-fluid" *ngIf="!openForm">
+  <div class="d-flex justify-content-end mt-3 mr-3" *ngIf="filteredProductos.length">
+    <button class="btn btn-standard btn-sm ml-3 mr-3" type="button" (click)="showForm()" i18n>Productos mas vendidos</button>
+    <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18n>+ Crear Producto</button>
+  </div>
+
+  <div class="row">
+    <div class="filters col-md-3">
+      <h1 class="mb-4" i18n>Productos</h1>
+      <h2 i18n>Filtrar por:</h2>
+      <div>
+        <label for="descripcion-filter" class="d-block mt-3 mb-1" i18n>Productos</label>
+        <select id="descripcion-filter" class="form-select form-select-sm bg-light" [(ngModel)]="descripcionFilter">
+          <option selected></option>
+          <option *ngFor="let a of productos">{{a.descripcionProducto}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="proveedor-filter" class="d-block mt-3 mb-1" i18n>Proveedores</label>
+        <select id="proveedor-filter" class="form-select form-select-sm bg-light" [(ngModel)]="proveedorFilter">
+          <option selected></option>
+          <option *ngFor="let g of productos">{{g.proveedor}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="tipo-filter" class="d-block mt-3 mb-1" i18n>Tipos</label>
+        <select id="tipo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="tipoFilter">
+          <option selected></option>
+          <option *ngFor="let l of tipos" [value]='l'>{{l}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="codigo-filter" class="d-block mt-3 mb-1" i18n>Codigos</label>
+        <select id="codigo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="codigoFilter">
+          <option selected></option>
+          <option *ngFor="let c of codigos">{{c.codigoProducto}}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="productos-list col-md">
+      <p> {{filteredProductos?.length }} Productos encontrados</p>
+
+
+      <div class="row filtered-productos" *ngIf="filteredProductos.length">
+
+        <table *ngIf="filteredProductos?.length > 0"
+          class="table table-striped"
+          aria-describedby="productos-table">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center" i18n>Descripcion</th>
+              <th scope="col" class="text-center" i18n>Proveedor</th>
+              <th scope="col" class="text-center" i18n>Tipo</th>
+              <th scope="col" class="text-center" i18n>Codigo</th>
+              <th scope="col" class="text-center" i18n>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of filteredProductos" class="p-2">
+              <td class="p-3 align-middle">{{c.descripcionProducto}}</td>
+              <td class="p-3 align-middle">{{c.proveedor}}</td>
+              <td class="p-3 align-middle">{{c.tipoProducto}}</td>
+              <td class="p-3 align-middle">{{c.codigoProducto}}</td>
+              <td class="p-3 text-center">
+                <button
+                  type="button"
+                  class="btn btn-standard btn-sm"
+                  [ngClass]="{'active': actbtn == c.idProducto}"
+                  (click)="onSelected(c);actbtn = c.idProducto"
+                  i18n>mas info</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="row no-productos" *ngIf="!filteredProductos.length">
+        <div class="col-10 mx-auto d-block mt-5">
+          <div class="card text-center" style="height: 30rem;">
+            <h5 class="card-header" i18n>0 results</h5>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+              <h5 class="card-title" i18n>There are no productos</h5>
+              <p class="card-text" i18n>Click the Add Producto button to contribute to the catalog.</p>
+              <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18n>+ Crear producto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

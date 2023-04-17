@@ -1,0 +1,13 @@
+.home.carousel .carousel-item {
+  height: 20rem;
+}
+
+.home.carousel .carousel-item img {
+  max-height: 20rem;
+  margin: 0 auto;
+}
+
+.home.carousel .carousel-item h5 {
+  background-color: rgba(8, 27, 74, .8);
+  padding: .5rem 0;
+}

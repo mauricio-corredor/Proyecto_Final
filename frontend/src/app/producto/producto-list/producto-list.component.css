@@ -1,0 +1,19 @@
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+.album-wrapper > img {
+  max-height: 15rem;
+}
+
+.form-select-sm {
+  width: 10rem;
+}
+
+.no-albums{
+  color: white;
+}

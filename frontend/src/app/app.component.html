@@ -1,0 +1,53 @@
+<header>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand px-2" href="#" title="Home">
+        <img src="assets/logo.png" width="50" alt="Logo CPP">
+      </a>
+      <button class="navbar-toggler" type="button" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
+          <li class="nav-item">
+            <a id="bodegas-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/bodegas" i18n>Bodegas</a>
+          </li>
+          <li class="nav-item">
+            <a id="performers-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/performers/list" i18n>Inventarios</a>
+          </li>
+          <li class="nav-item">
+            <a id="collectors-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/collectors" i18n>Almacenamiento</a>
+          </li>
+          <li class="nav-item">
+            <a id="productos-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/productos" i18n>Productos</a>
+          </li>
+        </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" i18n-placeholder placeholder="Search" aria-label="Search">
+            <button class="btn" type="submit"><img src="assets/search.svg" alt="Buscar"></button>
+          </form>
+          <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block user-menu p-3" title="Usuario" *ngIf="isCollapsed">
+            <img ngbDropdownToggle tabindex="0" src="assets/user.svg" aria-label="Menú usuario" class="cursor-pointer" alt="Menú de usuario" />
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem i18n>Profile</button>
+              <button ngbDropdownItem i18n>Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </nav>
+</header>
+<main>
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+<footer>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col text-right">
+        &copy; 2021
+      </div>
+    </div>
+  </div>
+</footer>

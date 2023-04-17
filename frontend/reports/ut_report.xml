@@ -1,0 +1,61 @@
+<testExecutions version="1">
+  <file path="src/app/prize/prize.service.spec.ts">
+    <testCase name="Service: Prize getPrize() should return more than records" duration="29"/>
+    <testCase name="Service: Prize should create service" duration="4"/>
+  </file>
+  <file path="src/app/musician/performer-detail/performer-detail.component.spec.ts">
+    <testCase name="PerformerDetailComponent should create" duration="73"/>
+  </file>
+  <file path="src/app/musician/musician-create/musician-create.component.spec.ts">
+    <testCase name="MusicianCreateComponent Component is instance of Forms" duration="46"/>
+    <testCase name="MusicianCreateComponent should create" duration="11"/>
+    <testCase name="MusicianCreateComponent musicianForm invalid when empty" duration="8"/>
+    <testCase name="MusicianCreateComponent image field validity" duration="11"/>
+    <testCase name="MusicianCreateComponent name field validity" duration="15"/>
+  </file>
+  <file path="src/app/collector/collector-detail/collector-detail.component.spec.ts">
+    <testCase name="CollectorDetailComponent should create" duration="62"/>
+    <testCase name="CollectorDetailComponent Component has 10 collector albums" duration="18"/>
+    <testCase name="CollectorDetailComponent Component has no collector albums" duration="9"/>
+  </file>
+  <file path="src/app/producto/producto-list/producto-list.component.spec.ts">
+    <testCase name="ProductoListComponent should show/hide form" duration="58"/>
+    <testCase name="ProductoListComponent should show/hide form" duration="14"/>
+    <testCase name="ProductoListComponent should clear filters" duration="9"/>
+    <testCase name="ProductoListComponent should filter by tipo" duration="16"/>
+    <testCase name="ProductoListComponent should filter by descripcion" duration="28"/>
+    <testCase name="ProductoListComponent should have a filterValues object with default values" duration="27"/>
+    <testCase name="ProductoListComponent should create" duration="15"/>
+    <testCase name="ProductoListComponent should navigate to selected producto" duration="42"/>
+    <testCase name="ProductoListComponent should filter by proveedor" duration="24"/>
+  </file>
+  <file path="src/app/home/home.component.spec.ts">
+    <testCase name="HomeComponent should create" duration="39"/>
+  </file>
+  <file path="src/app/collector/collector.service.spec.ts">
+    <testCase name="Service: Collector should create" duration="3"/>
+    <testCase name="Service: Collector getCollector() should return 1 valid record" duration="2"/>
+    <testCase name="Service: Collector getCollectors() should return 10 records" duration="3"/>
+    <testCase name="Service: Collector createCollectorAlbum() should return the created record" duration="2"/>
+    <testCase name="Service: Collector createCollector() should return the created record" duration="2"/>
+    <testCase name="Service: Collector getCollectorAlbums() should return 10 records" duration="5"/>
+  </file>
+  <file path="src/app/album/album-create/album-create.component.spec.ts">
+    <testCase name="AlbumCreateComponent check image url" duration="63"/>
+    <testCase name="AlbumCreateComponent clear invalid url" duration="18"/>
+    <testCase name="AlbumCreateComponent should create" duration="9"/>
+    <testCase name="AlbumCreateComponent create album without artist" duration="17"/>
+  </file>
+  <file path="src/app/musician/musician.component.spec.ts">
+    <testCase name="MusicianComponent should create" duration="12"/>
+  </file>
+  <file path="src/app/album/album-detail/album-detail.component.spec.ts">
+    <testCase name="AlbumDetailComponent show track form" duration="58"/>
+    <testCase name="AlbumDetailComponent calculate ratings when 0 comments" duration="14"/>
+    <testCase name="AlbumDetailComponent reload tracks" duration="12"/>
+    <testCase name="AlbumDetailComponent should create" duration="14"/>
+    <testCase name="AlbumDetailComponent opens collectors modal" duration="19"/>
+    <testCase name="AlbumDetailComponent get users comments" duration="13"/>
+    <testCase name="AlbumDetailComponent calculate ratings average" duration="12"/>
+  </file>
+</testExecutions>

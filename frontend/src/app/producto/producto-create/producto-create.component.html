@@ -1,0 +1,96 @@
+<a class="btn btn-standard btn-sm" (click)="hideForm()" i18n>&#8249; Go back</a>
+<div class="form-container mx-auto producto-form">
+  <div class="mb-3">
+    <h1 i18n>Add producto</h1>
+  </div>
+  <form [formGroup]="productoForm" (ngSubmit)="!productoForm.invalid && createProducto(productoForm.value)">
+    <div class="mb-3">
+      <label for="producto-descripcionProducto" class="form-label" i18n>Name</label>
+      <input formControlName="descripcionProducto" type="text" class="form-control" id="producto-descripcionProducto" aria-describedby="producto-descripcionProducto" placeholder="Album full descripcionProducto" i18n-placeholder>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('descripcionProducto').hasError('required') &&
+          productoForm.get('descripcionProducto').touched" i18n>
+        *Name required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="d-block mt-1 mb-1" i18n>Artist</label>
+      <select formControlName="productos" id="artist-select" class="custom-select col-12"
+        aria-label="Artist selection">
+        <option selected value="" i18n>Select an artist</option>
+        <option *ngFor="let p of productos" [ngValue]="p">{{p.descripcionProducto}}</option>
+      </select>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('productos').hasError('required') &&
+          productoForm.get('productos').touched" i18n>
+        *Required artist
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="producto-cover" class="form-label" i18n>Cover</label>
+      <input formControlName="cover" class="form-control" type="url" id="producto-cover" aria-describedby="producto-cover"
+         placeholder="URL" i18n-placeholder>
+      <img id="producto-cover-preview" class="img-fluid my-3" [src]="url" (error)="clearUrl($event)" alt="Album cover" *ngIf="url" i18n-alt>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('cover').hasError('required') &&
+          productoForm.get('cover').touched" i18n>
+        *Image required
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show img-verification" *ngIf="url == undefined" i18n>
+        *Enter a valid image URL
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="producto-description" class="form-label" i18n>Description</label>
+      <textarea formControlName="description" class="form-control" id="producto-description" rows="2"
+        aria-describedby="producto-description" placeholder="Album description" i18n-placeholder></textarea>
+
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('description').hasError('required') &&
+        productoForm.get('description').touched" i18n>
+        *Description required
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('description').hasError('minlength') &&
+        productoForm.get('description').touched" i18n>
+        *Description too short
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="genre-select" class="d-block mt-3 mb-1" i18n>Genre</label>
+      <select formControlName="genre" id="genre-select" class="custom-select col-12" aria-label="Genre selection">
+        <option selected value="" i18n>Select a genre</option>
+
+      </select>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('genre').hasError('required') &&
+          productoForm.get('genre').touched" i18n>
+        *Genre required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="producto-date" class="form-label" i18n>Release date</label>
+      <input formControlName="releaseDate" type="date" id="producto-date" class="form-control">
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('releaseDate').hasError('required') &&
+          productoForm.get('releaseDate').touched" i18n>
+        *Date required
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="label-select" class="d-block mt-3 mb-1" i18n>Record label</label>
+      <select formControlName="recordLabel" id="label-select" class="custom-select col-12"
+        aria-label="Record Label selection">
+        <option selected value="" i18n>Select a record label</option>
+        <option *ngFor="let l of tipos" [ngValue]="l">{{l}}</option>
+      </select>
+      <div class="alert alert-danger alert-dismissible fade show" *ngIf="productoForm.get('recordLabel').hasError('required') &&
+          productoForm.get('recordLabel').touched" i18n>
+        *Label required
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="create-producto-button btn btn-standard" [disabled]="!productoForm.valid || !url" i18n>Submit</button>
+      <button type="button" class="btn btn-light ml-3" (click)="hideForm()" i18n>Cancel</button>
+    </div>
+  </form>
+</div>

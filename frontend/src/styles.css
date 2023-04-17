@@ -1,0 +1,112 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Montserrat, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+p {
+  text-align: justify;
+}
+
+.container-fluid {
+  max-width: 90rem;
+}
+
+.vertical-centered {
+  align-items: center;
+  display: flex;
+}
+
+.table {
+  color: black;
+}
+
+.table th {
+  border-top: none;
+  font-size: 1.25rem;
+}
+
+.table td {
+  border-top: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(256, 256, 256, 0.1);
+}
+
+.btn-standard {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-standard:hover,
+.btn-standard.active {
+  background-color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.list-group-item {
+  background-color: transparent;
+}
+
+.transition-container {
+  min-height: 25rem;
+}
+
+.two-cols {
+  display: flex;
+}
+
+.two-cols > div {
+  flex-basis: auto;
+}
+
+.left-col {
+  transition-duration: 1s;
+  transition-property: position, height, width;
+  width: 25%;
+}
+
+.right-col {
+  transition-duration: 1s;
+  transition-property: position, height, width;
+}
+
+.custom-select {
+  background: white;
+}
+
+@media screen and (max-width: 75rem) {
+  .two-cols {
+    flex-direction: column;
+  }
+
+  .left-col {
+    align-self: center;
+    width: 50%;
+  }
+
+  .right-col {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  .left-col {
+    width: 100%;
+  }
+}
+
+.form-container {
+  margin: 0 auto;
+  width: 50%;
+}
+
+@media screen and (max-width: 40rem) {
+  .form-container {
+    width: 100%;
+  }
+}
