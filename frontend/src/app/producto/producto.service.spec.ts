@@ -50,7 +50,6 @@ describe('ProductoService', () => {
 
   it('should retrieve a single producto from the API via GET', () => {
     const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31', 'A', 5);
-
     service.getProductoById('1').subscribe(producto => {
       expect(producto).toEqual(mockProducto);
     });
@@ -62,7 +61,6 @@ describe('ProductoService', () => {
 
   it('should add a new producto to the API via POST', () => {
     const mockProducto: Producto = new Producto('1', 'Producto 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31', 'A', 5);
-
     service.addProducto(mockProducto).subscribe(producto => {
       expect(producto).toEqual(mockProducto);
     });
