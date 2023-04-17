@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-end mt-3">
+    <button class="btn btn-standard btn-sm" type="button" routerLink="/musician/create" i18n id=@@addmusician>+ Add musician</button>
+  </div>
+<div class="performer-list-container transition-container" [ngClass]="{'two-cols': selected}">
+  <div class="performer-list col" [ngClass]="{'left-col': selected}">
+    <h1 id="performers-table" class="py-3 text-center"i18n>Bands/Musicians List</h1>
+    <table *ngIf="performers?.length > 0"
+      class="table table-striped"
+      aria-describedby="performers-table">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center"i18n id = @@name >Name</th>
+          <th scope="col" class="text-center"i18n id = @@actions >Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let performer of performers" class="p-2">
+          <td class="p-3 align-middle">{{performer.name}}</td>
+          <td class="p-3 text-center">
+            <button
+              type="button"
+              class="btn btn-standard btn-sm"
+              [ngClass]="{'active': actbtn == performer.id}"
+              (click)="onSelected(performer);actbtn = performer.id"
+              i18n>More info</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!(performers?.length > 0)" class="no-performers display-4 text-center" i18n>
+     There isn't any musician or Band
+    </div>
+  </div>
+  <div class="performer-list-detail right-col col align-self-center">
+    <div *ngIf="selected">
+      <app-performer-detail [performer]="selectedPerformer"></app-performer-detail>
+  </div>
+</div>
+</div>

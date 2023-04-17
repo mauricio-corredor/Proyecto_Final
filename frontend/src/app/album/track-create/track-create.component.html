@@ -1,0 +1,19 @@
+<form class="track-form" [formGroup]="trackForm" (ngSubmit)="!trackForm.invalid && createTrack(trackForm.value)">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" formControlName="name" placeholder="Name" aria-label="Name" i18n-placeholder>
+    <input type="text" class="form-control" formControlName="duration" placeholder="Duration" aria-label="Duration" i18n-placeholder>
+    <button type="submit" class="track-submit btn-standard" [disabled]="!trackForm.valid" i18n>Submit</button>
+  </div>
+  <div class="btn-standard" *ngIf="trackForm.get('name').hasError('required') &&
+trackForm.get('name').touched" i18n>
+        *Name required
+      </div>
+      <div class="btn-standard" *ngIf="trackForm.get('duration').hasError('required') &&
+trackForm.get('duration').touched" i18n>
+        *Duration required
+      </div>
+      <div class="btn-standard" *ngIf="trackForm.get('duration').hasError('pattern') &&
+trackForm.get('duration').touched" i18n>
+        *Duration format: 0:00
+      </div>
+</form>

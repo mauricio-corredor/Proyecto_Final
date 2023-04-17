@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-end mt-3">
+    <button class="btn btn-standard btn-sm" type="button" routerLink="/prize/create" i18n id = @@addPrize>+ Add prize</button>
+  </div>
+<div class="prize-list-container transition-container" >
+  <div class="prize-list col" >
+    <h1 id="performers-table" class="py-3 text-center" i18n>Inventario</h1>
+    <table *ngIf="prizeList?.length > 0"
+      class="table table-striped"
+      aria-describedby="performers-table">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center" i18n id = @@name>Name</th>
+          <th scope="col" class="text-center"i18n id = @@description>Description</th>
+          <th scope="col" class="text-center" i18n id = @@organization>Organization</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prize of prizeList" class="p-2">
+          <td class="p-3 align-middle">{{prize.name}}</td>
+          <td class="p-3 align-middle">{{prize.description}}</td>
+          <td class="p-3 align-middle">{{prize.organization}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!(prizeList?.length > 0)" class="no-prizes display-4 text-center" i18n>
+      There isn't any prize
+    </div>
+  </div>
+  <div class="performer-list-detail right-col col align-self-center">
+</div>
