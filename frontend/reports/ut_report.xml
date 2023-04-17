@@ -1,121 +1,61 @@
 <testExecutions version="1">
-  <file path="src/app/collector/collector.service.spec.ts">
-    <testCase name="Service: Collector should create" duration="15"/>
-    <testCase name="Service: Collector getCollector() should return 1 valid record" duration="8"/>
-    <testCase name="Service: Collector getCollectors() should return 10 records" duration="2"/>
-    <testCase name="Service: Collector createCollectorAlbum() should return the created record" duration="2"/>
-    <testCase name="Service: Collector createCollector() should return the created record" duration="2"/>
-    <testCase name="Service: Collector getCollectorAlbums() should return 10 records" duration="2"/>
-  </file>
-  <file path="src/app/musician/musician-create/musician-create.component.spec.ts">
-    <testCase name="MusicianCreateComponent should create" duration="64"/>
-    <testCase name="MusicianCreateComponent image field validity" duration="11"/>
-    <testCase name="MusicianCreateComponent name field validity" duration="10"/>
-    <testCase name="MusicianCreateComponent musicianForm invalid when empty" duration="15"/>
-    <testCase name="MusicianCreateComponent Component is instance of Forms" duration="6"/>
-  </file>
-  <file path="src/app/album/album-detail/album-detail.component.spec.ts">
-    <testCase name="AlbumDetailComponent opens collectors modal" duration="65"/>
-    <testCase name="AlbumDetailComponent get users comments" duration="21"/>
-    <testCase name="AlbumDetailComponent calculate ratings average" duration="15"/>
-    <testCase name="AlbumDetailComponent should create" duration="16"/>
-    <testCase name="AlbumDetailComponent show track form" duration="22"/>
-    <testCase name="AlbumDetailComponent reload tracks" duration="12"/>
-    <testCase name="AlbumDetailComponent calculate ratings when 0 comments" duration="14"/>
-  </file>
-  <file path="src/app/home/home.component.spec.ts">
-    <testCase name="HomeComponent should create" duration="19"/>
-  </file>
-  <file path="src/app/musician/musician.component.spec.ts">
-    <testCase name="MusicianComponent should create" duration="10"/>
-  </file>
-  <file path="src/app/producto/producto.service.spec.ts">
-    <testCase name="ProductoService should add a new producto to the API via POST" duration="2"/>
-    <testCase name="ProductoService should retrieve all productos from the API via GET" duration="1"/>
-    <testCase name="ProductoService should retrieve a single producto from the API via GET" duration="1"/>
-    <testCase name="ProductoService should be created" duration="1"/>
-  </file>
-  <file path="src/app/musician/musician.service.spec.ts">
-    <testCase name="MusicianService getMusicians() should return 1 records" duration="2"/>
+  <file path="src/app/prize/prize.service.spec.ts">
+    <testCase name="Service: Prize getPrize() should return more than records" duration="29"/>
+    <testCase name="Service: Prize should create service" duration="4"/>
   </file>
   <file path="src/app/musician/performer-detail/performer-detail.component.spec.ts">
-    <testCase name="PerformerDetailComponent should create" duration="15"/>
+    <testCase name="PerformerDetailComponent should create" duration="73"/>
   </file>
-  <file path="src/app/prize/prize-list/prize-list.component.spec.ts">
-    <testCase name="PrizeListComponent should create" duration="10"/>
-    <testCase name="PrizeListComponent Component has at least one prize" duration="4"/>
-  </file>
-  <file path="src/app/album/album-create/album-create.component.spec.ts">
-    <testCase name="AlbumCreateComponent create album without artist" duration="31"/>
-    <testCase name="AlbumCreateComponent check image url" duration="13"/>
-    <testCase name="AlbumCreateComponent clear invalid url" duration="15"/>
-    <testCase name="AlbumCreateComponent should create" duration="10"/>
-  </file>
-  <file path="src/app/prize/prize.service.spec.ts">
-    <testCase name="Service: Prize getPrize() should return more than records" duration="2"/>
-    <testCase name="Service: Prize should create service" duration="1"/>
-  </file>
-  <file path="src/app/prize/prize-create/prize-create.component.spec.ts">
-    <testCase name="PrizeCreateComponent should be a form" duration="16"/>
-    <testCase name="PrizeCreateComponent should create" duration="6"/>
-    <testCase name="PrizeCreateComponent name field validity" duration="5"/>
-    <testCase name="PrizeCreateComponent description field validity" duration="6"/>
-    <testCase name="PrizeCreateComponent prizeForm invalid when empty" duration="6"/>
-  </file>
-  <file path="src/app/album/album.service.spec.ts">
-    <testCase name="AlbumService add track to album" duration="2"/>
-    <testCase name="AlbumService add band to album" duration="2"/>
-    <testCase name="AlbumService add musician to album" duration="1"/>
-    <testCase name="AlbumService add album" duration="1"/>
-    <testCase name="AlbumService getAlbumById() should return album with id 24" duration="1"/>
-    <testCase name="AlbumService getAlbums() should return 10 albums" duration="3"/>
-    <testCase name="AlbumService should be created" duration="2"/>
+  <file path="src/app/musician/musician-create/musician-create.component.spec.ts">
+    <testCase name="MusicianCreateComponent Component is instance of Forms" duration="46"/>
+    <testCase name="MusicianCreateComponent should create" duration="11"/>
+    <testCase name="MusicianCreateComponent musicianForm invalid when empty" duration="8"/>
+    <testCase name="MusicianCreateComponent image field validity" duration="11"/>
+    <testCase name="MusicianCreateComponent name field validity" duration="15"/>
   </file>
   <file path="src/app/collector/collector-detail/collector-detail.component.spec.ts">
-    <testCase name="CollectorDetailComponent Component has 10 collector albums" duration="29"/>
-    <testCase name="CollectorDetailComponent Component has no collector albums" duration="10"/>
-    <testCase name="CollectorDetailComponent should create" duration="7"/>
-  </file>
-  <file path="src/app/album/album-list/album-list.component.spec.ts">
-    <testCase name="AlbumsComponent show new album form" duration="21"/>
-    <testCase name="AlbumsComponent select album" duration="11"/>
-    <testCase name="AlbumsComponent should display all albums when no filter is applied" duration="11"/>
-    <testCase name="AlbumsComponent set filters" duration="8"/>
-    <testCase name="AlbumsComponent should display only albums by selected genre" duration="15"/>
-    <testCase name="AlbumsComponent should display only albums by selected record label" duration="11"/>
-    <testCase name="AlbumsComponent hide new album form" duration="12"/>
-    <testCase name="AlbumsComponent should not display filtered-albums but no-album div, when array is empty" duration="8"/>
-    <testCase name="AlbumsComponent should display only albums by selected artist" duration="12"/>
-    <testCase name="AlbumsComponent should create" duration="8"/>
-  </file>
-  <file path="src/app/collector/collector-album-add/collector-album-add.component.spec.ts">
-    <testCase name="CollectorAlbumAddComponent Album select field has 4 options" duration="20"/>
-    <testCase name="CollectorAlbumAddComponent Status select field has 3 options" duration="10"/>
-    <testCase name="CollectorAlbumAddComponent Collector select field has 3 options" duration="9"/>
-    <testCase name="CollectorAlbumAddComponent should create" duration="12"/>
-    <testCase name="CollectorAlbumAddComponent Component has a form with 5 elements/sections" duration="7"/>
-  </file>
-  <file path="src/app/app.component.spec.ts">
-    <testCase name="AppComponent should have as title 'front'" duration="22"/>
-    <testCase name="AppComponent should create the app" duration="9"/>
-  </file>
-  <file path="src/app/collector/collector-create/collector-create.component.spec.ts">
-    <testCase name="CollectorCreateComponent should create" duration="16"/>
-    <testCase name="CollectorCreateComponent Component has a form with 4 elements/sections" duration="7"/>
-  </file>
-  <file path="src/app/album/track-create/track-create.component.spec.ts">
-    <testCase name="TrackCreateComponent attempt to create track with existing name" duration="7"/>
-    <testCase name="TrackCreateComponent should create" duration="7"/>
+    <testCase name="CollectorDetailComponent should create" duration="62"/>
+    <testCase name="CollectorDetailComponent Component has 10 collector albums" duration="18"/>
+    <testCase name="CollectorDetailComponent Component has no collector albums" duration="9"/>
   </file>
   <file path="src/app/producto/producto-list/producto-list.component.spec.ts">
-    <testCase name="ProductoListComponent should have a filterValues object with default values" duration="14"/>
-    <testCase name="ProductoListComponent should filter by descripcion" duration="9"/>
-    <testCase name="ProductoListComponent should create" duration="6"/>
-    <testCase name="ProductoListComponent should navigate to selected producto" duration="8"/>
+    <testCase name="ProductoListComponent should show/hide form" duration="58"/>
+    <testCase name="ProductoListComponent should show/hide form" duration="14"/>
     <testCase name="ProductoListComponent should clear filters" duration="9"/>
-    <testCase name="ProductoListComponent should show/hide form" duration="6"/>
-    <testCase name="ProductoListComponent should filter by proveedor" duration="8"/>
-    <testCase name="ProductoListComponent should filter by tipo" duration="8"/>
-    <testCase name="ProductoListComponent should show/hide form" duration="6"/>
+    <testCase name="ProductoListComponent should filter by tipo" duration="16"/>
+    <testCase name="ProductoListComponent should filter by descripcion" duration="28"/>
+    <testCase name="ProductoListComponent should have a filterValues object with default values" duration="27"/>
+    <testCase name="ProductoListComponent should create" duration="15"/>
+    <testCase name="ProductoListComponent should navigate to selected producto" duration="42"/>
+    <testCase name="ProductoListComponent should filter by proveedor" duration="24"/>
+  </file>
+  <file path="src/app/home/home.component.spec.ts">
+    <testCase name="HomeComponent should create" duration="39"/>
+  </file>
+  <file path="src/app/collector/collector.service.spec.ts">
+    <testCase name="Service: Collector should create" duration="3"/>
+    <testCase name="Service: Collector getCollector() should return 1 valid record" duration="2"/>
+    <testCase name="Service: Collector getCollectors() should return 10 records" duration="3"/>
+    <testCase name="Service: Collector createCollectorAlbum() should return the created record" duration="2"/>
+    <testCase name="Service: Collector createCollector() should return the created record" duration="2"/>
+    <testCase name="Service: Collector getCollectorAlbums() should return 10 records" duration="5"/>
+  </file>
+  <file path="src/app/album/album-create/album-create.component.spec.ts">
+    <testCase name="AlbumCreateComponent check image url" duration="63"/>
+    <testCase name="AlbumCreateComponent clear invalid url" duration="18"/>
+    <testCase name="AlbumCreateComponent should create" duration="9"/>
+    <testCase name="AlbumCreateComponent create album without artist" duration="17"/>
+  </file>
+  <file path="src/app/musician/musician.component.spec.ts">
+    <testCase name="MusicianComponent should create" duration="12"/>
+  </file>
+  <file path="src/app/album/album-detail/album-detail.component.spec.ts">
+    <testCase name="AlbumDetailComponent show track form" duration="58"/>
+    <testCase name="AlbumDetailComponent calculate ratings when 0 comments" duration="14"/>
+    <testCase name="AlbumDetailComponent reload tracks" duration="12"/>
+    <testCase name="AlbumDetailComponent should create" duration="14"/>
+    <testCase name="AlbumDetailComponent opens collectors modal" duration="19"/>
+    <testCase name="AlbumDetailComponent get users comments" duration="13"/>
+    <testCase name="AlbumDetailComponent calculate ratings average" duration="12"/>
   </file>
 </testExecutions>

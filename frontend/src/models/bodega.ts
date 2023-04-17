@@ -4,13 +4,13 @@ export class Bodega {
     ubicacionPais:string;
     ubicacionCiudad: string;
     zonaLocalizacion: string;
-    capacidadVolumen: string;
-    capacidadUsada: string;
-    capacidadDisponible: string;
+    capacidadVolumen: number;
+    capacidadUsada: number;
+    capacidadDisponible: number;
 
 
   constructor(idBodega: string, nombreBodega:string, ubicacionPais:string, ubicacionCiudad: string,
-    zonaLocalizacion: string, capacidadVolumen: string, capacidadUsada: string, capacidadDisponible: string) {
+    zonaLocalizacion: string, capacidadVolumen: number, capacidadUsada: number, capacidadDisponible: number) {
 
     this.idBodega = idBodega;
     this.nombreBodega = nombreBodega;

@@ -7,10 +7,9 @@ module.exports = function (config) {
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
-      require('karma-chrome-launcher'),  
+      require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('karma-sonarqube-unit-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -28,8 +27,8 @@ module.exports = function (config) {
           testPaths: ['./src'],
           testFilePattern: '.spec.ts',
           useBrowserName: false
-     },	 
-    reporters: ['progress', 'kjhtml', 'sonarqubeUnit'],
+     },
+    reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

@@ -1,0 +1,21 @@
+export enum Ciudades {
+  Cali = "Cali",
+  Bogota = "Bogota",
+  Medellin = "Medellin",
+  Neiva = "Neiva",
+  Lima = "Lima",
+  Arequipa = "Arequipa",
+  Piura = "Piura",
+  Cusco = "Cusco",
+  Chiclayo = "Chiclayo",
+  BSAS="Buenos Aires",
+  Santiago = "Santiago",
+  Valdivia = "Valdivia",
+  Mexico = "Mexico",
+  Mendoza = "Mendoza",
+  Rosario = "Rosario",
+  Quito = "Quito",
+  Esmeraldas = "Esmeraldas",
+  Loja = "Loja",
+  Guayaquil = "Guayaquil"
+}

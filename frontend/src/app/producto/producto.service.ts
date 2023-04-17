@@ -25,6 +25,4 @@ export class ProductoService {
     return this.http.post<Producto>(this.apiUrl, producto);
   }
 
-
-
 }

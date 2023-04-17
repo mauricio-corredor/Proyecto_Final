@@ -5,6 +5,7 @@ import { ProductoService } from '../producto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/models/tipoProducto1.enum';
 
+
 @Component({
   selector: 'app-producto',
   templateUrl: './producto-list.component.html',
@@ -20,12 +21,15 @@ export class ProductoListComponent implements OnInit{
   productos: Producto[];
   proveedores: string[];
   tipos: TipoProducto[];
+  codigos: string[];
   filteredProductos: Producto[] = [];
   filterValues: { [filter: string]: string } = {
     descripcion: "",
     proveedor: "",
-    tipo: ""
+    tipo: "",
+    codigo: ""
   };
+
   openForm: boolean = false;
 
   private _descripcionFilter: string;
@@ -58,6 +62,16 @@ export class ProductoListComponent implements OnInit{
     this.filteredProductos = this.performFilters();
   }
 
+  private _codigoFilter: string;
+  get codigoFilter(): string {
+    return this._codigoFilter;
+  }
+  set codigoFilter(value: string) {
+    this._codigoFilter = value;
+    this.filterValues.codigo = value
+    this.filteredProductos = this.performFilters();
+  }
+
   constructor(private productoService: ProductoService,
     public router: Router,
     public route: ActivatedRoute) { }
@@ -65,17 +79,25 @@ export class ProductoListComponent implements OnInit{
   performFilters(): Producto[] {
     let productos: Producto[] = []
 
-    if (this.filterValues.descripcion === "" && this.filterValues.proveedor === "" && this.filterValues.tipo === "") {
+    if (this.filterValues.descripcion === "" && this.filterValues.proveedor === "" &&
+        this.filterValues.tipo === "" && this.filterValues.codigo === "") {
       return productos = this.productos;
     }
+
     if (this.filterValues.descripcion !== "") {
       this.performDescripcionFilter().forEach(x=> productos.push(x));
     }
+
     if (this.filterValues.proveedor !== "") {
       this.performProveedorFilter().forEach(x=> productos.push(x));
     }
+
     if (this.filterValues.tipo !== "") {
       this.performTipoFilter().forEach(x=> productos.push(x));
+    }
+
+    if (this.filterValues.codigo !== "") {
+      this.performCodigoFilter().forEach(x=> productos.push(x));
     }
 
     return [...new Set(productos)].sort((a, b) => (a.descripcionProducto < b.descripcionProducto ? -1 : 1));
@@ -96,6 +118,11 @@ export class ProductoListComponent implements OnInit{
       producto.tipoProducto.includes(this.filterValues.tipo));
   }
 
+  performCodigoFilter(): Producto[] {
+    return this.productos.filter((producto: Producto) =>
+      producto.codigoProducto.includes(this.filterValues.codigo));
+  }
+
   onSelected(productoId: number): void {
     this.router.navigate(['/productos/' + productoId]);
   }
@@ -110,7 +137,7 @@ export class ProductoListComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(p => {
-      if (p['proveedor'] || p['descripcion'] || p['tipo']) {
+      if (p['proveedor'] || p['descripcion'] || p['tipo'] || p['codigo']) {
         setTimeout(() => {
           if (p['descripcion']) {
             this.proveedorFilter = p['descripcion']
@@ -120,6 +147,9 @@ export class ProductoListComponent implements OnInit{
           }
           if (p['tipo']) {
             this.descripcionFilter = p['tipo']
+          }
+          if (p['codigo']) {
+            this.descripcionFilter = p['codigo']
           }
         }, 1000);
       }

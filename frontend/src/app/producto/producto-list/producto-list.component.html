@@ -25,10 +25,17 @@
         </select>
       </div>
       <div>
-        <label for="tipo-filter" class="d-block mt-3 mb-1" i18n>Tipo</label>
+        <label for="tipo-filter" class="d-block mt-3 mb-1" i18n>Tipos</label>
         <select id="tipo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="tipoFilter">
           <option selected></option>
           <option *ngFor="let l of tipos" [value]='l'>{{l}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="codigo-filter" class="d-block mt-3 mb-1" i18n>Codigos</label>
+        <select id="codigo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="codigoFilter">
+          <option selected></option>
+          <option *ngFor="let c of codigos">{{c.codigoProducto}}</option>
         </select>
       </div>
     </div>
@@ -48,6 +55,7 @@
               <th scope="col" class="text-center" i18n>Descripcion</th>
               <th scope="col" class="text-center" i18n>Proveedor</th>
               <th scope="col" class="text-center" i18n>Tipo</th>
+              <th scope="col" class="text-center" i18n>Codigo</th>
               <th scope="col" class="text-center" i18n>Actions</th>
             </tr>
           </thead>
@@ -56,6 +64,7 @@
               <td class="p-3 align-middle">{{c.descripcionProducto}}</td>
               <td class="p-3 align-middle">{{c.proveedor}}</td>
               <td class="p-3 align-middle">{{c.tipoProducto}}</td>
+              <td class="p-3 align-middle">{{c.codigoProducto}}</td>
               <td class="p-3 text-center">
                 <button
                   type="button"

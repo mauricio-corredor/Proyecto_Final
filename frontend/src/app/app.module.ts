@@ -1,4 +1,4 @@
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { FormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BodegaModule } from './bodega/bodega.module';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MusicianModule,
     AlbumModule,
     ProductoModule,
+    BodegaModule,
     CollectorModule,
     NgbModule,
     FormsModule,
