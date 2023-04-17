@@ -1,72 +1,52 @@
 <testExecutions version="1">
-  <file path="src/app/album/album-list/album-list.component.spec.ts">
-    <testCase name="AlbumsComponent should display only albums by selected artist" duration="420"/>
-    <testCase name="AlbumsComponent should display all albums when no filter is applied" duration="38"/>
-    <testCase name="AlbumsComponent should display only albums by selected record label" duration="32"/>
-    <testCase name="AlbumsComponent hide new album form" duration="17"/>
-    <testCase name="AlbumsComponent show new album form" duration="77"/>
-    <testCase name="AlbumsComponent should display only albums by selected genre" duration="34"/>
-    <testCase name="AlbumsComponent set filters" duration="29"/>
-    <testCase name="AlbumsComponent select album" duration="18"/>
-    <testCase name="AlbumsComponent should not display filtered-albums but no-album div, when array is empty" duration="9"/>
-    <testCase name="AlbumsComponent should create" duration="13"/>
-  </file>
-  <file path="src/app/album/album.service.spec.ts">
-    <testCase name="AlbumService getAlbums() should return 10 albums" duration="4"/>
-    <testCase name="AlbumService should be created" duration="2"/>
-    <testCase name="AlbumService add musician to album" duration="2"/>
-    <testCase name="AlbumService getAlbumById() should return album with id 24" duration="2"/>
-    <testCase name="AlbumService add band to album" duration="3"/>
-    <testCase name="AlbumService add album" duration="4"/>
-    <testCase name="AlbumService add track to album" duration="4"/>
-  </file>
-  <file path="src/app/album/album-create/album-create.component.spec.ts">
-    <testCase name="AlbumCreateComponent create album without artist" duration="19"/>
-    <testCase name="AlbumCreateComponent should create" duration="17"/>
-    <testCase name="AlbumCreateComponent clear invalid url" duration="15"/>
-    <testCase name="AlbumCreateComponent check image url" duration="68"/>
+  <file path="src/app/app.component.spec.ts">
+    <testCase name="AppComponent should create the app" duration="115"/>
+    <testCase name="AppComponent should have as title 'front'" duration="12"/>
   </file>
   <file path="src/app/bodega/bodega.service.spec.ts">
-    <testCase name="BodegaService should retrieve all bodegas from the API via GET" duration="14"/>
-    <testCase name="BodegaService should retrieve a single bodega from the API via GET" duration="4"/>
-    <testCase name="BodegaService should be created" duration="3"/>
-    <testCase name="BodegaService should add a new bodega to the API via POST" duration="4"/>
+    <testCase name="BodegaService should be created" duration="4"/>
+    <testCase name="BodegaService should add a new bodega to the API via POST" duration="8"/>
+    <testCase name="BodegaService should retrieve a single bodega from the API via GET" duration="2"/>
+    <testCase name="BodegaService should retrieve all bodegas from the API via GET" duration="2"/>
+  </file>
+  <file path="src/app/prize/prize-list/prize-list.component.spec.ts">
+    <testCase name="PrizeListComponent should create" duration="18"/>
+    <testCase name="PrizeListComponent Component has at least one prize" duration="6"/>
   </file>
   <file path="src/app/collector/collector-create/collector-create.component.spec.ts">
-    <testCase name="CollectorCreateComponent Component has a form with 4 elements/sections" duration="49"/>
-    <testCase name="CollectorCreateComponent should create" duration="19"/>
+    <testCase name="CollectorCreateComponent Component has a form with 4 elements/sections" duration="20"/>
+    <testCase name="CollectorCreateComponent should create" duration="7"/>
   </file>
-  <file path="src/app/producto/producto.service.spec.ts">
-    <testCase name="ProductoService should retrieve all productos from the API via GET" duration="5"/>
-    <testCase name="ProductoService should be created" duration="3"/>
-    <testCase name="ProductoService should retrieve a single producto from the API via GET" duration="3"/>
-    <testCase name="ProductoService should add a new producto to the API via POST" duration="10"/>
-  </file>
-  <file path="src/app/collector/collector-detail/collector-detail.component.spec.ts">
-    <testCase name="CollectorDetailComponent Component has no collector albums" duration="99"/>
-    <testCase name="CollectorDetailComponent should create" duration="25"/>
-    <testCase name="CollectorDetailComponent Component has 10 collector albums" duration="21"/>
-  </file>
-  <file path="src/app/musician/musician.service.spec.ts">
-    <testCase name="MusicianService getMusicians() should return 1 records" duration="7"/>
+  <file path="src/app/prize/prize.service.spec.ts">
+    <testCase name="Service: Prize getPrize() should return more than records" duration="3"/>
+    <testCase name="Service: Prize should create service" duration="3"/>
   </file>
   <file path="src/app/musician/performer-detail/performer-detail.component.spec.ts">
-    <testCase name="PerformerDetailComponent should create" duration="33"/>
-  </file>
-  <file path="src/app/collector/collector-album-add/collector-album-add.component.spec.ts">
-    <testCase name="CollectorAlbumAddComponent Status select field has 3 options" duration="42"/>
-    <testCase name="CollectorAlbumAddComponent Component has a form with 5 elements/sections" duration="19"/>
-    <testCase name="CollectorAlbumAddComponent Collector select field has 3 options" duration="21"/>
-    <testCase name="CollectorAlbumAddComponent should create" duration="21"/>
-    <testCase name="CollectorAlbumAddComponent Album select field has 4 options" duration="9"/>
+    <testCase name="PerformerDetailComponent should create" duration="17"/>
   </file>
   <file path="src/app/album/album-detail/album-detail.component.spec.ts">
-    <testCase name="AlbumDetailComponent should create" duration="57"/>
-    <testCase name="AlbumDetailComponent reload tracks" duration="21"/>
-    <testCase name="AlbumDetailComponent calculate ratings when 0 comments" duration="20"/>
-    <testCase name="AlbumDetailComponent calculate ratings average" duration="13"/>
-    <testCase name="AlbumDetailComponent get users comments" duration="12"/>
-    <testCase name="AlbumDetailComponent opens collectors modal" duration="12"/>
-    <testCase name="AlbumDetailComponent show track form" duration="20"/>
+    <testCase name="AlbumDetailComponent should create" duration="73"/>
+    <testCase name="AlbumDetailComponent calculate ratings average" duration="25"/>
+    <testCase name="AlbumDetailComponent calculate ratings when 0 comments" duration="15">
+      <failure message="Error">HttpErrorResponse: Http failure response for http://localhost:3001/api/v1albums/undefined: 404 Not Found
+</failure>
+    </testCase>
+    <testCase name="AlbumDetailComponent opens collectors modal" duration="19"/>
+    <testCase name="AlbumDetailComponent reload tracks" duration="16">
+      <failure message="Error">HttpErrorResponse: Http failure response for http://localhost:3001/api/v1albums/undefined: 404 Not Found
+</failure>
+    </testCase>
+    <testCase name="AlbumDetailComponent get users comments" duration="15">
+      <failure message="Error">HttpErrorResponse: Http failure response for http://localhost:3001/api/v1albums/undefined: 404 Not Found
+
+Uncaught [object Object] thrown
+</failure>
+    </testCase>
+    <testCase name="AlbumDetailComponent show track form" duration="22">
+      <failure message="Error">HttpErrorResponse: Http failure response for http://localhost:3001/api/v1albums/undefined: 404 Not Found
+
+Uncaught [object Object] thrown
+</failure>
+    </testCase>
   </file>
 </testExecutions>
