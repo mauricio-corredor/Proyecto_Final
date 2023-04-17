@@ -1,51 +1,52 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { ProductoListComponent } from './bodega-list.component';
-import { ProductoService } from '../bodega.service';
-import { TipoProducto } from 'src/models/zonaLocalizacion.enum';
+import { BodegaListComponent } from './bodega-list.component';
+import { BodegaService } from '../bodega.service';
+import { Paises } from 'src/models/paises.enum';
+import { Ciudades } from 'src/models/ciudades.enum';
 
 class MockRouter {
   navigate(path: string[]) {}
 }
 
-describe('ProductoListComponent', () => {
-  let component: ProductoListComponent;
-  let fixture: ComponentFixture<ProductoListComponent>;
-  let productoService: ProductoService;
+describe('BodegaListComponent', () => {
+  let component: BodegaListComponent;
+  let fixture: ComponentFixture<BodegaListComponent>;
+  let bodegaService: BodegaService;
   let router: Router;
   let activatedRoute: ActivatedRoute;
 
-  const productos = [
+  const bodegas = [
     {
-      idProducto: '1',
-      descripcionProducto: 'Producto 1',
-      imagenProducto: 'imagen1.png',
-      proveedor: 'Proveedor 1',
-      fabricanteProducto: 'Fabricante 1',
-      volumenProducto: '1',
-      tipoProducto: TipoProducto.Cereales,
-      fechaVencimiento: '2022-01-01'
+      idBodega: '1',
+      nombreBodega: "uno",
+      ubicacionPais: "Colombia",
+      ubicacionCiudad: "Cali",
+      zonaLocalizacion: "dos",
+      capacidadVolumen: 50,
+      capacidadUsada: 20,
+      capacidadDisponible: 30
     },
     {
-      idProducto: '2',
-      descripcionProducto: 'Producto 2',
-      imagenProducto: 'imagen2.png',
-      proveedor: 'Proveedor 2',
-      fabricanteProducto: 'Fabricante 2',
-      volumenProducto: '2',
-      tipoProducto: TipoProducto.Frutas,
-      fechaVencimiento: '2022-02-02'
-    }
+      idBodega: '2',
+      nombreBodega: "dos",
+      ubicacionPais: "Peru",
+      ubicacionCiudad: "Lima",
+      zonaLocalizacion: "dos",
+      capacidadVolumen: 50,
+      capacidadUsada: 20,
+      capacidadDisponible: 30
+    },
   ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductoListComponent ],
+      declarations: [ BodegaListComponent ],
       providers: [
         {
-          provide: ProductoService,
-          useValue: { getProductos: () => of(productos) }
+          provide: BodegaService,
+          useValue: { getBodegas: () => of(bodegas) }
         },
         {
           provide: ActivatedRoute,
@@ -60,9 +61,9 @@ describe('ProductoListComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductoListComponent);
+    fixture = TestBed.createComponent(BodegaListComponent);
     component = fixture.componentInstance;
-    productoService = TestBed.inject(ProductoService);
+    bodegaService = TestBed.inject(BodegaService);
     router = TestBed.inject(Router);
     activatedRoute = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
@@ -78,36 +79,34 @@ describe('ProductoListComponent', () => {
 
   it('should have a filterValues object with default values', () => {
     expect(component.filterValues).toEqual({
-      descripcion: '',
-      proveedor: '',
-      tipo: ''
+      nombre: '',
+      pais: '',
+      ciudad: ''
     });
   });
 
-  it('should filter by descripcion', () => {
-    component.descripcionFilter = 'Producto 1';
-    expect(component.filteredProductos.length).toBe(1);
-    expect(component.filteredProductos[0].idProducto).toBe('1');
+  it('should filter by nombre', () => {
+    component.nombreFilter = 'uno';
+    expect(component.filteredBodegas.length).toBe(1);
+    expect(component.filteredBodegas[0].idBodega).toBe('1');
   });
 
-  it('should filter by proveedor', () => {
-    component.proveedorFilter = 'Proveedor 2';
-    expect(component.filteredProductos.length).toBe(1);
-    expect(component.filteredProductos[0].idProducto).toBe('2');
+  it('should filter by pais', () => {
+    component.paisFilter = Paises.Peru;
+    expect(component.filteredBodegas.length).toBe(1);
+    expect(component.filteredBodegas[0].idBodega).toBe('2');
   });
 
-  it('should filter by tipo', () => {
-    component.tipoFilter = TipoProducto.Cereales;
-    expect(component.filteredProductos.length).toBe(1);
-    expect(component.filteredProductos[0].idProducto).toBe('1');
+  it('should filter by ciudad', () => {
+    component.ciudadFilter = Ciudades.Cali;
+    expect(component.filteredBodegas.length).toBe(1);
+    expect(component.filteredBodegas[0].idBodega).toBe('1');
   });
 
   it('should clear filters', () => {
-    component.descripcionFilter = 'Producto 1';
-    component.proveedorFilter = 'Proveedor 2';
-    component.descripcionFilter = '';
-    component.proveedorFilter = '';
-    expect(component.filteredProductos.length).toBe(2);
+    component.nombreFilter = 'uno';
+    component.nombreFilter = '';
+    expect(component.filteredBodegas.length).toBe(2);
   });
 
   it('should show/hide form', () => {
@@ -117,17 +116,11 @@ describe('ProductoListComponent', () => {
     expect(component.openForm).toBeFalse();
   });
 
-  it('should navigate to selected producto', () => {
+  it('should navigate to selected bodega', () => {
     spyOn(component['router'], 'navigate').and.stub();
     component.onSelected(1);
-    expect(component['router'].navigate).toHaveBeenCalledWith(['/productos/1']);
+    expect(component['router'].navigate).toHaveBeenCalledWith(['/bodegas/1']);
   });
 
-  it('should show/hide form', () => {
-    component.showForm();
-    expect(component.openForm).toBeTrue();
-    component.hideForm();
-    expect(component.openForm).toBeFalse();
-  });
 
 })

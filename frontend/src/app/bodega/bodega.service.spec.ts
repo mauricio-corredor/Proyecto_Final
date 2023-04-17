@@ -33,8 +33,8 @@ describe('BodegaService', () => {
 
   it('should retrieve all bodegas from the API via GET', () => {
     const mockBodegas: Bodega[] = [
-      new Bodega('1', 'Bodega 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31'),
-      new Bodega('2', 'Bodega 2', 'imagen2.jpg', 'Proveedor 2', 'Fabricante 2', '200ml', 'Perecederos', '2024-12-31')
+      new Bodega('1', 'Bodega 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', 100, 500, 100),
+      new Bodega('2', 'Bodega 2', 'imagen2.jpg', 'Proveedor 2', 'Fabricante 2', 200, 300, 100)
     ];
 
     service.getBodegas().subscribe(bodegas => {
@@ -48,7 +48,7 @@ describe('BodegaService', () => {
   });
 
   it('should retrieve a single bodega from the API via GET', () => {
-    const mockBodega: Bodega = new Bodega('1', 'Bodega 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31');
+    const mockBodega: Bodega = new Bodega('1', 'Bodega 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', 100, 500, 100);
 
     service.getBodegaById('1').subscribe(bodega => {
       expect(bodega).toEqual(mockBodega);
@@ -60,7 +60,7 @@ describe('BodegaService', () => {
   });
 
   it('should add a new bodega to the API via POST', () => {
-    const mockBodega: Bodega = new Bodega('1', 'Bodega 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', '100ml', 'Frutas', '2023-12-31');
+    const mockBodega: Bodega = new Bodega('1', 'Bodega 1', 'imagen1.jpg', 'Proveedor 1', 'Fabricante 1', 100, 500, 100);
 
     service.addBodega(mockBodega).subscribe(bodega => {
       expect(bodega).toEqual(mockBodega);

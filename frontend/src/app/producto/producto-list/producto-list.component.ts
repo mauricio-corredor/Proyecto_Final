@@ -5,6 +5,7 @@ import { ProductoService } from '../producto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/models/tipoProducto1.enum';
 
+
 @Component({
   selector: 'app-producto',
   templateUrl: './producto-list.component.html',
@@ -28,6 +29,7 @@ export class ProductoListComponent implements OnInit{
     tipo: "",
     codigo: ""
   };
+
   openForm: boolean = false;
 
   private _descripcionFilter: string;

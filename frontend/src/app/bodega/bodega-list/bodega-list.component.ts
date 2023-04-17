@@ -4,6 +4,8 @@ import { Bodega } from '../../../models/bodega';
 import { BodegaService } from '../bodega.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ZonaLocalizacion } from 'src/models/zonaLocalizacion.enum';
+import { Ciudades } from 'src/models/ciudades.enum';
+import { Paises } from 'src/models/paises.enum';
 
 @Component({
   selector: 'app-bodega',
@@ -18,13 +20,15 @@ export class BodegaListComponent implements OnInit{
   display: object = {"display": "none"};
   sub: Subscription;
   bodegas: Bodega[];
-  ubicacionPaises: string[];
-  zonaLocalizaciones: ZonaLocalizacion[];
+  paises: string[];
+  zonas: ZonaLocalizacion[];
+  ciudadesArray: string[] = [];
+  paisesArray: string[] = [];
   filteredBodegas: Bodega[] = [];
   filterValues: { [filter: string]: string } = {
     nombre: "",
-    ubicacionPais: "",
-    zonaLocalizacion: ""
+    pais: "",
+    ciudad: ""
   };
   openForm: boolean = false;
 
@@ -38,45 +42,70 @@ export class BodegaListComponent implements OnInit{
     this.filteredBodegas = this.performFilters();
   }
 
-  private _ubicacionPaisFilter: string;
-  get ubicacionPaisFilter(): string {
-    return this._ubicacionPaisFilter;
+  private _paisFilter: Paises;
+  get paisFilter(): Paises {
+    return this._paisFilter;
   }
-  set ubicacionPaisFilter(value: string) {
-    this._ubicacionPaisFilter = value;
-    this.filterValues.ubicacionPais = value
+  set paisFilter(value: Paises) {
+    this._paisFilter = value;
+    this.filterValues.pais = value
     this.filteredBodegas = this.performFilters();
   }
 
-  private _zonaLocalizacionFilter: ZonaLocalizacion;
-  get zonaLocalizacionFilter(): ZonaLocalizacion {
-    return this._zonaLocalizacionFilter;
+  private _ciudadFilter: Ciudades;
+  get ciudadFilter(): Ciudades {
+    return this._ciudadFilter;
   }
-  set zonaLocalizacionFilter(value: ZonaLocalizacion) {
-    this._zonaLocalizacionFilter = value;
-    this.filterValues.zonaLocalizacion = value
+  set ciudadFilter(value: Ciudades) {
+    this._ciudadFilter = value;
+    this.filterValues.ciudad = value
     this.filteredBodegas = this.performFilters();
   }
+
 
   constructor(private bodegaService: BodegaService,
     public router: Router,
-    public route: ActivatedRoute) { }
+    public route: ActivatedRoute) {
+
+      Object.keys(Ciudades).forEach(key => {
+
+        if (isNaN(parseInt(key))) {
+          this.ciudadesArray.push(Ciudades[key]);
+        }
+      });
+
+      Object.keys(Paises).forEach(key => {
+
+        if (isNaN(parseInt(key))) {
+          this.paisesArray.push(Paises[key]);
+        }
+      });
+
+    }
+
+
 
   performFilters(): Bodega[] {
     let bodegas: Bodega[] = []
 
-    if (this.filterValues.nombre === "" && this.filterValues.ubicacionPais === "" && this.filterValues.zonaLocalizacion === "") {
-      return bodegas = this.bodegas;
+    if (this.filterValues.nombre === "" && this.filterValues.pais === "" &&
+        this.filterValues.ciudad === "") {
+          bodegas = this.bodegas;
+          return bodegas;
     }
+
     if (this.filterValues.nombre !== "") {
       this.performNombreFilter().forEach(x=> bodegas.push(x));
     }
-    if (this.filterValues.ubicacionPais !== "") {
-      this.performUbicacionFilter().forEach(x=> bodegas.push(x));
+
+    if (this.filterValues.pais !== "") {
+      this.performPaisFilter().forEach(x=> bodegas.push(x));
     }
-    if (this.filterValues.zonaLocalizacion !== "") {
-      this.performZonaFilter().forEach(x=> bodegas.push(x));
+
+    if (this.filterValues.ciudad !== "") {
+      this.performCiudadFilter().forEach(x=> bodegas.push(x));
     }
+
 
     return [...new Set(bodegas)].sort((a, b) => (a.nombreBodega < b.nombreBodega ? -1 : 1));
   }
@@ -86,15 +115,16 @@ export class BodegaListComponent implements OnInit{
       bodega.nombreBodega.includes(this.filterValues.nombre));
   }
 
-  performUbicacionFilter(): Bodega[] {
+  performPaisFilter(): Bodega[] {
     return this.bodegas.filter((bodega: Bodega) =>
-      bodega.ubicacionPais.includes(this.filterValues.ubicacionPais));
+      bodega.ubicacionPais.includes(this.filterValues.pais));
   }
 
-  performZonaFilter(): Bodega[] {
+  performCiudadFilter(): Bodega[] {
     return this.bodegas.filter((bodega: Bodega) =>
-      bodega.zonaLocalizacion.includes(this.filterValues.zonaLocalizacion));
+      bodega.ubicacionCiudad.includes(this.filterValues.ciudad));
   }
+
 
   onSelected(bodegaId: number): void {
     this.router.navigate(['/bodegas/' + bodegaId]);
@@ -110,17 +140,18 @@ export class BodegaListComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(p => {
-      if (p['ubicacionPais'] || p['nombre'] || p['zonaLocalizacion']) {
+      if (p['nombre'] || p['pais'] || p['ciudad']) {
         setTimeout(() => {
           if (p['nombre']) {
             this.nombreFilter = p['nombre']
           }
-          if (p['ubicacionPais']) {
-            this.ubicacionPaisFilter = p['ubicacionPais']
+          if (p['pais']) {
+            this.paisFilter = p['pais']
           }
-          if (p['zonaLocalizacion']) {
-            this.zonaLocalizacionFilter = p['zonaLocalizacion']
+          if (p['ciudad']) {
+            this.ciudadFilter = p['ciudad']
           }
+
         }, 1000);
       }
     });
@@ -129,12 +160,12 @@ export class BodegaListComponent implements OnInit{
       this.filteredBodegas = this.bodegas;
    });
 
-    this.zonaLocalizaciones = [
+    this.zonas = [
       ZonaLocalizacion.Centro,
-      ZonaLocalizacion.Sur,
-      ZonaLocalizacion.Oriente,
+      ZonaLocalizacion.Norte,
       ZonaLocalizacion.Occidente,
-      ZonaLocalizacion.Norte
+      ZonaLocalizacion.Oriente,
+      ZonaLocalizacion.Sur
     ]
   }
 

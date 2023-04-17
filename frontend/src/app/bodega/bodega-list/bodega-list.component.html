@@ -18,19 +18,21 @@
         </select>
       </div>
       <div>
-        <label for="ubicacionPais-filter" class="d-block mt-3 mb-1" i18n>Proveedores</label>
-        <select id="ubicacionPais-filter" class="form-select form-select-sm bg-light" [(ngModel)]="ubicacionPaisFilter">
+        <label for="pais-filter" class="d-block mt-3 mb-1" i18n>Paises</label>
+        <select id="pais-filter" class="form-select form-select-sm bg-light" [(ngModel)]="paisFilter">
           <option selected></option>
-          <option *ngFor="let g of bodegas">{{g.ubicacionPais}}</option>
+          <option *ngFor="let p of paisesArray" [value]='p'>{{p}}</option>
         </select>
       </div>
+
       <div>
-        <label for="tipo-filter" class="d-block mt-3 mb-1" i18n>Tipo</label>
-        <select id="tipo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="tipoFilter">
+        <label for="ciudad-filter" class="d-block mt-3 mb-1" i18n>Ciudades</label>
+        <select id="ciudad-filter" class="form-select form-select-sm bg-light" [(ngModel)]="ciudadFilter">
           <option selected></option>
-          <option *ngFor="let l of tipos" [value]='l'>{{l}}</option>
+          <option *ngFor="let l of ciudadesArray" [value]='l'>{{l}}</option>
         </select>
       </div>
+
     </div>
 
 
@@ -45,9 +47,9 @@
           aria-describedby="bodegas-table">
           <thead>
             <tr>
-              <th scope="col" class="text-center" i18n>Descripcion</th>
-              <th scope="col" class="text-center" i18n>Proveedor</th>
-              <th scope="col" class="text-center" i18n>Tipo</th>
+              <th scope="col" class="text-center" i18n>Nombre</th>
+              <th scope="col" class="text-center" i18n>Ciudad</th>
+              <th scope="col" class="text-center" i18n>Pais</th>
               <th scope="col" class="text-center" i18n>Actions</th>
             </tr>
           </thead>
@@ -55,7 +57,7 @@
             <tr *ngFor="let c of filteredBodegas" class="p-2">
               <td class="p-3 align-middle">{{c.nombreBodega}}</td>
               <td class="p-3 align-middle">{{c.ubicacionPais}}</td>
-              <td class="p-3 align-middle">{{c.tipoBodega}}</td>
+              <td class="p-3 align-middle">{{c.ubicacionCiudad}}</td>
               <td class="p-3 text-center">
                 <button
                   type="button"

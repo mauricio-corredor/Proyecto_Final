@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { ProductoListComponent } from './producto-list.component';
 import { ProductoService } from '../producto.service';
-import { TipoProducto } from 'src/models/zonaLocalizacion.enum';
+import { TipoProducto } from 'src/models/tipoProducto1.enum';
 
 class MockRouter {
   navigate(path: string[]) {}
@@ -25,7 +25,9 @@ describe('ProductoListComponent', () => {
       fabricanteProducto: 'Fabricante 1',
       volumenProducto: '1',
       tipoProducto: TipoProducto.Cereales,
-      fechaVencimiento: '2022-01-01'
+      fechaVencimiento: '2022-01-01',
+      codigoProducto: '25',
+      precioProducto: 3000
     },
     {
       idProducto: '2',
@@ -35,7 +37,9 @@ describe('ProductoListComponent', () => {
       fabricanteProducto: 'Fabricante 2',
       volumenProducto: '2',
       tipoProducto: TipoProducto.Frutas,
-      fechaVencimiento: '2022-02-02'
+      fechaVencimiento: '2022-02-02',
+      codigoProducto: '30',
+      precioProducto: 5000
     }
   ];
 
@@ -80,7 +84,8 @@ describe('ProductoListComponent', () => {
     expect(component.filterValues).toEqual({
       descripcion: '',
       proveedor: '',
-      tipo: ''
+      tipo: '',
+      codigo:''
     });
   });
 
