@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
   Delete,
   Get,
+  Header,
   HttpCode,
   Param,
   Post,
@@ -13,7 +15,6 @@ import { plainToInstance } from 'class-transformer';
 import { AppDto } from './app.dto';
 import { AppEntity } from './app.entity';
 
-
 @Controller('productos')
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -22,9 +23,19 @@ export class AppController {
   async get(){
     return 'RPTA OK';
   }
+
+
   @Get()
+  @Header('Access-Control-Allow-Origin', '*') // Or, specify specific origins
   async findAll() {
-    return this.appService.findAll();
+    return await this.appService.findAll();
+  }
+  @Get('/cors')
+  @Header('Access-Control-Allow-Origin', '*')
+  @Header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  @Header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  getCors(): string {
+    return 'CORS Enabled';
   }
 
   @Get(':id')
