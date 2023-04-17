@@ -2,7 +2,7 @@
 
 <div class="container-fluid" *ngIf="!openForm">
   <div class="d-flex justify-content-end mt-3 mr-3" *ngIf="filteredBodegas.length">
-    <button class="btn btn-standard btn-sm ml-3 mr-3" type="button" (click)="showForm()" i18n>Bodegas mas vendidos</button>
+    <button class="btn btn-standard btn-sm ml-3 mr-3" type="button" (click)="showForm()" i18n>Capacidad Bodegas </button>
     <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18n>+ Crear Bodega</button>
   </div>
 
@@ -48,8 +48,8 @@
           <thead>
             <tr>
               <th scope="col" class="text-center" i18n>Nombre</th>
-              <th scope="col" class="text-center" i18n>Ciudad</th>
               <th scope="col" class="text-center" i18n>Pais</th>
+              <th scope="col" class="text-center" i18n>Ciudad</th>
               <th scope="col" class="text-center" i18n>Actions</th>
             </tr>
           </thead>

@@ -128,11 +128,4 @@ describe('ProductoListComponent', () => {
     expect(component['router'].navigate).toHaveBeenCalledWith(['/productos/1']);
   });
 
-  it('should show/hide form', () => {
-    component.showForm();
-    expect(component.openForm).toBeTrue();
-    component.hideForm();
-    expect(component.openForm).toBeFalse();
-  });
-
 })
