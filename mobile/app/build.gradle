@@ -73,6 +73,8 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    //Coil
+    implementation "io.coil-kt:coil-compose:2.3.0"
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
