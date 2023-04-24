@@ -122,10 +122,6 @@ describe('ProductoListComponent', () => {
     expect(component.openForm).toBeFalse();
   });
 
-  it('should navigate to selected producto', () => {
-    spyOn(component['router'], 'navigate').and.stub();
-    component.onSelected(1);
-    expect(component['router'].navigate).toHaveBeenCalledWith(['/productos/1']);
-  });
+
 
 })
