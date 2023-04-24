@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bodega } from '../../models/bodega';
@@ -25,4 +25,6 @@ export class BodegaService {
     return this.http.post<Bodega>(this.apiUrl, bodega);
   }
 
+
 }
+

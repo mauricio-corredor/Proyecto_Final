@@ -1,6 +1,7 @@
-<app-producto-create *ngIf="openForm" [openForm]="openForm" (cancelForm)="hideForm($event)"></app-producto-create>
+<app-producto-create *ngIf="openForm" [openForm]="openForm" (cancelForm)="hideForm()"></app-producto-create>
 
 <div class="container-fluid" *ngIf="!openForm">
+  <button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n>Actualizar Pagina</button>
   <div class="d-flex justify-content-end mt-3 mr-3" *ngIf="filteredProductos.length">
     <button class="btn btn-standard btn-sm ml-3 mr-3" type="button" (click)="showForm()" i18n>Productos mas vendidos</button>
     <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18n>+ Crear Producto</button>
@@ -35,19 +36,19 @@
         <label for="codigo-filter" class="d-block mt-3 mb-1" i18n>Codigos</label>
         <select id="codigo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="codigoFilter">
           <option selected></option>
-          <option *ngFor="let c of codigos">{{c.codigoProducto}}</option>
+          <option *ngFor="let d of productos">{{d.codigoProducto}}</option>
         </select>
       </div>
     </div>
 
 
     <div class="productos-list col-md">
-      <p> {{filteredProductos?.length }} Productos encontrados</p>
+      <p> {{filteredProductos.length }} Productos encontrados</p>
 
 
       <div class="row filtered-productos" *ngIf="filteredProductos.length">
 
-        <table *ngIf="filteredProductos?.length > 0"
+        <table *ngIf="filteredProductos.length > 0"
           class="table table-striped"
           aria-describedby="productos-table">
           <thead>
@@ -70,13 +71,17 @@
                   type="button"
                   class="btn btn-standard btn-sm"
                   [ngClass]="{'active': actbtn == c.idProducto}"
-                  (click)="onSelected(c);actbtn = c.idProducto"
-                  i18n>mas info</button>
+                  (click)="onSelected(c); actbtn = (actbtn == c.idProducto ? null : c.idProducto)"
+                  i18n>More info</button>
               </td>
             </tr>
           </tbody>
         </table>
-
+        <div class="producto-list-detail right-col col align-self-center" (click)="hideDetails()">
+          <div *ngIf="selected">
+            <app-producto-detail [productoDetail]="selectedProducto"></app-producto-detail>
+          </div>
+        </div>
       </div>
       <div class="row no-productos" *ngIf="!filteredProductos.length">
         <div class="col-10 mx-auto d-block mt-5">

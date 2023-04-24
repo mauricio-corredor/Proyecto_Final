@@ -1,20 +1,16 @@
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PrizeModule } from './prize/prize.module';
-import { MusicianModule } from './musician/musician.module';
-import { AlbumModule } from './album/album.module';
+import { HttpClientModule } from '@angular/common/http';
 import { ProductoModule } from './producto/producto.module';
-import { CollectorModule } from './collector/collector.module';
+import { BodegaModule } from './bodega/bodega.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BodegaModule } from './bodega/bodega.module';
-
+import { LocalizePipe } from './localize.pipe';
 
 @NgModule({
   declarations: [
@@ -24,17 +20,14 @@ import { BodegaModule } from './bodega/bodega.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HttpClientModule,
-    MusicianModule,
-    AlbumModule,
     ProductoModule,
     BodegaModule,
-    CollectorModule,
     NgbModule,
     FormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    PrizeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
