@@ -10,7 +10,7 @@ data class ProductDetail(
     val volumenProducto: String,
     val tipoProducto: String,
     val fechaVencimiento: String,
-    //val precioProducto: Float
+    val precioProducto: Float
 )
 
 //https://fakestoreapi.com/products

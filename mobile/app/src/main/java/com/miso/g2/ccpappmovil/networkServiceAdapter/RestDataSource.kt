@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface RestDataSource {
     //@GET("/products/1")
-    @GET("/productos/dd338231-49ec-4e84-99df-71829ea4f9c2")
+    @GET("/productos/6159cea1-f8a4-408c-9227-11e4a4fdae6e")
     suspend fun getProductDetail(): ProductDetail
 
     //@GET("/products")

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Album } from 'src/models/album';
-import { AlbumService } from '../album/album.service';
+import { Producto } from 'src/models/producto';
+import { ProductoService } from '../producto/producto.service';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +8,15 @@ import { AlbumService } from '../album/album.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  albums: Album[];
-  newAlbums: Album[];
+  productos: Producto[] = [];
+  newProductos: Producto[] = [];
 
-  constructor(private albumService: AlbumService) { }
+  constructor(private productoService: ProductoService) { }
 
   ngOnInit() {
-    this.albumService.getAlbums().subscribe(albums => {
-      this.albums = albums.sort((a, b) => b.id - a.id);
-      this.newAlbums = this.albums.slice(0, 3)
+    this.productoService.getProductos().subscribe(productos => {
+      productos.sort((a, b) => a.idProducto.localeCompare(b.idProducto));
+      this.newProductos = this.productos.slice(0, 3)
    });
   }
 

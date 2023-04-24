@@ -1,0 +1,41 @@
+<div class="container-fluid c-detail">
+  <div class="row">
+    <div class="col">
+      <h1 *ngIf="productoId" class="py-3 text-center">{{productoDetail.descripcionProducto}}</h1>
+      <h2 *ngIf="productoId === undefined" class="py-3 text-center">{{productoDetail.descripcionProducto}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p id="productos" class="text-center" i18n>Detalle de producto</p>
+    </div>
+  </div>
+  <table *ngIf="productoDetail"
+    class="col-lg-8 offset-lg-2 table table-striped"
+    aria-describedby="producto_detail">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center p-3 align-left" i18n>descripcion</th>
+        <th scope="col" class="text-center p-3 align-left" i18n>Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <td class="p-2">
+          <div class="image-container text-center">
+            <img src="{{productoDetail.imagenProducto}}" alt="Imagen del producto" class="maxw-10">
+          </div>
+        </td>
+        <td class="p-2 text-center align-middle">{{productoDetail.descripcionProducto}}</td>
+        <td class="p-2 text-center align-middle">
+          <button
+            type="button"
+            class="btn btn-standard btn-sm"
+            routerLink="/productos/{{productoDetail.idProducto}}"
+            >Ocultar</button>
+        </td>
+
+    </tbody>
+  </table>
+
+</div>
