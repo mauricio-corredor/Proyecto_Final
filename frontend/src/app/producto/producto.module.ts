@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductoCreateComponent } from './producto-create/producto-create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: 'productos', component: ProductoListComponent },
@@ -23,11 +24,17 @@ const routes: Routes = [
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forChild(routes)
   ],
   exports: [
     ProductoListComponent,
-    ProductoDetailComponent
-  ]
+    ProductoDetailComponent,
+    ProductoCreateComponent
+  ],
+  providers: [],
+  bootstrap: [ProductoListComponent,
+    ProductoDetailComponent,
+    ProductoCreateComponent]
 })
 export class ProductoModule { }

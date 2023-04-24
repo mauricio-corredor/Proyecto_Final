@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BodegaCreateComponent } from './bodega-create/bodega-create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LocalizePipe } from '../localize.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: 'bodegas', component: BodegaListComponent }
@@ -22,6 +23,7 @@ const routes: Routes = [
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forChild(routes)
   ],
   exports: [
