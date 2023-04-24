@@ -7,6 +7,8 @@ import androidx.navigation.compose.rememberNavController
 import com.miso.g2.ccpappmovil.Greeting
 import com.miso.g2.ccpappmovil.ui.screens.ProductsMainPage
 import com.miso.g2.ccpappmovil.ui.screens.homePage.homePage
+import com.miso.g2.ccpappmovil.ui.screens.orders.ActiveOrderPage
+import com.miso.g2.ccpappmovil.ui.screens.orders.OrdersMainPage
 
 @Composable
 fun navigation() {
@@ -20,6 +22,12 @@ fun navigation() {
         }
         composable(ScreensRoute.Greeting.route) {
             Greeting(navController)
+        }
+        composable(ScreensRoute.OrdersMainPage.route) {
+            OrdersMainPage(navController)
+       }
+        composable(ScreensRoute.ActiveOrderPage.route) {
+            ActiveOrderPage(navController)
         }
     }
 }

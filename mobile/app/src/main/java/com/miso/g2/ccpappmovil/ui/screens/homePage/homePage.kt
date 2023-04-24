@@ -48,7 +48,7 @@ fun homePage(navController: NavController) {
                     nameButton = "Crear orden",
                     backgroundSecondary,
                     navController,
-                    ScreensRoute.Greeting.route,
+                    ScreensRoute.ActiveOrderPage.route,
                     Icons.Filled.ShoppingCart
                 )
             }
@@ -61,7 +61,7 @@ fun homePage(navController: NavController) {
                     nameButton = "Ver Ordenes",
                     backgroundSecondary,
                     navController,
-                    ScreensRoute.Greeting.route,
+                    ScreensRoute.OrdersMainPage.route,
                     Icons.Filled.List
                 )
                 Spacer(modifier = Modifier.size(20.dp))

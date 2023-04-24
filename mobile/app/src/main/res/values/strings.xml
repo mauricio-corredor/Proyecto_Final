@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ccpAppMovil</string>
+    <string name="precio">Precio:</string>
+    <string name="cantidad">Disp.:</string>
+    <string name="pesos">$</string>
+    <string name="codigoProducto">Cod.</string>
+    <string name="placeholder_search">Búsqueda</string>
 </resources>
