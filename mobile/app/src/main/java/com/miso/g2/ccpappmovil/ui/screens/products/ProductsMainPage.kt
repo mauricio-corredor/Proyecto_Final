@@ -26,6 +26,7 @@ import com.miso.g2.ccpappmovil.ui.screens.products.ProductsTittleBar
 import com.miso.g2.ccpappmovil.ui.screens.products.SearchProductBar
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
+import java.util.Locale
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -43,18 +44,34 @@ fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel 
         //Spacer(modifier = Modifier.size(10.dp))
         ProductsTittleBar()
         Divider()
-        MakeProductsList(viewModel)
+        MakeProductsList(viewModel, textState)
     }
 }
 
 @Composable
-fun MakeProductsList(viewModel: ProductsViewModel) {
+fun MakeProductsList(viewModel: ProductsViewModel, state: MutableState<TextFieldValue>) {
     if (viewModel.errorMessage.isEmpty()) {
-        val itemsList = viewModel.productsList.size
+        //val itemsList = viewModel.productsList.size
+        val allProducts = viewModel.productsList
+        var filteredProducts: List<ProductDetail>
         Column(modifier = Modifier.padding(16.dp)) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
-                items(itemsList) { contentList ->
-                    CardRow(productForList = viewModel.productsList[contentList])
+                val searchedText = state.value.text
+                filteredProducts = if (searchedText.isEmpty()) {
+                    allProducts
+                } else {
+                    val resultList = ArrayList<ProductDetail>()
+                    for (product in allProducts.indices) {
+                        if (allProducts[product].codigoProducto.lowercase(Locale.getDefault())
+                                .contains(searchedText.lowercase(Locale.getDefault()))
+                        ) {
+                            resultList.add(allProducts[product])
+                        }
+                    }
+                    resultList
+                }
+                items(filteredProducts.size) { contentList ->
+                    CardRow(filteredProducts[contentList])
                 }
             }
         }

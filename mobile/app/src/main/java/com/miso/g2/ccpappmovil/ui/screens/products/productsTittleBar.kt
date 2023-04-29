@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -51,11 +54,26 @@ fun ProductsTittleBar() {
                 Alignment.Center
             ) {
                 Text(
-                    text = "Descripcion | Precio | Disponibilidad",
-                    style = MaterialTheme.typography.subtitle2,
-                    color = Color.White
+                    buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.Yellow,
+                            )
+                        ) {
+                            append("Cod.")
+                        }
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.White,
+                            )
+                        ) {
+                            append(" | Descripcion | Precio | Disponibilidad")
+                        }
+                    },
+                    style = MaterialTheme.typography.subtitle2
                 )
             }
         }
     }
 }
+
