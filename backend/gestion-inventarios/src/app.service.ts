@@ -102,4 +102,21 @@ export class AppService {
       this.logger.log('queue not found');
     }
   }
+
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async replyDataBase() {
+    try {
+      const productos = await this.appRepository.find();
+      let producto: any;
+      for (producto in productos) {
+        this.logger.log(
+          `replyDataBase idProducto: ${producto.idProducto}, paisInventario: ${producto.paisInventario}`,
+        );
+        const key = `${producto.paisInventario}_${producto.idProducto}`;
+        await this.updateCache(key, producto);
+      }
+    } catch (er) {
+      this.logger.log('DB not found');
+    }
+  }
 }
