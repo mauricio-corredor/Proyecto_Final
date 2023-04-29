@@ -7,8 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -25,6 +23,7 @@ import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.ProductDetail
 import com.miso.g2.ccpappmovil.ui.screens.products.ProductsAppBar
 import com.miso.g2.ccpappmovil.ui.screens.products.ProductsTittleBar
+import com.miso.g2.ccpappmovil.ui.screens.products.SearchProductBar
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
 
@@ -34,11 +33,14 @@ fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel 
     LaunchedEffect(Unit, block = {
         viewModel.getProducts()
     })
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
     Column {
         ProductsAppBar(navController)
-        Spacer(modifier = Modifier.size(10.dp))
-        SearchBar()
-        Spacer(modifier = Modifier.size(10.dp))
+        Divider()
+        //Spacer(modifier = Modifier.size(10.dp))
+        SearchProductBar(textState)
+        Divider()
+        //Spacer(modifier = Modifier.size(10.dp))
         ProductsTittleBar()
         Divider()
         MakeProductsList(viewModel)
@@ -122,42 +124,4 @@ fun CardRow(productForList: ProductDetail) {
             }
         }
     }
-}
-@Preview
-@Composable
-fun SearchBar() {
-    var name by remember {
-        mutableStateOf("")
-    }
-    Box(modifier = Modifier.fillMaxWidth().padding(start = 40.dp, end = 40.dp)) {
-        TextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Código Producto") },
-            trailingIcon = {
-                if (name.isBlank())
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = "Limpiar campo de nombre"
-                    )
-            })
-    }
-
-
-//    TextField(
-//        value = "",
-//        onValueChange = {},
-//        leadingIcon = {
-//            Icon(
-//                imageVector = Icons.Default.Search,
-//                contentDescription = null
-//            )
-//        },
-//        colors = TextFieldDefaults.textFieldColors(
-//            backgroundColor = Color.LightGray
-//        ),
-//        placeholder = {
-//            Text(stringResource(R.string.placeholder_search))
-//        },
-//     )
 }
