@@ -1,6 +1,7 @@
 package com.miso.g2.ccpappmovil.ui.screens
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -21,9 +23,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.ProductDetail
-import com.miso.g2.ccpappmovil.ui.screens.products.ProductsAppBar
-import com.miso.g2.ccpappmovil.ui.screens.products.ProductsTittleBar
-import com.miso.g2.ccpappmovil.ui.screens.products.SearchProductBar
+import com.miso.g2.ccpappmovil.ui.screens.products.*
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
 import java.util.Locale
@@ -44,14 +44,13 @@ fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel 
         //Spacer(modifier = Modifier.size(10.dp))
         ProductsTittleBar()
         Divider()
-        MakeProductsList(viewModel, textState)
+        MakeProductsList(navController, viewModel, textState)
     }
 }
 
 @Composable
-fun MakeProductsList(viewModel: ProductsViewModel, state: MutableState<TextFieldValue>) {
+fun MakeProductsList(navController: NavController, viewModel: ProductsViewModel, state: MutableState<TextFieldValue>) {
     if (viewModel.errorMessage.isEmpty()) {
-        //val itemsList = viewModel.productsList.size
         val allProducts = viewModel.productsList
         var filteredProducts: List<ProductDetail>
         Column(modifier = Modifier.padding(16.dp)) {
@@ -71,7 +70,7 @@ fun MakeProductsList(viewModel: ProductsViewModel, state: MutableState<TextField
                     resultList
                 }
                 items(filteredProducts.size) { contentList ->
-                    CardRow(filteredProducts[contentList])
+                    CardRow(navController, filteredProducts[contentList])
                 }
             }
         }
@@ -82,7 +81,10 @@ fun MakeProductsList(viewModel: ProductsViewModel, state: MutableState<TextField
 
 
 @Composable
-fun CardRow(productForList: ProductDetail) {
+fun CardRow(navController: NavController, productForList: ProductDetail) {
+    val contextForToast = LocalContext.current.applicationContext
+    val contextForToast1 = LocalContext.current
+    val context = remember { mutableStateOf(TextFieldValue("")) }
     Card(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
@@ -91,7 +93,17 @@ fun CardRow(productForList: ProductDetail) {
         elevation = 4.dp,
         shape = RoundedCornerShape(corner = CornerSize(5.dp))
     ) {
-        Row(Modifier.clickable { }) {
+        Row(
+            modifier = Modifier.clickable(onClick = {
+                Toast.makeText(contextForToast, productForList.codigoProducto, Toast.LENGTH_SHORT).show()
+                val code = productForList.codigoProducto
+                val descrip = productForList.descripcionProducto
+                val availa = productForList.precioProducto.toString()
+                navController.navigate("add_product_to_order/$code/$descrip/$availa")
+
+            })
+        )
+        {
             AsyncImage(
                 model = productForList.imagenProducto,
                 contentDescription = null,

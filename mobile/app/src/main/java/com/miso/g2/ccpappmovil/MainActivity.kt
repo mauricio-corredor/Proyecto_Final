@@ -61,7 +61,7 @@ fun Greeting(navController: NavController, viewModel: ProductsViewModel = hiltVi
                 Column(modifier = Modifier.padding(16.dp)) {
                     LazyColumn(modifier = Modifier.fillMaxHeight()) {
                         items(itemsList) { contentList ->
-                            CardRow(productForList = viewModel.productsList[contentList])
+                            //CardRow(productForList = viewModel.productsList[contentList])
                         }
                     }
                 }

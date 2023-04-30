@@ -5,5 +5,6 @@ enum class ScreensRoute(val route: String) {
     ProductsMainPage("products_main_page"),
     Greeting("greeting"),
     OrdersMainPage("orders_page"),
-    ActiveOrderPage("active_order_page")
+    ActiveOrderPage("active_order_page"),
+    AddProductToOrder("add_product_to_order/{productCode}/{productDesc}/{productAvai}")
 }
