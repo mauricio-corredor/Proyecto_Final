@@ -10,6 +10,7 @@ data class ProductDetail(
     val volumenProducto: String,
     val tipoProducto: String,
     val fechaVencimiento: String,
+    val codigoProducto: String,
     val precioProducto: Float
 )
 

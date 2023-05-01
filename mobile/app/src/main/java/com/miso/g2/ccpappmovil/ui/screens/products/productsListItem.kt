@@ -27,6 +27,7 @@ fun ProductListItem() {
         "20",
         "Running GPS Units",
         "14-12-2030",
+        "ccp001",
         246.99F
     )
 

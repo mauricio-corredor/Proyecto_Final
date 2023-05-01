@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -21,11 +24,11 @@ fun ProductsTittleBar() {
         Row() {
             Box(
                 modifier = Modifier
-                    .width(15.dp)
+                    .width(20.dp)
                     .align(Alignment.CenterVertically)
             ) {
                 Text(
-                    text = "#",
+                    text = " ",
                     style = MaterialTheme.typography.subtitle2,
                     color = Color.White,
                     modifier = Modifier
@@ -35,7 +38,8 @@ fun ProductsTittleBar() {
             Box(
                 modifier = Modifier
                     .width(73.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                Alignment.Center
             ) {
                 Text(
                     text = "Imagen",
@@ -45,26 +49,31 @@ fun ProductsTittleBar() {
             }
             Box(
                 modifier = Modifier
-                    .width(260.dp)
-                    .align(Alignment.CenterVertically)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically),
+                Alignment.Center
             ) {
                 Text(
-                    text = "Descripcion / Precio",
-                    style = MaterialTheme.typography.subtitle2,
-                    color = Color.White
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .width(30.dp)
-                    .align(Alignment.CenterVertically)
-            ) {
-                Text(
-                    text = "Cant",
-                    style = MaterialTheme.typography.subtitle2,
-                    color = Color.White
+                    buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.Yellow,
+                            )
+                        ) {
+                            append("Cod.")
+                        }
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.White,
+                            )
+                        ) {
+                            append(" | Descripcion | Precio | Disponibilidad")
+                        }
+                    },
+                    style = MaterialTheme.typography.subtitle2
                 )
             }
         }
     }
 }
+

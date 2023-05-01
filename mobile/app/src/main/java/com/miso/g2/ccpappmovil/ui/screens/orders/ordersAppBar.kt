@@ -1,4 +1,4 @@
-package com.miso.g2.ccpappmovil.ui.screens.products
+package com.miso.g2.ccpappmovil.ui.screens.orders
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -21,7 +21,7 @@ import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 
 @Composable
-fun ProductsAppBar(navController: NavController) {
+fun OrdersAppBar(navController: NavController, textBar:String) {
 
     val contextForToast = LocalContext.current.applicationContext
     Box(
@@ -40,7 +40,7 @@ fun ProductsAppBar(navController: NavController) {
                     .padding(4.dp)
             )
             Text(
-                text = "Consulta Productos",
+                text = textBar,
                 style = MaterialTheme.typography.subtitle1,
                 color = Color.White,
                 modifier = Modifier.align(Alignment.CenterVertically)
