@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class ProductoService {
 
-  public apiUrl = environment.baseUrl + '/productos/';
+  private apiUrl = environment.baseUrl + '/productos/';
   constructor(private http: HttpClient) { }
 
   getProductos(): Observable<Producto[]> {
@@ -24,6 +24,6 @@ export class ProductoService {
   addProducto(producto: Producto): Observable<Producto> {
     return this.http.post<Producto>(this.apiUrl, producto);
   }
-
+  
 
 }

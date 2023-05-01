@@ -2,7 +2,6 @@ import { tap, catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { BodegaService } from 'src/app/bodega/bodega.service';
 import { Bodega } from 'src/models/bodega';
-
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,6 +10,7 @@ import { Paises } from 'src/models/paises.enum';
 import { Ciudades } from 'src/models/ciudades.enum';
 import { ZonaLocalizacion } from 'src/models/zonaLocalizacion.enum';
 import { fakeAsync } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bodega-create',
@@ -35,7 +35,11 @@ export class BodegaCreateComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private bodegaService: BodegaService,
-    private router: Router, private toast: ToastrService) { }
+    private router: Router,
+    private toast: ToastrService,
+    public translate: TranslateService) {
+      this.translate.setDefaultLang('en');
+  }
 
   hideForm() {
     this.cancelForm.emit()
@@ -52,7 +56,7 @@ export class BodegaCreateComponent implements OnInit {
 
   createBodega(newBodega: Bodega) {
     this.bodegaService.addBodega(newBodega).subscribe(() => {
-      this.toast.success($localize`Bodega created`);
+      this.toast.success(`Bodega created`);
       this.hideForm()
     }, err => {
       this.toast.error(err, 'Error');
@@ -60,7 +64,7 @@ export class BodegaCreateComponent implements OnInit {
   }
 
   showSuccess(c: Bodega) {
-    this.toast.success($localize`Bodega created successfully!`);
+    this.toast.success(`Bodega created successfully!`);
   }
 
   ngOnInit(): void {

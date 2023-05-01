@@ -7,23 +7,40 @@
       <button class="navbar-toggler" type="button" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <div class="custom-select mx-2" [class.open]="selectOpen">
+        <select id="selectedCountry" class="select-hide" (change)="onSelectCountry($event)">
+          <option value="USD" [selected]="selectedCountry=='USD'">Ecuador</option>
+          <option value="PEN" [selected]="selectedCountry=='EUR'">Perú</option>
+          <option value="COP" [selected]="selectedCountry=='COP'">Colombia</option>
+          <option value="CLP" [selected]="selectedCountry=='CLP'">Chile</option>
+          <option value="ARS" [selected]="selectedCountry=='ARS'">Argentina</option>
+          <!-- add more options as needed -->
+        </select>
+      </div>
+      <div class="custom-select" [class.open]="selectOpen">
+        <select id="language" class="select-hide" (change)="onSelectLanguage($event)">
+          <option value="en" [selected]="language=='en'">English</option>
+          <option value="es" [selected]="language=='es'">Spanish</option>
+        </select>
+      </div>
       <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
           <li class="nav-item">
-            <a id="bodegas-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/bodegas" i18n>Bodegas</a>
+            <a id="albums-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/bodegas" i18n>{{ 'Warehouse' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a id="performers-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/performers/list" i18n>Inventarios</a>
+            <a id="performers-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/inventario" i18n>{{ 'Inventory' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a id="collectors-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/collectors" i18n>Almacenamiento</a>
+            <a id="collectors-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/collectors" i18n>{{ 'Storage' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a id="productos-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/productos" i18n>Productos</a>
+            <a id="productos-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/productos" i18n>{{ 'Products' | translate }}</a>
           </li>
         </ul>
           <form class="d-flex">
-            <input class="form-control me-2" type="search" i18n-placeholder placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" i18n-placeholder placeholder="{{ 'Search' | translate }}" aria-label="Search">
             <button class="btn" type="submit"><img src="assets/search.svg" alt="Buscar"></button>
           </form>
           <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block user-menu p-3" title="Usuario" *ngIf="isCollapsed">

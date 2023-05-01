@@ -2,7 +2,6 @@ import { tap, catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { ProductoService } from 'src/app/producto/producto.service';
 import { Producto } from 'src/models/producto';
-
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +11,7 @@ import { Paises } from 'src/models/paises.enum';
 import { Ciudades } from 'src/models/ciudades.enum';
 import { ZonaLocalizacion } from 'src/models/zonaLocalizacion.enum';
 import { fakeAsync } from '@angular/core/testing';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-producto-create',
@@ -34,9 +34,14 @@ export class ProductoCreateComponent implements OnInit {
   @Output() cancelForm = new EventEmitter();
 
 
-  constructor(private formBuilder: FormBuilder,
-    private productoService: ProductoService,
-    private router: Router, private toast: ToastrService) { }
+    constructor(private formBuilder: FormBuilder,
+      private productoService: ProductoService,
+      public router: Router,
+      private toast: ToastrService,
+      public translate: TranslateService
+    ) {
+      this.translate.setDefaultLang('en');
+    }
 
   hideForm() {
     this.cancelForm.emit()
@@ -53,7 +58,7 @@ export class ProductoCreateComponent implements OnInit {
 
   createProducto(newProducto: Producto) {
     this.productoService.addProducto(newProducto).subscribe(() => {
-      this.toast.success($localize`Producto created`);
+      this.toast.success(`Producto created`);
       this.hideForm()
     }, err => {
       this.toast.error(err, 'Error');
@@ -61,7 +66,7 @@ export class ProductoCreateComponent implements OnInit {
   }
 
   showSuccess(c: Producto) {
-    this.toast.success($localize`Producto created successfully!`);
+    this.toast.success(`Producto created successfully!`);
   }
 
   ngOnInit(): void {

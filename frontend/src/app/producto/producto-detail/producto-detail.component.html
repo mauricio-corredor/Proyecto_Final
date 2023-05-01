@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <p id="productos" class="text-center" i18n>Detalle de producto</p>
+      <p id="productos" class="text-center" i18n>{{'Product detail' | translate}}</p>
     </div>
   </div>
   <table *ngIf="productoDetail"
@@ -15,8 +15,8 @@
     aria-describedby="producto_detail">
     <thead>
       <tr>
-        <th scope="col" class="text-center p-3 align-left" i18n>descripcion</th>
-        <th scope="col" class="text-center p-3 align-left" i18n>Imagen</th>
+        <th scope="col" class="text-center p-3 align-left" i18n>{{'Description' | translate}}</th>
+        <th scope="col" class="text-center p-3 align-left" i18n>{{'Image' | translate}}</th>
       </tr>
     </thead>
     <tbody>
@@ -32,7 +32,7 @@
             type="button"
             class="btn btn-standard btn-sm"
             routerLink="/productos/{{productoDetail.idProducto}}"
-            >Ocultar</button>
+            i18n>{{'Hide' | translate}}</button>
         </td>
 
     </tbody>
