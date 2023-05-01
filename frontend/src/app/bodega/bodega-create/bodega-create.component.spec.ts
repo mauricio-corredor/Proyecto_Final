@@ -22,9 +22,7 @@ describe('BodegaCreateComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('BodegaCreateComponent', () => {
-    it('debería estar definido', () => {
-      expect(BodegaCreateComponent).toBeDefined();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

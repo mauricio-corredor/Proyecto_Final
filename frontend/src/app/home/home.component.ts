@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/models/producto';
 import { ProductoService } from '../producto/producto.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,12 @@ export class HomeComponent implements OnInit {
   productos: Producto[] = [];
   newProductos: Producto[] = [];
 
-  constructor(private productoService: ProductoService) { }
+
+  constructor(private productoService: ProductoService,
+    public translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   ngOnInit() {
     this.productoService.getProductos().subscribe(productos => {

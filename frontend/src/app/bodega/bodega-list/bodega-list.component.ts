@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Ciudades }from '../../../models/ciudades.enum';
 import { Paises }from '../../../models/paises.enum';
 import { ZonaLocalizacion } from 'src/models/zonaLocalizacion.enum';
+import { TranslateService } from '@ngx-translate/core';
+
 
 
 @Component({
@@ -89,7 +91,11 @@ export class BodegaListComponent implements OnInit{
 
   constructor(private bodegaService: BodegaService,
     public router: Router,
-    public route: ActivatedRoute) { }
+    public route: ActivatedRoute,
+    public translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   performFilters(): Bodega[] {
     let bodegas: Bodega[] = []

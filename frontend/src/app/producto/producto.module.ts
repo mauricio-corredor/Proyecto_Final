@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductoCreateComponent } from './producto-create/producto-create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
+import { CurrencyPipe } from 'src/app/shared/currency.pipe';
 
 const routes: Routes = [
   { path: 'productos', component: ProductoListComponent },
@@ -24,17 +25,14 @@ const routes: Routes = [
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
+
   ],
   exports: [
     ProductoListComponent,
-    ProductoDetailComponent,
-    ProductoCreateComponent
+    ProductoDetailComponent
   ],
-  providers: [],
-  bootstrap: [ProductoListComponent,
-    ProductoDetailComponent,
-    ProductoCreateComponent]
+  providers: [CurrencyPipe],
 })
 export class ProductoModule { }

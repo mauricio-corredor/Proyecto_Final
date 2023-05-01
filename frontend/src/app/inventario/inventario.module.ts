@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BodegaListComponent } from './bodega-list/bodega-list.component';
+import { InventarioComponent } from './inventario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { BodegaCreateComponent } from './bodega-create/bodega-create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
+import { CurrencyPipe } from 'src/app/shared/currency.pipe';
 
 const routes: Routes = [
-  { path: 'bodegas', component: BodegaListComponent }
+  { path: 'inventario', component: InventarioComponent },
 ];
 
 @NgModule({
   declarations: [
-    BodegaListComponent,
-    BodegaCreateComponent
+    InventarioComponent
   ],
   imports: [
     CommonModule,
@@ -23,9 +22,12 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     SharedModule
+
   ],
   exports: [
-    BodegaListComponent
-  ]
+    InventarioComponent,
+
+  ],
+  providers: [CurrencyPipe],
 })
-export class BodegaModule { }
+export class InventarioModule { }
