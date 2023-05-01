@@ -1,6 +1,9 @@
 package com.miso.g2.ccpappmovil.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,6 +46,7 @@ fun navigation() {
             val productCode = navBackStackEntry.arguments?.getString("productCode")
             val productDesc = navBackStackEntry.arguments?.getString("productDesc")
             val productAvai = navBackStackEntry.arguments?.getString("productAvai")
+            val textState = remember { mutableStateOf(TextFieldValue("")) }
             if (productCode != null) {
                 if (productDesc != null) {
                     if (productAvai != null) {
@@ -50,7 +54,8 @@ fun navigation() {
                             navController = navController,
                             productCode = productCode,
                             productDesc = productDesc,
-                            productAvai = productAvai
+                            productAvai = productAvai,
+                            textState
                         )
                     }
                 }

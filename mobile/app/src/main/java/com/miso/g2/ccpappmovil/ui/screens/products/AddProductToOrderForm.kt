@@ -33,11 +33,10 @@ fun AddProductToOrderForm(
     navController: NavController,
     productCode: String,
     productDesc: String,
-    productAvai: String
-    //quaState: MutableState<TextFieldValue>
+    productAvai: String, quaState: MutableState<TextFieldValue>
 ) {
     val quaFieldError = remember { mutableStateOf("") }
-    //val quaTextField = remember { mutableStateOf(quaState) }
+    val quaTextField = remember { mutableStateOf(quaState) }
     Dialog(onDismissRequest = { }) {
         Surface(
             shape = RoundedCornerShape(6.dp),
@@ -165,20 +164,21 @@ fun AddProductToOrderForm(
                                     .padding(4.dp)
                             )
                         }
-//                        Box(
-//                            modifier = Modifier
-//                                .width(120.dp)
-//                                .align(Alignment.CenterVertically),
-//                            Alignment.Center
-//                        ) {
-//                            TextField(
-//                                value = quaState.value,
-//                                onValueChange = { value ->
-//                                    quaState.value = value
-//                                },
-//                                modifier = Modifier
-//                                    .fillMaxWidth(),
-//                                textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+                        //Campo para agregar cantidad para orden
+                        Box(
+                            modifier = Modifier
+                                .width(120.dp)
+                                .align(Alignment.CenterVertically),
+                            Alignment.Center
+                        ) {
+                            TextField(
+                                value = quaState.value,
+                                onValueChange = { value ->
+                                    quaState.value = value
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                textStyle = TextStyle(color = Color.White, fontSize = 14.sp),
 //                                leadingIcon = {
 //                                    Icon(
 //                                        Icons.Default.Search,
@@ -188,38 +188,38 @@ fun AddProductToOrderForm(
 //                                            .size(24.dp)
 //                                    )
 //                                },
-//                                trailingIcon = {
-//                                    if (quaState.value != TextFieldValue("")) {
-//                                        IconButton(
-//                                            onClick = {
-//                                                quaState.value =
-//                                                    TextFieldValue("") // Remove text from TextField when you press the 'X' icon
-//                                            }
-//                                        ) {
-//                                            Icon(
-//                                                Icons.Default.Close,
-//                                                contentDescription = "",
-//                                                modifier = Modifier
-//                                                    .padding(15.dp)
-//                                                    .size(24.dp)
-//                                            )
-//                                        }
-//                                    }
-//                                },
-//                                singleLine = true,
-//                                shape = RectangleShape, // The TextFiled has rounded corners top left and right by default
-//                                colors = TextFieldDefaults.textFieldColors(
-//                                    textColor = Color.White,
-//                                    cursorColor = Color.White,
-//                                    leadingIconColor = Color.White,
-//                                    trailingIconColor = Color.White,
-//                                    backgroundColor = colorResource(id = com.miso.g2.ccpappmovil.R.color.backgroundMain),
-//                                    focusedIndicatorColor = Color.Transparent,
-//                                    unfocusedIndicatorColor = Color.Transparent,
-//                                    disabledIndicatorColor = Color.Transparent
-//                                )
-//                            )
-//                        }
+                                trailingIcon = {
+                                    if (quaState.value != TextFieldValue("")) {
+                                        IconButton(
+                                            onClick = {
+                                                quaState.value =
+                                                    TextFieldValue("") // Remove text from TextField when you press the 'X' icon
+                                            }
+                                        ) {
+                                            Icon(
+                                                Icons.Default.Close,
+                                                contentDescription = "",
+                                                modifier = Modifier
+                                                    .padding(15.dp)
+                                                    .size(16.dp)
+                                            )
+                                        }
+                                    }
+                                },
+                                singleLine = true,
+                                shape = RectangleShape, // The TextFiled has rounded corners top left and right by default
+                                colors = TextFieldDefaults.textFieldColors(
+                                    textColor = Color.White,
+                                    cursorColor = Color.White,
+                                    leadingIconColor = Color.White,
+                                    trailingIconColor = Color.White,
+                                    backgroundColor = colorResource(id = com.miso.g2.ccpappmovil.R.color.backgroundMain),
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    disabledIndicatorColor = Color.Transparent
+                                )
+                            )
+                        }
 
 
                     }
