@@ -1,38 +1,38 @@
-<a class="btn btn-standard btn-sm" (click)="hideForm()" i18n>&#8249; Go back</a>
+<a class="btn btn-standard btn-sm" (click)="hideForm()" i18n>&#8249; {{ 'Go back' | translate }}</a>
 <div class="container">
-  <h2 class="text-center my-4">{{ openForm ? 'Create Product' : '' }}</h2>
+  <h2 class="text-center my-4">{{ openForm ? 'Create warehouse' : '' }}</h2>
 
   <form [formGroup]="bodegaForm" (ngSubmit)="createBodega(bodegaForm.value)">
     <div class="form-group">
-      <label for="nombreBodega">{{ 'Nombre' | localize }}</label>
+      <label for="nombreBodega">{{ 'Name' | translate }}</label>
       <input type="text" class="form-control" id="nombreBodega" formControlName="nombreBodega" required>
     </div>
 
       <div class="form-group">
-        <label for="ubicacionPais">{{ 'Pais' | localize }}</label>
+        <label for="ubicacionPais">{{ 'Country' | translate }}</label>
         <input type="text" class="form-control" id="ubicacionPais" formControlName="ubicacionPais" required>
       </div>
       <div class="form-group">
-        <label for="ubicacionCiudad">{{ 'Ciudad' | localize }}</label>
+        <label for="ubicacionCiudad">{{ 'City' | translate }}</label>
         <input type="text" class="form-control" id="ubicacionCiudad" formControlName="ubicacionCiudad" required>
       </div>
       <div class="form-group">
-        <label for="zonaLocalizacion">{{ 'Zona' | localize }}</label>
+        <label for="zonaLocalizacion">{{ 'Zone' | translate }}</label>
         <input type="text" class="form-control" id="zonaLocalizacion" formControlName="zonaLocalizacion" required>
       </div>
       <div class="form-group">
-        <label for="capacidadVolumen">{{ 'Capacidad de Volumen' | localize }}</label>
+        <label for="capacidadVolumen">{{ 'Total capacity' | translate }}</label>
         <input type="number" class="form-control" id="capacidadVolumen" formControlName="capacidadVolumen" required>
       </div>
       <div class="form-group">
-        <label for="capacidadUsada">{{ 'Used capacity' | localize }}</label>
+        <label for="capacidadUsada">{{ 'Used capacity' | translate }}</label>
         <input type="number" class="form-control" id="capacidadUsada" formControlName="capacidadUsada" required>
       </div>
       <div class="form-group">
-        <label for="CapacidadDisponible">{{ 'Available capacity' | localize }}</label>
+        <label for="CapacidadDisponible">{{ 'Available capacity' | translate }}</label>
         <input type="number" class="form-control" id="CapacidadDisponible" formControlName="CapacidadDisponible" required>
       </div>
-    <button type="submit" class="btn btn-primary mt-2">{{ 'Save' | localize }}</button>
-    <button type="button" class="btn btn-secondary mt-2" (click)="hideForm()">{{ 'Cancel' | localize }}</button>
+    <button type="submit" class="btn btn-primary mt-2">{{ 'Create' | translate }}</button>
+    <button type="button" class="btn btn-secondary mt-2" (click)="hideForm()">{{ 'Cancel' | translate }}</button>
   </form>
 </div>

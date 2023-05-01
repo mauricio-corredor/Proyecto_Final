@@ -48,6 +48,7 @@ fun ProductsAppBar(navController: NavController) {
             Spacer(Modifier.size(20.dp))
             IconButton(onClick = {
                 Toast.makeText(contextForToast, "Ir al consulta de ordenes", Toast.LENGTH_SHORT).show()
+                navController.navigate(ScreensRoute.OrdersMainPage.route)
             }) {
                 Icon(
                     imageVector = Icons.Outlined.List,
@@ -57,6 +58,7 @@ fun ProductsAppBar(navController: NavController) {
             }
             IconButton(onClick = {
                 Toast.makeText(contextForToast, "Ir al consulta de productos", Toast.LENGTH_SHORT).show()
+                navController.navigate(ScreensRoute.ProductsMainPage.route)
             }) {
                 Icon(
                     imageVector = Icons.Outlined.Search,
@@ -66,6 +68,7 @@ fun ProductsAppBar(navController: NavController) {
             }
             IconButton(onClick = {
                 Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
+                navController.navigate(ScreensRoute.ActiveOrderPage.route)
             }) {
                 Icon(
                     imageVector = Icons.Filled.ShoppingCart,

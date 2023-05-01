@@ -1,10 +1,14 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Producto } from '../../../models/producto';
 import { ProductoService } from '../producto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/models/tipoProducto1.enum';
-
+import { TranslateService } from '@ngx-translate/core';
+import { SharedService } from '../../shared/shared.service';
+import { Observable } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
+import { AppComponent } from './../../app.component';
 
 @Component({
   selector: 'app-producto',
@@ -12,6 +16,7 @@ import { TipoProducto } from 'src/models/tipoProducto1.enum';
   styleUrls: ['./producto-list.component.css']
 })
 export class ProductoListComponent implements OnInit{
+  country: string ='';
   imageWidth: number = 250;
   imageHeight: number = 230;
   scroll: boolean = false;
@@ -29,6 +34,9 @@ export class ProductoListComponent implements OnInit{
     tipo: "",
     codigo: ""
   };
+  //selectedCurrency: string = 'USD';
+  exchangeRate$!: Observable<number>;
+
 
   openForm: boolean = false;
   private _descripcionFilter: string = '';
@@ -86,9 +94,18 @@ export class ProductoListComponent implements OnInit{
     this.filteredProductos = this.performFilters();
   }
 
-  constructor(private productoService: ProductoService,
+  constructor(private appComponent: AppComponent,
+    private sharedService: SharedService,
+    private productoService: ProductoService,
     public router: Router,
-    public route: ActivatedRoute) { }
+    public route: ActivatedRoute,
+    public translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+
+  }
+
+
 
   performFilters(): Producto[] {
     let productos: Producto[] = []
@@ -156,14 +173,18 @@ export class ProductoListComponent implements OnInit{
   }
 
 
-
   refresh() {
     window.location.reload();
   }
 
 
-
   ngOnInit(): void {
+    this.sharedService.selectedCountry$.subscribe(country => {
+      this.country = country;
+      console.log('Selected country:', this.country);
+      // do any other processing that depends on the selectedCountry value
+    });
+    console.log('Selected country from producto:', this.country);
     this.route.queryParams.subscribe(p => {
       if (p['proveedor'] || p['descripcion'] || p['tipo'] || p['codigo']) {
         setTimeout(() => {
@@ -194,6 +215,9 @@ export class ProductoListComponent implements OnInit{
       TipoProducto.Perecederos,
       TipoProducto.Verduras
     ]
+
+
+
   }
 
 }

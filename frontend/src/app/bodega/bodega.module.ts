@@ -5,8 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { BodegaCreateComponent } from './bodega-create/bodega-create.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LocalizePipe } from '../localize.pipe';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   { path: 'bodegas', component: BodegaListComponent }
@@ -15,16 +14,15 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     BodegaListComponent,
-    BodegaCreateComponent,
-    LocalizePipe // Add the LocalizePipe here
+    BodegaCreateComponent
   ],
   imports: [
     CommonModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   exports: [
     BodegaListComponent

@@ -9,6 +9,11 @@ export class AppController {
     @Param('paisInventario') paisInventario: string,
     @Param('idProducto') idProducto: string,
   ) {
-    return this.appService.findOne(paisInventario, idProducto);
+    const url = `${process.env.urlProductos}/${paisInventario}/${idProducto}`;
+    const producto = this.appService.getResponseUrl(url);
+    const inventario = this.appService.findOne(paisInventario, idProducto);
+    producto['paisInventario'] = paisInventario;
+    producto['cantidadTotal'] = inventario['cantidadTotal'];
+    return producto;
   }
 }

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Producto } from '../../../models/producto';
 import { ProductoService } from '../producto.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-producto-detail',
@@ -26,11 +26,13 @@ export class ProductoDetailComponent implements OnInit {
 
   productoId: string = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private productoService: ProductoService
-  ) { }
+  constructor(private productoService: ProductoService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public translate: TranslateService
+  ) {
+    this.translate.setDefaultLang('en');
+  }
 
   getProductoDetail() {
     this.productoService.getProductoById(this.productoId).subscribe(c => {

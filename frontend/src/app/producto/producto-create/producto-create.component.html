@@ -1,61 +1,61 @@
-<a class="btn btn-standard btn-sm" (click)="hideForm()" i18n>&#8249; Go back</a>
+<a class="btn btn-standard btn-sm" (click)="hideForm()" i18n>&#8249; {{'Go back' | translate}}</a>
 <div class="container">
   <h2 class="text-center my-4">{{ openForm ? 'Create Product' : '' }}</h2>
 
   <form [formGroup]="productoForm" (ngSubmit)="createProducto(productoForm.value)">
     <div class="form-group">
-      <label for="descripcionProducto">Description:</label>
+      <label for="descripcionProducto">{{'Description' | translate}}:</label>
       <input type="text" class="form-control" id="descripcionProducto" formControlName="descripcionProducto">
     </div>
 
     <div class="form-group">
-      <label for="imagenProducto">Image URL:</label>
+      <label for="imagenProducto">{{'Image URL' | translate}}:</label>
       <input type="text" class="form-control" id="imagenProducto" formControlName="imagenProducto" (input)="onTypingUrl()">
     </div>
 
     <div *ngIf="url" class="form-group">
       <img [src]="url" alt="Product Image" class="img-thumbnail">
-      <button type="button" class="btn btn-sm btn-danger mt-2" (click)="clearUrl($event)">Clear</button>
+      <button type="button" class="btn btn-sm btn-danger mt-2" (click)="clearUrl($event)">{{'Clear' | translate}}</button>
     </div>
 
     <div class="form-group">
-      <label for="proveedor">Provider:</label>
+      <label for="proveedor">{{'Provider' | translate}}:</label>
       <input type="text" class="form-control" id="proveedor" formControlName="proveedor">
     </div>
 
     <div class="form-group">
-      <label for="fabricanteProducto">Manufacturer:</label>
+      <label for="fabricanteProducto">{{'Manufacturer' | translate}}:</label>
       <input type="text" class="form-control" id="fabricanteProducto" formControlName="fabricanteProducto">
     </div>
 
     <div class="form-group">
-      <label for="volumenProducto">Volume:</label>
+      <label for="volumenProducto">{{'Volume' | translate}}:</label>
       <input type="text" class="form-control" id="volumenProducto" formControlName="volumenProducto">
     </div>
 
     <div class="form-group">
-      <label for="tipoProducto">Type:</label>
+      <label for="tipoProducto">{{'Type' | translate}}:</label>
       <select class="form-control" id="tipoProducto" formControlName="tipoProducto">
         <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="fechaVencimiento">Expiration Date:</label>
+      <label for="fechaVencimiento">{{'Expiration date' | translate}}:</label>
       <input type="date" class="form-control" id="fechaVencimiento" formControlName="fechaVencimiento">
     </div>
 
     <div class="form-group">
-      <label for="codigoProducto">Code:</label>
+      <label for="codigoProducto">{{'Code' | translate}}:</label>
       <input type="text" class="form-control" id="codigoProducto" formControlName="codigoProducto">
     </div>
 
     <div class="form-group">
-      <label for="precioProducto">Price:</label>
+      <label for="precioProducto">{{'Price' | translate}}:</label>
       <input type="text" class="form-control" id="precioProducto" formControlName="precioProducto">
     </div>
 
-    <button type="submit" class="btn btn-primary mt-2" >Create</button>
-    <button type="button" class="btn btn-danger mt-2 ml-2" (click)="hideForm()">Cancel</button>
+    <button type="submit" class="btn btn-primary mt-2" >{{'Create' | translate}}</button>
+    <button type="button" class="btn btn-danger mt-2 ml-2" (click)="hideForm()">{{'Cancel' | translate}}</button>
   </form>
 </div>
