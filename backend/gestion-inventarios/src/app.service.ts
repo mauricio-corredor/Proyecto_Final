@@ -6,6 +6,9 @@ import { Repository } from 'typeorm';
 import { Cron } from '@nestjs/schedule';
 import { CronExpression } from '@nestjs/schedule/dist';
 import { SqsMessageHandler } from '@ssut/nestjs-sqs';
+import { HttpService } from '@nestjs/axios';
+import { map } from 'rxjs/operators';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -19,7 +22,18 @@ export class AppService {
     private readonly appRepository: Repository<AppEntity>,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
+    private readonly httpService: HttpService,
   ) {}
+  public getResponseUrl(url: string): any {
+    return lastValueFrom(
+      this.httpService.get<any>(url).pipe(
+        map((response) => {
+          return response.data;
+        }),
+      ),
+    );
+  }
+
   async findOne(paisInventario: string, idProducto: string): Promise<any> {
     const key = `${paisInventario}_${idProducto}`;
     try {
@@ -100,6 +114,23 @@ export class AppService {
       await this.updateCache(key, appEntity);
     } catch (er) {
       this.logger.log('queue not found');
+    }
+  }
+
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async replyDataBase() {
+    try {
+      const productos = await this.appRepository.find();
+      let producto: any;
+      for (producto in productos) {
+        this.logger.log(
+          `replyDataBase idProducto: ${producto.idProducto}, paisInventario: ${producto.paisInventario}`,
+        );
+        const key = `${producto.paisInventario}_${producto.idProducto}`;
+        await this.updateCache(key, producto);
+      }
+    } catch (er) {
+      this.logger.log('DB not found');
     }
   }
 }
