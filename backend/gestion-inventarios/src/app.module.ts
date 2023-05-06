@@ -6,6 +6,7 @@ import { AppEntity } from './app.entity';
 import { redisStore } from 'cache-manager-redis-yet';
 import { SqsModule } from '@ssut/nestjs-sqs';
 import * as AWS from 'aws-sdk';
+import { HttpModule } from '@nestjs/axios';
 
 AWS.config.update({
   region: process.env.aws_region,
@@ -15,6 +16,7 @@ AWS.config.update({
 
 @Module({
   imports: [
+    HttpModule,
     CacheModule.register({
       store: redisStore,
       socket: {

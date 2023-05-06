@@ -17,6 +17,7 @@ export class AppService {
     paisInventario: '',
   };
   private readonly logger = new Logger(AppService.name);
+
   constructor(
     @InjectRepository(AppEntity)
     private readonly appRepository: Repository<AppEntity>,
@@ -24,6 +25,7 @@ export class AppService {
     private cacheManager: Cache,
     private readonly httpService: HttpService,
   ) {}
+
   public getResponseUrl(url: string): any {
     return lastValueFrom(
       this.httpService.get<any>(url).pipe(
@@ -55,6 +57,28 @@ export class AppService {
         from: 'cache not found. Try again in few minutes',
       };
     }
+  }
+
+  async findByCountry(country: string): Promise<any> {
+    const values: any[] = [];
+    const keys = await this.cacheManager.store.keys(country + '*');
+    let index: any;
+    for (index in keys) {
+      const value = await this.cacheManager.get(keys[index]);
+      values.push(value);
+    }
+    return values;
+  }
+
+  async findAll(): Promise<any> {
+    const values: any[] = [];
+    const keys = await this.cacheManager.store.keys('*');
+    let index: any;
+    for (index in keys) {
+      const value = await this.cacheManager.get(keys[index]);
+      values.push(value);
+    }
+    return values;
   }
 
   async updateEntity(
@@ -118,16 +142,18 @@ export class AppService {
   }
 
   @Cron(CronExpression.EVERY_10_MINUTES)
-  async replyDataBase() {
+  public async replyDataBase() {
     try {
       const productos = await this.appRepository.find();
-      let producto: any;
-      for (producto in productos) {
-        this.logger.log(
-          `replyDataBase idProducto: ${producto.idProducto}, paisInventario: ${producto.paisInventario}`,
-        );
-        const key = `${producto.paisInventario}_${producto.idProducto}`;
-        await this.updateCache(key, producto);
+      this.logger.log(`replyDataBase productos: ${JSON.stringify(productos)}`);
+      let index: any;
+      for (index in productos) {
+        const producto = productos[index];
+        this.logger.log(`replyDataBase producto: ${JSON.stringify(producto)}`);
+        const key = `${producto['paisInventario']}_${producto['idProducto']}`;
+        this.logger.log(`replyDataBase key: ${key}`);
+        await this.cacheManager.set(key, producto, 9000000000000000);
+        this.logger.log('replyDataBase save in cache');
       }
     } catch (er) {
       this.logger.log('DB not found');
