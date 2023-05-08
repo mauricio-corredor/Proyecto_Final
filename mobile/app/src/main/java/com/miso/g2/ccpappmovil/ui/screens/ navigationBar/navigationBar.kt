@@ -1,4 +1,4 @@
-package com.miso.g2.ccpappmovil.ui.screens.orders
+package com.miso.g2.ccpappmovil.ui.screens.products
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -14,14 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 
 @Composable
-fun OrdersAppBar(navController: NavController, textBar:String) {
+fun NavigationBar(navController: NavController, tittleBar: String) {
 
     val contextForToast = LocalContext.current.applicationContext
     Box(
@@ -30,17 +33,17 @@ fun OrdersAppBar(navController: NavController, textBar:String) {
             .fillMaxWidth()
             .background(color = BackgroundMain)
     ) {
-        Row() {
+        Row(modifier = Modifier.matchParentSize()) {
             Image(
                 painter = painterResource(id = R.drawable.logo_ccp_fondo_blanco),
-                contentDescription = "Logo de CCP",
+                contentDescription = R.string.ccp_logo_content.toString(),
                 modifier = Modifier
                     .size(37.dp)
                     .align(Alignment.CenterVertically)
                     .padding(4.dp)
             )
             Text(
-                text = textBar,
+                text = tittleBar,
                 style = MaterialTheme.typography.subtitle1,
                 color = Color.White,
                 modifier = Modifier.align(Alignment.CenterVertically)
@@ -68,7 +71,7 @@ fun OrdersAppBar(navController: NavController, textBar:String) {
             }
             IconButton(onClick = {
                 Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
-                navController.navigate(ScreensRoute.ActiveOrderPage.route)
+                navController.navigate(ScreensRoute.ShoppingCartPage.route)
             }) {
                 Icon(
                     imageVector = Icons.Filled.ShoppingCart,
@@ -88,4 +91,12 @@ fun OrdersAppBar(navController: NavController, textBar:String) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewNavigationBar() {
+    val navController = rememberNavController()
+    val tittleBar= stringResource(id = R.string.shoppingcart_page)
+    NavigationBar(navController = navController, tittleBar)
 }

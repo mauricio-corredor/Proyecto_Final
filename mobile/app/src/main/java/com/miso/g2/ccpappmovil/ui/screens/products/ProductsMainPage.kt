@@ -36,7 +36,8 @@ fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel 
     })
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     Column {
-        ProductsAppBar(navController)
+        //ProductsAppBar(navController)
+        NavigationBar(navController = navController, tittleBar = stringResource(R.string.products_page))
         Divider()
         //Spacer(modifier = Modifier.size(10.dp))
         SearchProductBar(textState)

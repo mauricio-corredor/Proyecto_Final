@@ -5,4 +5,16 @@
     <string name="pesos">$</string>
     <string name="codigoProducto">Cod.</string>
     <string name="placeholder_search">Búsqueda</string>
+    <string name="cart_quantity">%1$sx&#160;</string>
+    <string name="cart_price">$%1$s</string>
+    <string name="orders_page">Consulta Ordenes</string>
+    <string name="products_page">Consulta Productos</string>
+    <string name="shoppingcart_page">Carrito de compras</string>
+    <string name="home_page">Inicio</string>
+    <string name="ccp_logo_content">Logo de CCP</string>
+    <string name="view_products">Ver Productos</string>
+    <string name="view_orders">Ver Ordenes</string>
+    <string name="view_cart">Ver Carrito</string>
+    <string name="exit_app">Salir</string>
+    <string name="search_placeholder">Buscar...</string>
 </resources>

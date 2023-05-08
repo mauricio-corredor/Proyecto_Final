@@ -9,13 +9,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.miso.g2.ccpappmovil.Greeting
-import com.miso.g2.ccpappmovil.model.ProductDetail
+import com.miso.g2.ccpappmovil.ExitPage
 import com.miso.g2.ccpappmovil.ui.screens.ProductsMainPage
 import com.miso.g2.ccpappmovil.ui.screens.homePage.homePage
 import com.miso.g2.ccpappmovil.ui.screens.orders.ActiveOrderPage
 import com.miso.g2.ccpappmovil.ui.screens.orders.OrdersMainPage
 import com.miso.g2.ccpappmovil.ui.screens.products.AddProductToOrderForm
+import com.miso.g2.ccpappmovil.ui.screens.shoppingCart.ShoppingCartMainPage
 
 @Composable
 fun navigation() {
@@ -27,14 +27,17 @@ fun navigation() {
         composable(ScreensRoute.ProductsMainPage.route) {
             ProductsMainPage(navController)
         }
-        composable(ScreensRoute.Greeting.route) {
-            Greeting(navController)
+        composable(ScreensRoute.ExitApp.route) {
+            ExitPage()
         }
         composable(ScreensRoute.OrdersMainPage.route) {
             OrdersMainPage(navController)
         }
         composable(ScreensRoute.ActiveOrderPage.route) {
             ActiveOrderPage(navController)
+        }
+        composable(ScreensRoute.ShoppingCartPage.route) {
+            ShoppingCartMainPage(navController)
         }
         composable(ScreensRoute.AddProductToOrder.route, arguments = listOf(
             navArgument("productCode") { type = NavType.StringType },
