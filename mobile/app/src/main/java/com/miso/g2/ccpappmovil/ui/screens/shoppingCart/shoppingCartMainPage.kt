@@ -1,46 +1,61 @@
 package com.miso.g2.ccpappmovil.ui.screens.shoppingCart
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.CartItemArticleDetail
 import com.miso.g2.ccpappmovil.ui.screens.products.NavigationBar
+import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 
 @Composable
 fun ShoppingCartMainPage(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .background(color = BackgroundMain)
+            .fillMaxSize()
+    ) {
+        //cambiar cuando se tenga el view model de ordenes
+        Column {
+            NavigationBar(navController = navController, tittleBar = stringResource(id = R.string.shoppingcart_page))
+            //CartAppBar(navController)
 
-    //cambiar cuando se tenga el view model de ordenes
-    Column {
-        NavigationBar(navController = navController, tittleBar = stringResource(id = R.string.shoppingcart_page) )
-        //CartAppBar(navController)
-        
-        //Lista de carrito de pruebas
-        val articlesOnCart: MutableList<CartItemArticleDetail> = mutableListOf()
-        val articleOne = CartItemArticleDetail(
-            "62544cad-3dfd-42b1-bc4d-18c09dfdaaf1",
-            "Articulo de prueba 1",
-            "https://m.media-amazon.com/images/I/61NGnpjoRDL._AC_SL1500_.jpg",
-            "Computers",
-            "MOCK1",
-            150.9F,
-            2
-        )
-        val articleTwo = CartItemArticleDetail(
-            "62544cad-3dfd-42b1-bc4d-18c09dfdaaf2",
-            "Articulo de prueba 2",
-            "https://m.media-amazon.com/images/I/61pUul1oDlL._AC_SL1500_.jpg",
-            "Accessories",
-            "MOCK1",
-            33.5F,
-            1
-        )
-        articlesOnCart.add(articleOne)
-        articlesOnCart.add(articleTwo)
-        //
-        
-        ShoppingCartList(carItemList = articlesOnCart)
-
+            //Lista de carrito de pruebas
+            val articlesOnCart: MutableList<CartItemArticleDetail> = mutableListOf()
+            val articleOne = CartItemArticleDetail(
+                "62544cad-3dfd-42b1-bc4d-18c09dfdaaf1",
+                "Articulo de prueba 1",
+                "https://m.media-amazon.com/images/I/61NGnpjoRDL._AC_SL1500_.jpg",
+                "Computers",
+                "MOCK1",
+                150.9F,
+                2
+            )
+            val articleTwo = CartItemArticleDetail(
+                "62544cad-3dfd-42b1-bc4d-18c09dfdaaf2",
+                "Articulo de prueba 2",
+                "https://m.media-amazon.com/images/I/61pUul1oDlL._AC_SL1500_.jpg",
+                "Accessories",
+                "MOCK1",
+                33.5F,
+                1
+            )
+            articlesOnCart.add(articleOne)
+            articlesOnCart.add(articleTwo)
+            ShoppingCartList(carItemList = articlesOnCart)
+        }
     }
+}
+@Preview
+@Composable
+fun PreviewShoppingCartMainPage() {
+    val navController = rememberNavController()
+    ShoppingCartMainPage(navController)
 }
