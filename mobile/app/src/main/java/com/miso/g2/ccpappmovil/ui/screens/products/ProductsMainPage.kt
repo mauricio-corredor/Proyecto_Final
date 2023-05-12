@@ -96,11 +96,14 @@ fun CardRow(navController: NavController, productForList: ProductDetail) {
     ) {
         Row(
             modifier = Modifier.clickable(onClick = {
-                Toast.makeText(contextForToast, productForList.codigoProducto, Toast.LENGTH_SHORT).show()
-                val code = productForList.codigoProducto
-                val descrip = productForList.descripcionProducto
-                val availa = productForList.precioProducto.toString()
-                navController.navigate("add_product_to_order/$code/$descrip/$availa")
+//                Toast.makeText(contextForToast, productForList.codigoProducto, Toast.LENGTH_SHORT).show()
+//                val code = productForList.codigoProducto
+//                val descrip = productForList.descripcionProducto
+//                val availa = productForList.precioProducto.toString()
+//                navController.navigate("add_product_to_order/$code/$descrip/$availa")
+                val productSelected = productForList.idProducto
+                Toast.makeText(contextForToast, productSelected, Toast.LENGTH_SHORT).show()
+                navController.navigate("product_view_detail_page/$productSelected")
 
             })
         )

@@ -7,5 +7,6 @@ enum class ScreensRoute(val route: String) {
     OrdersMainPage("orders_page"),
     ActiveOrderPage("active_order_page"),
     ShoppingCartPage("shopping_cart"),
-    AddProductToOrder("add_product_to_order/{productCode}/{productDesc}/{productAvai}")
+    AddProductToOrder("add_product_to_order/{productCode}/{productDesc}/{productAvai}"),
+    ProductViewDetailPage("product_view_detail_page/{productId}")
 }

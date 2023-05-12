@@ -17,4 +17,7 @@
     <string name="view_cart">Ver Carrito</string>
     <string name="exit_app">Salir</string>
     <string name="search_placeholder">Buscar...</string>
+    <string name="shopping_cart_subtotal_label">Subtotal:</string>
+    <string name="shopping_cart_tax_label">IVA:</string>
+    <string name="shopping_cart_total_label">Total:</string>
 </resources>

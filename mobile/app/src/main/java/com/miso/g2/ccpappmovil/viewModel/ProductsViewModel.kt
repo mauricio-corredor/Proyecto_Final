@@ -35,16 +35,3 @@ class ProductsViewModel @Inject constructor(private val productsRepositoryImp: P
         }
     }
 }
-
-//@HiltViewModel
-//class ProductsViewModel @Inject constructor(
-//    private val productsRepositoryImp: ProductsRepository
-//) : ViewModel() {
-//
-//    fun getProducts() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val products = productsRepositoryImp.getProducts()
-//            Log.d("ProductsViewModel", products.toString())
-//        }
-//    }
-//}
