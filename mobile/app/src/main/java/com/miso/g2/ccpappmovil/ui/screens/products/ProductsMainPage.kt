@@ -1,6 +1,7 @@
 package com.miso.g2.ccpappmovil.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -53,6 +54,7 @@ fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel 
 fun MakeProductsList(navController: NavController, viewModel: ProductsViewModel, state: MutableState<TextFieldValue>) {
     if (viewModel.errorMessage.isEmpty()) {
         val allProducts = viewModel.productsList
+        Log.d("make_products_list0",allProducts.toString())
         var filteredProducts: List<ProductDetail>
         Column(modifier = Modifier.padding(16.dp)) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {

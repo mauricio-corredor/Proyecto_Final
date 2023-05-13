@@ -26,8 +26,8 @@ class ProductsViewModel @Inject constructor(private val productsRepositoryImp: P
             try {
                 _productsList.clear()
                 _productsList.addAll(productsRepositoryImp.getProducts())
-                Log.d("ProductsViewModel", _productsList.toString())
-                Log.d("ProductsViewModel", productsList.toString())
+                Log.d("ProductsViewModel1", _productsList.toString())
+                Log.d("ProductsViewModel2", productsList.toString())
             } catch (e: java.lang.Exception) {
                 errorMessage = e.message.toString()
             }
