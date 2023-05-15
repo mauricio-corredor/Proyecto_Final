@@ -11,7 +11,7 @@ enum class CitiesCcp(printableName: String) {
     IQUIQUE("CH-Iquique"),
     COQUIMBO("CH-Coquimbo"),
     CONCEPCION("CH-Concepción"),
-    BOGOTA("CO-Bogotá"),
+    BOGOTA("CO-Bogota DC"),
     CALI("CO-Cali"),
     MEDELLIN("CO-Medellín"),
     BARRANQUILLA("CO-Barranquilla"),

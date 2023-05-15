@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.miso.g2.ccpappmovil.ExitPage
 import com.miso.g2.ccpappmovil.ui.screens.ProductsMainPage
+import com.miso.g2.ccpappmovil.ui.screens.configPage.ConfigPage
 import com.miso.g2.ccpappmovil.ui.screens.homePage.homePage
 import com.miso.g2.ccpappmovil.ui.screens.orders.ActiveOrderPage
 import com.miso.g2.ccpappmovil.ui.screens.orders.OrdersMainPage
@@ -47,6 +48,9 @@ fun navigation() {
             if (productId != null) {
                 ProductDetailPage(productId,navController = navController)
             }
+        }
+        composable(ScreensRoute.ConfigPage.route){
+            ConfigPage(navController = navController)
         }
 
 

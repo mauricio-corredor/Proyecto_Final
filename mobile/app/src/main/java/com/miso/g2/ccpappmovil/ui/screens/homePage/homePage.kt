@@ -31,7 +31,7 @@ fun homePage(navController: NavController) {
             .fillMaxSize()
     ) {
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            upHomeBar()
+            upHomeBar(navController)
             logoHomeBox()
 
             Row(

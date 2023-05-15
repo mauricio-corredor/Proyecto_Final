@@ -133,6 +133,7 @@ fun ProductDetailPage(
 
 @Composable
 fun AddCartFooter(numberMaxProduct: Int) {
+
     Text(
         text = "Selecciones la cantidad de unidades a agregar a la orden:",
         color = Color.LightGray,
@@ -183,8 +184,9 @@ fun AddCartFooter(numberMaxProduct: Int) {
         }
     }
     OutlinedButton(
-        onClick = { /*TODO*/ },  //Debe llamar a la funcion que adiciona al arelgo del carrito el producto
+        onClick = { },  //Debe llamar a la funcion que adiciona al arelgo del carrito el producto
         shape = RoundedCornerShape(4.dp),
+        //enabled = false,
         elevation = ButtonDefaults.elevation(
             defaultElevation = 10.dp,
             pressedElevation = 5.dp,
