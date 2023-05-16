@@ -104,7 +104,7 @@ fun CardRow(navController: NavController, productForList: ProductDetail) {
 //                val availa = productForList.precioProducto.toString()
 //                navController.navigate("add_product_to_order/$code/$descrip/$availa")
                 val productSelected = productForList.idProducto
-                Toast.makeText(contextForToast, productSelected, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(contextForToast, productSelected, Toast.LENGTH_SHORT).show()
                 navController.navigate("product_view_detail_page/$productSelected")
 
             })

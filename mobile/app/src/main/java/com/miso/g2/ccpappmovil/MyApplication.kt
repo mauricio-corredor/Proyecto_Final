@@ -14,7 +14,7 @@ class MyApplication : Application(){
             "Alejandro Magno",
             "Av. Lourdes 4550",
             "+57 3456000111",
-            IdiomsCcp.ESPANOL,
+            IdiomsCcp.ESPAÑOL,
             CountriesCcp.COLOMBIA,
             CitiesCcp.BOGOTA
         )
@@ -23,7 +23,7 @@ class MyApplication : Application(){
             "Pedro Alcantara",
             "Calle Simon Bolivar No. 4553",
             "+57 8887771234",
-            IdiomsCcp.ESPANOL,
+            IdiomsCcp.ESPAÑOL,
             CountriesCcp.COLOMBIA,
             CitiesCcp.BOGOTA
         )

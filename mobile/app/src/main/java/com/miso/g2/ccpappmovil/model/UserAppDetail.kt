@@ -4,7 +4,7 @@ data class UserAppDetail(
     val nombre: String,
     val direccion: String,
     val telefono: String,
-    val idiomaInteface: IdiomsCcp,
-    val localizacion: CountriesCcp,
-    val ciudad:CitiesCcp
+    var idiomaInteface: IdiomsCcp,
+    var localizacion: CountriesCcp,
+    var ciudad:CitiesCcp
 )

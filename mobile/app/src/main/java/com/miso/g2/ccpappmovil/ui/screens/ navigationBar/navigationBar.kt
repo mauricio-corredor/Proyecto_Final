@@ -79,7 +79,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 )
                 Spacer(Modifier.size(20.dp))
                 IconButton(onClick = {
-                    Toast.makeText(contextForToast, "Ir al consulta de ordenes", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(contextForToast, "Ir al consulta de ordenes", Toast.LENGTH_SHORT).show()
                     navController.navigate(ScreensRoute.OrdersMainPage.route)
                 }) {
                     Icon(
@@ -89,7 +89,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                     )
                 }
                 IconButton(onClick = {
-                    Toast.makeText(contextForToast, "Ir al consulta de productos", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(contextForToast, "Ir al consulta de productos", Toast.LENGTH_SHORT).show()
                     navController.navigate(ScreensRoute.ProductsMainPage.route)
                 }) {
                     Icon(
@@ -99,7 +99,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                     )
                 }
                 IconButton(onClick = {
-                    Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
                     navController.navigate(ScreensRoute.ShoppingCartPage.route)
                 }) {
                     Icon(
@@ -109,7 +109,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                     )
                 }
                 IconButton(onClick = {
-                    Toast.makeText(contextForToast, "Ir a pantalla home", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(contextForToast, "Ir a pantalla home", Toast.LENGTH_SHORT).show()
                     navController.navigate(ScreensRoute.HomePage.route)
                 }) {
                     Icon(
