@@ -15,12 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.miso.g2.ccpappmovil.MyApplication.Companion.salesmanDefault
+import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.CitiesCcp
 import com.miso.g2.ccpappmovil.model.CountriesCcp
 import com.miso.g2.ccpappmovil.model.IdiomsCcp
@@ -46,7 +48,7 @@ fun ConfigPage(navController: NavController) {
                     .align(Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = "Ajustes de presentación",
+                    text = stringResource(id = R.string.presentation_settings),
                     style = MaterialTheme.typography.h5,
                     color = Color.White
                 )
@@ -59,7 +61,7 @@ fun ConfigPage(navController: NavController) {
             ) {
                 Icon(
                     imageVector = Icons.Filled.Settings,
-                    contentDescription = "Pagina de configuracion",
+                    contentDescription = stringResource(id = R.string.presentation_page),
                     tint = Color.White
                 )
             }
@@ -73,7 +75,7 @@ fun ConfigPage(navController: NavController) {
                     .align(Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = "Usuario: " + salesmanDefault.nombre,
+                    text = stringResource(id = R.string.user_text) + salesmanDefault.nombre,
                     style = MaterialTheme.typography.body1,
                     color = Color.White,
                     textAlign = TextAlign.Center
@@ -105,7 +107,7 @@ fun ConfigPage(navController: NavController) {
                 )
             ) {
                 Text(
-                    text = "Volver a Home",
+                    text = stringResource(id = R.string.home_back_button_text),
                     modifier = Modifier.padding(6.dp)
                 )
             }
@@ -163,7 +165,7 @@ fun IdiomUi() {
                 .align(Alignment.Center)
         ) {
             Text(
-                text = "Idioma predefinido: ",
+                text = stringResource(id = R.string.user_predefined_language),
                 style = MaterialTheme.typography.body2,
                 color = Color.White
             )
@@ -187,7 +189,7 @@ fun IdiomUi() {
                 ) {
                     Icon(
                         imageVector = Icons.Filled.MoreVert,
-                        contentDescription = "Idiomas de interface",
+                        contentDescription = stringResource(id = R.string.user_predefined_language),
                         tint = Color.White,
                     )
                     IdiomMenu(
@@ -258,7 +260,7 @@ fun CountryUi() {
                 .align(Alignment.Center)
         ) {
             Text(
-                text = "Localización (pais): ",
+                text = stringResource(id = R.string.user_localization),
                 style = MaterialTheme.typography.body2,
                 color = Color.White
             )
@@ -282,7 +284,7 @@ fun CountryUi() {
                 ) {
                     Icon(
                         imageVector = Icons.Filled.MoreVert,
-                        contentDescription = "Paises de operación CCP",
+                        contentDescription = stringResource(id = R.string.user_localization),
                         tint = Color.White,
                     )
                     CountryMenu(
@@ -391,7 +393,7 @@ fun CityUi() {
                 .align(Alignment.Center)
         ) {
             Text(
-                text = "Localización (pais): ",
+                text = stringResource(id = R.string.user_city),
                 style = MaterialTheme.typography.body2,
                 color = Color.White
             )
@@ -415,7 +417,7 @@ fun CityUi() {
                 ) {
                     Icon(
                         imageVector = Icons.Filled.MoreVert,
-                        contentDescription = "Paises de operación CCP",
+                        contentDescription = stringResource(id = R.string.user_city),
                         tint = Color.White,
                     )
                     CityMenu(
@@ -436,66 +438,3 @@ fun CityUi() {
         }
     }
 }
-
-//            Column() {
-//                Row(modifier = Modifier.padding(16.dp)) {
-//                    Text(
-//                        text = "Idioma predefinido: ",
-//                        style = MaterialTheme.typography.body2,
-//                        color = Color.White
-//                    )
-//                    Row(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .fillMaxHeight(),
-//                        verticalAlignment = Alignment.CenterVertically,
-//                        horizontalArrangement = Arrangement.End
-//                    ) {
-//                        Text(
-//                            text = salesmanDefault.idiomaInteface.toString(),
-//                            style = MaterialTheme.typography.body2,
-//                            color = Color.Yellow,
-//                        )
-//                    }
-//                }
-//                Row(modifier = Modifier.padding(16.dp)) {
-//                    Text(
-//                        text = "Localización: ",
-//                        style = MaterialTheme.typography.body2,
-//                        color = Color.White
-//                    )
-//                    Row(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .fillMaxHeight(),
-//                        verticalAlignment = Alignment.CenterVertically,
-//                        horizontalArrangement = Arrangement.End
-//                    ) {
-//                        Text(
-//                            text = salesmanDefault.localizacion.printableName,
-//                            style = MaterialTheme.typography.body2,
-//                            color = Color.Yellow,
-//                        )
-//                    }
-//                }
-//                Row(modifier = Modifier.padding(16.dp)) {
-//                    Text(
-//                        text = "Ciudad: ",
-//                        style = MaterialTheme.typography.body2,
-//                        color = Color.White
-//                    )
-//                    Row(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .fillMaxHeight(),
-//                        verticalAlignment = Alignment.CenterVertically,
-//                        horizontalArrangement = Arrangement.End
-//                    ) {
-//                        Text(
-//                            text = salesmanDefault.ciudad.toString(),
-//                            style = MaterialTheme.typography.body2,
-//                            color = Color.Yellow,
-//                        )
-//                    }
-//                }
-//            }

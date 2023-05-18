@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.miso.g2.ccpappmovil.MyApplication.Companion.salesmanDefault
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
@@ -33,8 +34,8 @@ fun logoHomeBox() {
             .fillMaxWidth()
             .background(color = BackgroundMain)
     ) {
-        val userNameLogged = salesmanDefault.nombre //"Pedro Pérez"
-        Text(text = "Bienvenido $userNameLogged", style = MaterialTheme.typography.subtitle2, color = Color.White)
+        val userNameLogged = stringResource(id = R.string.welcome_message) + salesmanDefault.nombre
+        Text(text = "$userNameLogged", style = MaterialTheme.typography.subtitle2, color = Color.White)
     }
     Spacer(modifier = Modifier.size(30.dp))
 }

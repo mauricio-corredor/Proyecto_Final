@@ -75,7 +75,7 @@ fun ProductDetailPage(
                         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                             Divider(modifier = Modifier.padding(bottom = 4.dp))
                             Text(
-                                text = "Descripcion",
+                                text = stringResource(id = R.string.description_product_text) + ":",
                                 modifier = Modifier.height(24.dp),
                                 color = Color.Yellow,
                                 style = MaterialTheme.typography.caption,
@@ -91,7 +91,7 @@ fun ProductDetailPage(
                         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                             Divider(modifier = Modifier.padding(bottom = 4.dp))
                             Text(
-                                text = stringResource(R.string.precio),
+                                text = stringResource(R.string.price_product_text) + ":",
                                 modifier = Modifier.height(24.dp),
                                 color = Color.Yellow,
                                 style = MaterialTheme.typography.caption,
@@ -107,13 +107,13 @@ fun ProductDetailPage(
                         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                             Divider(modifier = Modifier.padding(bottom = 4.dp))
                             Text(
-                                text = "Disponibilidad",
+                                text = stringResource(id = R.string.availability_product_text) + ":",
                                 modifier = Modifier.height(24.dp),
                                 color = Color.Yellow,
                                 style = MaterialTheme.typography.caption,
                             )
                             Text(
-                                text = productoConsultado[contentList].precioProducto.toString() + " Unidades",
+                                text = productoConsultado[contentList].precioProducto.toString() + stringResource(id = R.string.units),
                                 modifier = Modifier.height(24.dp),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.White,
@@ -135,7 +135,7 @@ fun ProductDetailPage(
 fun AddCartFooter(numberMaxProduct: Int) {
 
     Text(
-        text = "Selecciones la cantidad de unidades a agregar a la orden:",
+        text = stringResource(id = R.string.add_products_text),
         color = Color.LightGray,
         style = MaterialTheme.typography.caption,
         modifier = Modifier.padding(start = 16.dp)
@@ -200,7 +200,7 @@ fun AddCartFooter(numberMaxProduct: Int) {
         )
     ) {
         Text(
-            text = "Agregar al carrito",
+            text = stringResource(id = R.string.add_to_cart_button_text),
             modifier = Modifier.padding(6.dp)
         )
     }

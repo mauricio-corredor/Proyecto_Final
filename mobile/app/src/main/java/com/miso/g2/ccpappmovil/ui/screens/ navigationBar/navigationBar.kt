@@ -44,8 +44,8 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                     style = MaterialTheme.typography.caption,
                     fontSize=9.sp,
                     color = Color.White,
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+                    modifier = Modifier.padding(start = 16.dp),
+                 )
                 Text(
                     text = salesmanDefault.localizacion.printableName + ", " + salesmanDefault.ciudad,
                     style = MaterialTheme.typography.caption,
@@ -84,7 +84,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 }) {
                     Icon(
                         imageVector = Icons.Outlined.List,
-                        contentDescription = "Ir al consulta de ordenes",
+                        contentDescription = stringResource(id = R.string.go_to_orders_query),
                         tint = Color.White
                     )
                 }
@@ -94,7 +94,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 }) {
                     Icon(
                         imageVector = Icons.Outlined.Search,
-                        contentDescription = "Ir al consulta de productos",
+                        contentDescription = stringResource(id = R.string.go_to_products_query),
                         tint = Color.White
                     )
                 }
@@ -104,7 +104,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 }) {
                     Icon(
                         imageVector = Icons.Filled.ShoppingCart,
-                        contentDescription = "Ir a carrito de compras",
+                        contentDescription = stringResource(id = R.string.go_to_shopping_cart),
                         tint = Color.White
                     )
                 }
@@ -114,7 +114,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 }) {
                     Icon(
                         imageVector = Icons.Filled.Home,
-                        contentDescription = "Ir a pantalla home",
+                        contentDescription = stringResource(id = R.string.go_to_home_page),
                         tint = Color.White
                     )
                 }

@@ -54,7 +54,7 @@ fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel 
 fun MakeProductsList(navController: NavController, viewModel: ProductsViewModel, state: MutableState<TextFieldValue>) {
     if (viewModel.errorMessage.isEmpty()) {
         val allProducts = viewModel.productsList
-        Log.d("make_products_list0",allProducts.toString())
+        Log.d("make_products_list0", allProducts.toString())
         var filteredProducts: List<ProductDetail>
         Column(modifier = Modifier.padding(16.dp)) {
             LazyColumn(modifier = Modifier.fillMaxHeight()) {
@@ -86,7 +86,6 @@ fun MakeProductsList(navController: NavController, viewModel: ProductsViewModel,
 @Composable
 fun CardRow(navController: NavController, productForList: ProductDetail) {
     val contextForToast = LocalContext.current.applicationContext
-    val contextForToast1 = LocalContext.current
     val context = remember { mutableStateOf(TextFieldValue("")) }
     Card(
         modifier = Modifier
@@ -98,11 +97,6 @@ fun CardRow(navController: NavController, productForList: ProductDetail) {
     ) {
         Row(
             modifier = Modifier.clickable(onClick = {
-//                Toast.makeText(contextForToast, productForList.codigoProducto, Toast.LENGTH_SHORT).show()
-//                val code = productForList.codigoProducto
-//                val descrip = productForList.descripcionProducto
-//                val availa = productForList.precioProducto.toString()
-//                navController.navigate("add_product_to_order/$code/$descrip/$availa")
                 val productSelected = productForList.idProducto
                 //Toast.makeText(contextForToast, productSelected, Toast.LENGTH_SHORT).show()
                 navController.navigate("product_view_detail_page/$productSelected")
@@ -145,13 +139,15 @@ fun CardRow(navController: NavController, productForList: ProductDetail) {
                     maxLines = 1
                 )
                 Text(
-                    text = stringResource(R.string.precio) + stringResource(id = R.string.pesos) + productForList.precioProducto.toString(),
+                    text = stringResource(R.string.price_product_text) + ": " + stringResource(id = R.string.pesos) + productForList.precioProducto.toString(),
                     style = MaterialTheme.typography.caption,
                     color = Color.White,
                     maxLines = 1
                 )
                 Text(
-                    text = stringResource(id = R.string.cantidad) + productForList.precioProducto.toString() + " unds.",
+                    text = stringResource(id = R.string.cantidad) + " " + productForList.precioProducto.toString() + stringResource(
+                        id = R.string.units
+                    ),
                     style = MaterialTheme.typography.caption,
                     color = Color.White,
                     maxLines = 1

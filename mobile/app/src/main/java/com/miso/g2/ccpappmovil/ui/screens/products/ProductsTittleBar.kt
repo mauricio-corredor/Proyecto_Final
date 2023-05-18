@@ -7,11 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.miso.g2.ccpappmovil.R
 
 @Preview
 @Composable
@@ -42,7 +44,7 @@ fun ProductsTittleBar() {
                 Alignment.Center
             ) {
                 Text(
-                    text = "Imagen",
+                    text = stringResource(id = R.string.image_product_text),
                     style = MaterialTheme.typography.subtitle2,
                     color = Color.White,
                 )
@@ -60,14 +62,26 @@ fun ProductsTittleBar() {
                                 color = Color.Yellow,
                             )
                         ) {
-                            append("Cod.")
+                            append(stringResource(id = R.string.code_product_text))
                         }
                         withStyle(
                             style = SpanStyle(
                                 color = Color.White,
                             )
                         ) {
-                            append(" | Descripcion | Precio | Disponibilidad")
+                            append(
+                                " | " +
+                                        stringResource(
+                                            id = R.string.description_product_text
+                                        ) + " | " +
+                                        stringResource(
+                                            id = R.string.price_product_text
+                                        ) + " | " +
+                                        stringResource(
+                                            id = R.string.availability_product_text
+                                        )
+                            )
+                            //append(" | Descripcion | Precio | Disponibilidad")
                         }
                     },
                     style = MaterialTheme.typography.subtitle2
@@ -76,4 +90,3 @@ fun ProductsTittleBar() {
         }
     }
 }
-
