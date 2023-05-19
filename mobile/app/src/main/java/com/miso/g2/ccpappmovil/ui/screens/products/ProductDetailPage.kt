@@ -1,6 +1,7 @@
 package com.miso.g2.ccpappmovil.ui.screens.products
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clipScrollableContainer
 import androidx.compose.foundation.gestures.Orientation
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,8 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.miso.g2.ccpappmovil.MyApplication.Companion.orderProductsList
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.ProductDetail
+import com.miso.g2.ccpappmovil.model.ProductoOrden
+import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
 import com.miso.g2.ccpappmovil.ui.theme.backgroundSecondary
 import com.miso.g2.ccpappmovil.ui.theme.backgroundTwo
 import com.miso.g2.ccpappmovil.viewModel.ProductViewModel
@@ -122,7 +127,7 @@ fun ProductDetailPage(
                             )
                         }
                         Divider(modifier = Modifier.padding(bottom = 4.dp))
-                        AddCartFooter(productDetailConsulted[contentList])
+                        AddCartFooter(productDetailConsulted[contentList],navController)
                     }
                 }
             }
@@ -133,9 +138,13 @@ fun ProductDetailPage(
 }
 
 @Composable
-fun AddCartFooter(productData: ProductDetail) {
+fun AddCartFooter(productData: ProductDetail,navController: NavController) {
 
     val numberMaxProduct = productData.precioProducto.toInt()
+    val amountToAdd: MutableState<Int> = rememberSaveable { mutableStateOf(0) }
+    val contextForToast = LocalContext.current.applicationContext
+    var textError = stringResource(id = R.string.no_amount_selected_text)
+    var textConfirmAmount = stringResource(id = R.string.amount_added_text)
 
     Text(
         text = stringResource(id = R.string.add_products_text),
@@ -145,7 +154,6 @@ fun AddCartFooter(productData: ProductDetail) {
     )
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            val amountToAdd: MutableState<Int> = rememberSaveable { mutableStateOf(0) }
             IconButton(onClick = {
                 if (amountToAdd.value > 0) {
                     amountToAdd.value--
@@ -187,16 +195,54 @@ fun AddCartFooter(productData: ProductDetail) {
         }
     }
     OutlinedButton(
-        onClick = { },  //Debe llamar a la funcion que adiciona al arreglo del carrito el producto
+        //Agrega el producto a la lista de productos de la orden de compra actual
+        onClick = {
+            if (amountToAdd.value > 0) {
+                if (orderProductsList.isNotEmpty()) {
+                    var idProductValidate = orderProductsList.any { it.idProducto == productData.idProducto }
+                    if (idProductValidate) {
+                        val modifierAmountProduct = orderProductsList.find { it.idProducto == productData.idProducto }
+                        if (modifierAmountProduct != null) {
+                            modifierAmountProduct.cantidadVendida = amountToAdd.value
+                            Toast.makeText(
+                                contextForToast,
+                                textConfirmAmount + modifierAmountProduct.cantidadVendida,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.d("prueba_prod_a_carrito1", orderProductsList.toString())
+                        }
+                    }
+                } else {
+                    var newProductToCart = ProductoOrden(
+                        productData.idProducto,
+                        productData.codigoProducto,
+                        productData.descripcionProducto,
+                        amountToAdd.value,
+                        productData.precioProducto,
+                        amountToAdd.value * productData.precioProducto
+                    )
+                    orderProductsList.add(newProductToCart)
+                    Toast.makeText(
+                        contextForToast,
+                        textConfirmAmount + newProductToCart.cantidadVendida,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d("prueba_prod_a_carrito2", orderProductsList.toString())
+                }
+            } else
+                Toast.makeText(contextForToast, textError, Toast.LENGTH_SHORT).show()
+        },
+
+
         shape = RoundedCornerShape(4.dp),
-        //enabled = false,
+        enabled = true,
         elevation = ButtonDefaults.elevation(
             defaultElevation = 10.dp,
             pressedElevation = 5.dp,
             disabledElevation = 0.dp,
         ), modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(start = 16.dp, top = 20.dp, end = 16.dp, bottom = 5.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundSecondary,
             contentColor = Color.White
@@ -204,6 +250,28 @@ fun AddCartFooter(productData: ProductDetail) {
     ) {
         Text(
             text = stringResource(id = R.string.add_to_cart_button_text),
+            modifier = Modifier.padding(6.dp)
+        )
+    }
+
+    OutlinedButton(
+        onClick = { navController.navigate(ScreensRoute.ProductsMainPage.route)},
+      shape = RoundedCornerShape(4.dp),
+        enabled = true,
+        elevation = ButtonDefaults.elevation(
+            defaultElevation = 10.dp,
+            pressedElevation = 5.dp,
+            disabledElevation = 0.dp,
+        ), modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, top = 5.dp, end = 16.dp, bottom = 5.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = backgroundTwo,
+            contentColor = Color.White
+        )
+    ) {
+        Text(
+            text = stringResource(id = R.string.back_to_product_list_text),
             modifier = Modifier.padding(6.dp)
         )
     }

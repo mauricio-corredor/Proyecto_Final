@@ -5,8 +5,8 @@ import com.miso.g2.ccpappmovil.model.*
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application(){
-    companion object{
+class MyApplication : Application() {
+    companion object {
         var userDefault = UserAppDetail(
             "Alejandro Magno",
             "Av. Lourdes 4550",
@@ -25,7 +25,7 @@ class MyApplication : Application(){
             CitiesCcp.BOGOTA
         )
 
-        lateinit var orderproductsList : MutableList<ProductoOrden>
+        var orderProductsList: MutableList<ProductoOrden> = mutableListOf()
 
     }
 

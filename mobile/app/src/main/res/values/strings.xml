@@ -39,6 +39,9 @@
     <string name="units">\u0020Unidades</string>
     <string name="add_products_text">Selecciones la cantidad de unidades a agregar a la orden:</string>
     <string name="add_to_cart_button_text">Agregar al carrito</string>
+    <string name="no_amount_selected_text">No ha seleccionado una cantidad a agregar</string>
+    <string name="amount_added_text">Productos agregados al carrito:\u0020</string>
+    <string name="back_to_product_list_text">Regresar a lista</string>
 
     <string name="search_placeholder">Buscar...</string>
     <string name="shopping_cart_subtotal_label">Subtotal:</string>

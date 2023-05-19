@@ -37,7 +37,7 @@ data class ProductoOrden(
     val idProducto: String,
     val codigoProducto: String,
     val descripcionProducto: String,
-    val cantidadVendida: Int,
+    var cantidadVendida: Int,
     val precioProducto: Float,
     val valorTotal: Float
 )
