@@ -28,8 +28,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.miso.g2.ccpappmovil.MyApplication.Companion.numberOfProductsInCart
 import com.miso.g2.ccpappmovil.MyApplication.Companion.orderProductsList
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.ProductDetail
@@ -127,7 +130,7 @@ fun ProductDetailPage(
                             )
                         }
                         Divider(modifier = Modifier.padding(bottom = 4.dp))
-                        AddCartFooter(productDetailConsulted[contentList],navController)
+                        AddCartFooter(productDetailConsulted[contentList], navController)
                     }
                 }
             }
@@ -138,7 +141,7 @@ fun ProductDetailPage(
 }
 
 @Composable
-fun AddCartFooter(productData: ProductDetail,navController: NavController) {
+fun AddCartFooter(productData: ProductDetail, navController: NavController) {
 
     val numberMaxProduct = productData.precioProducto.toInt()
     val amountToAdd: MutableState<Int> = rememberSaveable { mutableStateOf(0) }
@@ -209,8 +212,26 @@ fun AddCartFooter(productData: ProductDetail,navController: NavController) {
                                 textConfirmAmount + modifierAmountProduct.cantidadVendida,
                                 Toast.LENGTH_SHORT
                             ).show()
-                            Log.d("prueba_prod_a_carrito1", orderProductsList.toString())
+                            Log.d("adicion_producto1", orderProductsList.toString())
                         }
+                    } else {
+                        var newProductToCart = ProductoOrden(
+                            productData.idProducto,
+                            productData.codigoProducto,
+                            productData.descripcionProducto,
+                            amountToAdd.value,
+                            productData.precioProducto,
+                            amountToAdd.value * productData.precioProducto
+                        )
+                        orderProductsList.add(newProductToCart)
+                        numberOfProductsInCart = MutableLiveData(orderProductsList.size)
+
+                        Toast.makeText(
+                            contextForToast,
+                            textConfirmAmount + newProductToCart.cantidadVendida,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("adicion_producto2", orderProductsList.toString())
                     }
                 } else {
                     var newProductToCart = ProductoOrden(
@@ -222,17 +243,18 @@ fun AddCartFooter(productData: ProductDetail,navController: NavController) {
                         amountToAdd.value * productData.precioProducto
                     )
                     orderProductsList.add(newProductToCart)
+                    numberOfProductsInCart = MutableLiveData(orderProductsList.size)
+
                     Toast.makeText(
                         contextForToast,
                         textConfirmAmount + newProductToCart.cantidadVendida,
                         Toast.LENGTH_SHORT
                     ).show()
-                    Log.d("prueba_prod_a_carrito2", orderProductsList.toString())
+                    Log.d("adicion_producto3", orderProductsList.toString())
                 }
             } else
                 Toast.makeText(contextForToast, textError, Toast.LENGTH_SHORT).show()
         },
-
 
         shape = RoundedCornerShape(4.dp),
         enabled = true,
@@ -255,8 +277,8 @@ fun AddCartFooter(productData: ProductDetail,navController: NavController) {
     }
 
     OutlinedButton(
-        onClick = { navController.navigate(ScreensRoute.ProductsMainPage.route)},
-      shape = RoundedCornerShape(4.dp),
+        onClick = { navController.navigate(ScreensRoute.ProductsMainPage.route) },
+        shape = RoundedCornerShape(4.dp),
         enabled = true,
         elevation = ButtonDefaults.elevation(
             defaultElevation = 10.dp,

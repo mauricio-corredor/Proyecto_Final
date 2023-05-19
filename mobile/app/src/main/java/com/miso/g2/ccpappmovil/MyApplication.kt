@@ -1,6 +1,9 @@
 package com.miso.g2.ccpappmovil
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.MutableLiveData
 import com.miso.g2.ccpappmovil.model.*
 import dagger.hilt.android.HiltAndroidApp
 
@@ -26,6 +29,7 @@ class MyApplication : Application() {
         )
 
         var orderProductsList: MutableList<ProductoOrden> = mutableListOf()
+        var numberOfProductsInCart : MutableLiveData<Int> = MutableLiveData(orderProductsList.size)
 
     }
 
