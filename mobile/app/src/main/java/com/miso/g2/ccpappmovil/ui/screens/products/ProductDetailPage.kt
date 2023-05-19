@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.miso.g2.ccpappmovil.R
+import com.miso.g2.ccpappmovil.model.ProductDetail
 import com.miso.g2.ccpappmovil.ui.theme.backgroundSecondary
 import com.miso.g2.ccpappmovil.ui.theme.backgroundTwo
 import com.miso.g2.ccpappmovil.viewModel.ProductViewModel
@@ -47,15 +48,15 @@ fun ProductDetailPage(
         NavigationBar(navController = navController, tittleBar = stringResource(R.string.products_page))
         Divider()
         if (viewModel.errorMessage.isEmpty()) {
-            val productoConsultado = viewModel.productConsulted
-            Log.d("product_detail_page1", productoConsultado.size.toString())
-            Log.d("product_detail_page2", productoConsultado.toString())
+            val productDetailConsulted = viewModel.productConsulted
+            Log.d("product_detail_page1", productDetailConsulted.size.toString())
+            Log.d("product_detail_page2", productDetailConsulted.toString())
 
             Column {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(productoConsultado.size) { contentList ->
+                    items(productDetailConsulted.size) { contentList ->
                         AsyncImage(
-                            model = productoConsultado[contentList].imagenProducto,
+                            model = productDetailConsulted[contentList].imagenProducto,
                             contentDescription = null,
                             modifier = Modifier
                                 .heightIn(max = 300.dp)
@@ -66,7 +67,7 @@ fun ProductDetailPage(
                         )
                         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 16.dp)) {
                             Text(
-                                text = productoConsultado[contentList].codigoProducto,
+                                text = productDetailConsulted[contentList].codigoProducto,
                                 style = MaterialTheme.typography.h5,
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
@@ -81,7 +82,7 @@ fun ProductDetailPage(
                                 style = MaterialTheme.typography.caption,
                             )
                             Text(
-                                text = productoConsultado[contentList].descripcionProducto,
+                                text = productDetailConsulted[contentList].descripcionProducto,
                                 modifier = Modifier.height(24.dp),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.White,
@@ -97,7 +98,7 @@ fun ProductDetailPage(
                                 style = MaterialTheme.typography.caption,
                             )
                             Text(
-                                text = stringResource(id = R.string.pesos) + productoConsultado[contentList].precioProducto.toString(),
+                                text = stringResource(id = R.string.pesos) + productDetailConsulted[contentList].precioProducto.toString(),
                                 modifier = Modifier.height(24.dp),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.White,
@@ -113,7 +114,7 @@ fun ProductDetailPage(
                                 style = MaterialTheme.typography.caption,
                             )
                             Text(
-                                text = productoConsultado[contentList].precioProducto.toString() + stringResource(id = R.string.units),
+                                text = productDetailConsulted[contentList].precioProducto.toString() + stringResource(id = R.string.units),
                                 modifier = Modifier.height(24.dp),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.White,
@@ -121,7 +122,7 @@ fun ProductDetailPage(
                             )
                         }
                         Divider(modifier = Modifier.padding(bottom = 4.dp))
-                        AddCartFooter(productoConsultado[contentList].precioProducto.toInt())
+                        AddCartFooter(productDetailConsulted[contentList])
                     }
                 }
             }
@@ -132,7 +133,9 @@ fun ProductDetailPage(
 }
 
 @Composable
-fun AddCartFooter(numberMaxProduct: Int) {
+fun AddCartFooter(productData: ProductDetail) {
+
+    val numberMaxProduct = productData.precioProducto.toInt()
 
     Text(
         text = stringResource(id = R.string.add_products_text),
@@ -184,7 +187,7 @@ fun AddCartFooter(numberMaxProduct: Int) {
         }
     }
     OutlinedButton(
-        onClick = { },  //Debe llamar a la funcion que adiciona al arelgo del carrito el producto
+        onClick = { },  //Debe llamar a la funcion que adiciona al arreglo del carrito el producto
         shape = RoundedCornerShape(4.dp),
         //enabled = false,
         elevation = ButtonDefaults.elevation(

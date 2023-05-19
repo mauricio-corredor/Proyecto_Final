@@ -1,10 +1,7 @@
 package com.miso.g2.ccpappmovil
 
 import android.app.Application
-import com.miso.g2.ccpappmovil.model.CitiesCcp
-import com.miso.g2.ccpappmovil.model.CountriesCcp
-import com.miso.g2.ccpappmovil.model.IdiomsCcp
-import com.miso.g2.ccpappmovil.model.UserAppDetail
+import com.miso.g2.ccpappmovil.model.*
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -27,6 +24,9 @@ class MyApplication : Application(){
             CountriesCcp.COLOMBIA,
             CitiesCcp.BOGOTA
         )
+
+        lateinit var orderproductsList : MutableList<ProductoOrden>
+
     }
 
     override fun onCreate() {

@@ -1,5 +1,6 @@
 package com.miso.g2.ccpappmovil.ui.screens.configPage
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -30,9 +31,14 @@ import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 import com.miso.g2.ccpappmovil.ui.theme.backgroundSecondary
 import com.miso.g2.ccpappmovil.ui.theme.backgroundTwo
+import java.util.Locale
 
 @Composable
 fun ConfigPage(navController: NavController) {
+    val locale = Locale.getDefault()
+    Log.d("Prueba Lenguaje",locale.toString())
+    Locale.setDefault(locale)
+
     Box(
         modifier = Modifier
             .background(color = BackgroundMain)
