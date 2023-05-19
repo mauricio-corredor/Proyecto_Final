@@ -14,10 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 
 @Composable
-fun upHomeBar() {
+fun upHomeBar(navController:NavController) {
     val contextForToast = LocalContext.current.applicationContext
     Box(
         modifier = Modifier
@@ -27,6 +28,7 @@ fun upHomeBar() {
     ) {
         IconButton(onClick = {
             Toast.makeText(contextForToast, "Ir a configuración idioma", Toast.LENGTH_SHORT).show()
+            navController.navigate("config_page")
         }) {
             Icon(
                 imageVector = Icons.Filled.Settings,

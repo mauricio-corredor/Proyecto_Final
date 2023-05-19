@@ -1,8 +1,50 @@
 <resources>
     <string name="app_name">ccpAppMovil</string>
-    <string name="precio">Precio:</string>
-    <string name="cantidad">Disp.:</string>
+    <string name="cantidad">Disponibilidad:</string>
+
     <string name="pesos">$</string>
-    <string name="codigoProducto">Cod.</string>
-    <string name="placeholder_search">Búsqueda</string>
+    <string name="cart_quantity">%1$sx&#160;</string>
+    <string name="cart_price">$%1$s</string>
+    <string name="orders_page">Ordenes de Compra</string>
+    <string name="products_page">Inventario Productos</string>
+    <string name="shoppingcart_page">Carrito de compras</string>
+    <string name="home_page">Inicio</string>
+    <string name="ccp_logo_content">Logo de CCP</string>
+
+    <string name="welcome_message">Bienvenido\u0020</string>
+    <string name="view_products">Productos</string>
+    <string name="view_orders">Ordenes</string>
+    <string name="view_cart">Carrito</string>
+    <string name="exit_app">Salir</string>
+
+    <string name="presentation_settings">Ajustes de presentación</string>
+    <string name="presentation_page">Página de configuración</string>
+    <string name="user_text">Usuario:\u0020</string>
+    <string name="home_back_button_text">Volver a Home</string>
+    <string name="user_predefined_language">Idioma predefinido:\u0020</string>
+    <string name="user_localization">Localización (pais):\u0020</string>
+    <string name="user_city">Ciudad:\u0020</string>
+
+    <string name="go_to_orders_query">Ir al consulta de ordenes</string>
+    <string name="go_to_products_query">Ir al consulta de productos</string>
+    <string name="go_to_shopping_cart">Ir a carrito de compras</string>
+    <string name="go_to_home_page">Ir a pantalla home</string>
+
+    <string name="units_text">\u0020unds.</string>
+    <string name="image_product_text">Imagen</string>
+    <string name="code_product_text">Cod.</string>
+    <string name="description_product_text">Descripción</string>
+    <string name="price_product_text">Precio</string>
+    <string name="availability_product_text">Disponibilidad</string>
+    <string name="units">\u0020Unidades</string>
+    <string name="add_products_text">Selecciones la cantidad de unidades a agregar a la orden:</string>
+    <string name="add_to_cart_button_text">Agregar al carrito</string>
+
+    <string name="search_placeholder">Buscar...</string>
+    <string name="shopping_cart_subtotal_label">Subtotal:</string>
+    <string name="shopping_cart_tax_label">IVA:</string>
+    <string name="shopping_cart_total_label">Total:</string>
+
+
+
 </resources>

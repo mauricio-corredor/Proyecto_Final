@@ -26,8 +26,8 @@ class ProductsViewModel @Inject constructor(private val productsRepositoryImp: P
             try {
                 _productsList.clear()
                 _productsList.addAll(productsRepositoryImp.getProducts())
-                Log.d("ProductsViewModel", _productsList.toString())
-                Log.d("ProductsViewModel", productsList.toString())
+                Log.d("ProductsViewModel1", _productsList.toString())
+                Log.d("ProductsViewModel2", productsList.toString())
             } catch (e: java.lang.Exception) {
                 errorMessage = e.message.toString()
             }
@@ -35,16 +35,3 @@ class ProductsViewModel @Inject constructor(private val productsRepositoryImp: P
         }
     }
 }
-
-//@HiltViewModel
-//class ProductsViewModel @Inject constructor(
-//    private val productsRepositoryImp: ProductsRepository
-//) : ViewModel() {
-//
-//    fun getProducts() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val products = productsRepositoryImp.getProducts()
-//            Log.d("ProductsViewModel", products.toString())
-//        }
-//    }
-//}
