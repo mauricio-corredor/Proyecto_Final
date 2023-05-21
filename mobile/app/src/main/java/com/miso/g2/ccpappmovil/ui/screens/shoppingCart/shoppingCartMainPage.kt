@@ -27,9 +27,11 @@ import com.miso.g2.ccpappmovil.ui.screens.products.NavigationBar
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
 
 @Composable
-fun ShoppingCartMainPage(navController: NavController) {
+fun ShoppingCartMainPage(navController: NavController, viewModel: ProductsViewModel = hiltViewModel()) {
 
     var subTotalOrder = 0.0F
     var taxOrder = 0.0F
@@ -73,7 +75,7 @@ fun ShoppingCartMainPage(navController: NavController) {
             Spacer(modifier = Modifier.size(10.dp))
             Divider()
             OutlinedButton(
-                onClick = { },
+                onClick = { viewModel.postOrder(subTotalOrder,taxOrder,totalOrder)},
                 shape = RoundedCornerShape(4.dp),
                 enabled = true,
                 elevation = ButtonDefaults.elevation(
