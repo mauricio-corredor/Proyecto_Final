@@ -1,5 +1,6 @@
 package com.miso.g2.ccpappmovil.ui.screens.shoppingCart
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -27,6 +28,7 @@ import com.miso.g2.ccpappmovil.ui.screens.products.NavigationBar
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.miso.g2.ccpappmovil.viewModel.OrdersViewModel
 
@@ -36,6 +38,9 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
     var subTotalOrder = 0.0F
     var taxOrder = 0.0F
     var totalOrder = 0.0F
+
+    val contextForToast = LocalContext.current.applicationContext
+    val textCartEmpty = R.string.cart_is_empty
 
     if (orderProductsList.size > 0) {
         for (element in orderProductsList) {
@@ -75,7 +80,13 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
             Spacer(modifier = Modifier.size(10.dp))
             Divider()
             OutlinedButton(
-                onClick = { viewModel.postOrder(subTotalOrder,taxOrder,totalOrder)},
+                onClick = {
+                    if (orderProductsList.size > 0) {
+                        viewModel.postOrder(subTotalOrder, taxOrder, totalOrder)
+                    } else {
+                        Toast.makeText(contextForToast, textCartEmpty, Toast.LENGTH_SHORT).show()
+                    }
+                },
                 shape = RoundedCornerShape(4.dp),
                 enabled = true,
                 elevation = ButtonDefaults.elevation(

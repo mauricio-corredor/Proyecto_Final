@@ -26,7 +26,7 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
     fun getOrders() {
         viewModelScope.launch(Dispatchers.IO) {
             val orders = ordersRepositoryImp.getOrders()
-            Log.d("OrdersViewModel", orders.toString())
+            Log.d("OrdersViewModel1", orders.toString())
         }
     }
 
@@ -54,6 +54,12 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
         Log.d("productViewModel_post0", newOrderToPost.toString())
         Log.d("productViewModel_post1", json)
         Log.d("productViewModel_post2", requestBody.toString())
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val responseToSendOrder = ordersRepositoryImp.sendOrder(newOrderToPost)
+            Log.d("OrdersViewModel2", responseToSendOrder.toString())
+        }
+
 
     }
 
