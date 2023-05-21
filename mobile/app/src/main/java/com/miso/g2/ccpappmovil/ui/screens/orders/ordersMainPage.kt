@@ -1,6 +1,7 @@
 package com.miso.g2.ccpappmovil.ui.screens.orders
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +27,6 @@ import com.miso.g2.ccpappmovil.model.OrderDetail
 import com.miso.g2.ccpappmovil.ui.screens.products.NavigationBar
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 import com.miso.g2.ccpappmovil.ui.theme.backgroundSecondary
-import com.miso.g2.ccpappmovil.ui.theme.backgroundTwo
 import com.miso.g2.ccpappmovil.viewModel.OrdersViewModel
 import java.util.*
 import kotlin.collections.ArrayList
