@@ -42,12 +42,13 @@
     <string name="no_amount_selected_text">No ha seleccionado una cantidad a agregar</string>
     <string name="amount_added_text">Productos agregados al carrito:\u0020</string>
     <string name="back_to_product_list_text">Regresar a lista</string>
+    <string name="delete_product_text">Borrar articulo del carrito</string>
 
     <string name="search_placeholder">Buscar...</string>
     <string name="shopping_cart_subtotal_label">Subtotal:</string>
-    <string name="shopping_cart_tax_label">IVA:</string>
-    <string name="shopping_cart_total_label">Total:</string>
-
-
+    <string name="shopping_cart_tax_label">Impuestos:</string>
+    <string name="shopping_cart_total_label">TOTAL:</string>
+    <string name="create_order_text">Crear Orden</string>
+    <string name="cart_is_empty">El carro esta vacio :(</string>
 
 </resources>

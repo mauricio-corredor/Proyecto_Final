@@ -42,11 +42,13 @@
     <string name="no_amount_selected_text">You have not selected an amount to add</string>
     <string name="amount_added_text">Added products to cart:\u0020</string>
     <string name="back_to_product_list_text">Return to list</string>
+    <string name="delete_product_text">Delete product from cart</string>
 
     <string name="search_placeholder">Search...</string>
     <string name="shopping_cart_subtotal_label">Subtotal:</string>
-    <string name="shopping_cart_tax_label">TAX:</string>
-    <string name="shopping_cart_total_label">Total:</string>
-
+    <string name="shopping_cart_tax_label">Taxes:</string>
+    <string name="shopping_cart_total_label">TOTAL:</string>
+    <string name="create_order_text">Create Order</string>
+    <string name="cart_is_empty">The cart is empty :(</string>
 
 </resources>
