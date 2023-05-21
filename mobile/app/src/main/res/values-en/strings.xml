@@ -51,6 +51,13 @@
     <string name="create_order_text">Create Order</string>
     <string name="delete_shoppingcart_text">Delete Cart</string>
     <string name="cart_is_empty">The cart is empty :(</string>
+    <string name="nothing_to_delete">Nothing to delete in cart</string>
     <string name="order_created_success">The order has been created successfully</string>
+    <string name="orden_number_text">Order No.:\u0020</string>
+    <string name="customer_data">Customer Data</string>
+    <string name="customer_name_text">Name:</string>
+    <string name="customer_address_text">Address:</string>
+    <string name="customer_phone_text">Phone:</string>
+    <string name="order_data">Order Details</string>
 
 </resources>

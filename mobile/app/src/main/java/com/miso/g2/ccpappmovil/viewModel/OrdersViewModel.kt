@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.miso.g2.ccpappmovil.MyApplication.Companion.numberOfProductsInCart
+import com.miso.g2.ccpappmovil.MyApplication.Companion.orderActiveNumber
 import com.miso.g2.ccpappmovil.model.*
 import com.miso.g2.ccpappmovil.repository.OrdersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,6 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
     private val _cartIsEmptyState = mutableStateOf(true)
 
     var showOrderCreatedToast: State<Boolean> = _showOrderCreatedToast
-    var orderNumberCreatedforToast: State<String> = _orderNumberCreatedforToast
     var cartIsEmptyState: State<Boolean> = _cartIsEmptyState
 
     fun getOrders() {
@@ -45,7 +45,7 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
 
     fun postOrder(vSubtotal: Float, vTaxes: Float, vTotal: Float) {
         val newOrderToPost = OrderDetail(
-            numeroOrden = generateRandomId(8),
+            numeroOrden =  orderActiveNumber.value.toString(),  //generateRandomId(8),
             clienteDetalle = ClienteDetalle(
                 nombre = userDefault.nombre,
                 direccion = userDefault.direccion,
@@ -78,11 +78,13 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
                 errorMessage = e.message.toString()
             }
         }
+        deleteCart()
     }
 
     fun deleteCart() {
         orderProductsList = mutableListOf()
         numberOfProductsInCart.value = 0
+        orderActiveNumber.value=""
         //orderProductsList.clear()
     }
 

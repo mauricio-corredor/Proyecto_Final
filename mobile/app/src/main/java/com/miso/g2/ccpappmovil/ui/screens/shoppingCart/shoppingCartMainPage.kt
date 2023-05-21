@@ -31,11 +31,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.miso.g2.ccpappmovil.MyApplication.Companion.orderActiveNumber
+import com.miso.g2.ccpappmovil.MyApplication.Companion.userDefault
 import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
 import com.miso.g2.ccpappmovil.ui.navigation.navigation
+import com.miso.g2.ccpappmovil.ui.theme.backgroundTwo
 import com.miso.g2.ccpappmovil.viewModel.OrdersViewModel
 
 @Composable
@@ -47,9 +54,16 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
 
     val contextForToast = LocalContext.current.applicationContext
     val textCartEmpty = R.string.cart_is_empty
+    val textNothingToDelete = stringResource(id = R.string.nothing_to_delete)
     val textOrderSuccess = stringResource(id = R.string.order_created_success)
     val showOrderCreatedToast by viewModel.showOrderCreatedToast
-    val orderNumberCreatedforToast by viewModel.orderNumberCreatedforToast
+
+    var orderIdvalue: String = orderActiveNumber.value.toString()
+    if (orderIdvalue.isEmpty()) {
+        orderIdvalue = viewModel.generateRandomId(8)
+        orderActiveNumber.value = orderIdvalue
+        Log.d("prueba_gen_id_0", orderIdvalue)
+    }
 
     if (orderProductsList.size > 0) {
         for (element in orderProductsList) {
@@ -66,9 +80,33 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
             .fillMaxSize()
     ) {
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+
             NavigationBar(navController = navController, tittleBar = stringResource(id = R.string.shoppingcart_page))
+
             Divider()
             Spacer(modifier = Modifier.size(20.dp))
+
+            HeaderOrder()
+            Spacer(modifier = Modifier.size(20.dp))
+
+            Divider()
+            Spacer(modifier = Modifier.size(20.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, top = 5.dp, bottom = 5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = stringResource(id = R.string.order_data),
+                    style = MaterialTheme.typography.subtitle2,
+                    color = Color.White,
+                    modifier = Modifier.weight(1f),
+                    textDecoration = TextDecoration.Underline
+                )
+            }
 
             if (orderProductsList.size == 0) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
@@ -100,6 +138,8 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
                         Toast.makeText(contextForToast, textOrderSuccess, Toast.LENGTH_SHORT).show()
                         viewModel.showOrderCreatedToast.apply { false }
                         viewModel.showOrderCreatedToast.apply { "" }
+                        Thread.sleep(1000)
+                        navController.navigate(ScreensRoute.ShoppingCartPage.route)
                         //}
                     } else {
                         Toast.makeText(contextForToast, textCartEmpty, Toast.LENGTH_SHORT).show()
@@ -131,7 +171,7 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
                         Log.d("delete_Cart_0_", orderProductsList.toString())
                         navController.navigate(ScreensRoute.ShoppingCartPage.route)
                     } else {
-                        Toast.makeText(contextForToast, textCartEmpty, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(contextForToast, textNothingToDelete, Toast.LENGTH_SHORT).show()
                         Log.d("delete_Cart_1_", orderProductsList.toString())
                     }
 
@@ -218,6 +258,116 @@ fun CardItemCart(productInCart: ProductoOrden, navController: NavController, vie
                 }
             )
         }
+    }
+}
+
+
+@Composable
+fun HeaderOrder() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 5.dp, bottom = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+    ) {
+        Text(
+            text = stringResource(id = R.string.orden_number_text),
+            style = MaterialTheme.typography.subtitle2,
+            color = Color.White,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = orderActiveNumber.value.toString(),
+            style = MaterialTheme.typography.subtitle2,
+            color = Color.Yellow,
+            maxLines = 1,
+            fontWeight = FontWeight.Bold
+        )
+    }
+
+    Divider(Modifier.padding(8.dp))
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 5.dp, bottom = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Text(
+            text = stringResource(id = R.string.customer_data),
+            style = MaterialTheme.typography.subtitle2,
+            color = Color.White,
+            modifier = Modifier.weight(1f),
+            textDecoration = TextDecoration.Underline
+        )
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 5.dp, bottom = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+    ) {
+        Text(
+            text = stringResource(id = R.string.customer_name_text),
+            style = MaterialTheme.typography.caption,
+            color = Color.White,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = userDefault.nombre,
+            style = MaterialTheme.typography.caption,
+            color = Color.White,
+            maxLines = 1,
+            modifier = Modifier.background(backgroundTwo, shape = RoundedCornerShape(3.dp)).padding(3.dp)
+        )
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 5.dp, bottom = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+    ) {
+        Text(
+            text = stringResource(id = R.string.customer_address_text),
+            style = MaterialTheme.typography.caption,
+            color = Color.White,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = userDefault.direccion,
+            style = MaterialTheme.typography.caption,
+            color = Color.White,
+            maxLines = 1,
+            modifier = Modifier.background(backgroundTwo, shape = RoundedCornerShape(3.dp)).padding(3.dp)
+        )
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 5.dp, bottom = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+    ) {
+        Text(
+            text = stringResource(id = R.string.customer_phone_text),
+            style = MaterialTheme.typography.caption,
+            color = Color.White,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = userDefault.telefono,
+            style = MaterialTheme.typography.caption,
+            color = Color.White,
+            maxLines = 1,
+            modifier = Modifier.background(backgroundTwo, shape = RoundedCornerShape(3.dp)).padding(3.dp)
+        )
     }
 }
 
