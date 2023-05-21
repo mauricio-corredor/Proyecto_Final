@@ -2,7 +2,7 @@ package com.miso.g2.ccpappmovil.repository
 
 import android.util.Log
 import com.miso.g2.ccpappmovil.model.ProductDetail
-import com.miso.g2.ccpappmovil.networkServiceAdapter.RestDataSource
+import com.miso.g2.ccpappmovil.networkServiceAdapter.ProductsRestDataSource
 import javax.inject.Inject
 
 interface ProductRepository {
@@ -10,7 +10,7 @@ interface ProductRepository {
 //suspend fun getProduct(productId: String): MutableList<ProductDetail>
 }
 
-class ProductRepositoryImp @Inject constructor(private val dataSource: RestDataSource) : ProductRepository {
+class ProductRepositoryImp @Inject constructor(private val dataSource: ProductsRestDataSource) : ProductRepository {
     override suspend fun getProduct(productId:String): ProductDetail {
     //override suspend fun getProduct(productId:String): MutableList<ProductDetail> {
         Log.d("Product_Repository1", productId)

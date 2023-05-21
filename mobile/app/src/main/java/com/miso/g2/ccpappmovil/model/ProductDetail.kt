@@ -1,6 +1,9 @@
 package com.miso.g2.ccpappmovil.model
 
 //http://lb-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81
+
+//http://lb-app-bodega-2115956073.us-east-1.elb.amazonaws.com:83/inventarios/{pais}
+
 data class ProductDetail(
     val idProducto: String,
     val descripcionProducto: String,
@@ -11,15 +14,7 @@ data class ProductDetail(
     val tipoProducto: String,
     val fechaVencimiento: String,
     val codigoProducto: String,
-    val precioProducto: Float
+    val precioProducto: Float,
+    val paisInventario: String,
+    val cantidadTotal: Int
 )
-
-//https://fakestoreapi.com/products
-//data class ProductDetail(
-//    val id: Int,
-//    val title: String,
-//    val price: Float,
-//    val description: String,
-//    val category: String,
-//    val image: String,
-//)

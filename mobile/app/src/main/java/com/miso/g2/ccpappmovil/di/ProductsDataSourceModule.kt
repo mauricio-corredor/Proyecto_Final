@@ -1,7 +1,6 @@
 package com.miso.g2.ccpappmovil.di
 
-import android.icu.util.TimeUnit
-import com.miso.g2.ccpappmovil.networkServiceAdapter.RestDataSource
+import com.miso.g2.ccpappmovil.networkServiceAdapter.ProductsRestDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,17 +14,17 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataSourceModule {
+class ProductsDataSourceModule {
 
     @Singleton
     @Provides
-    @Named("BaseUrl")
-    //fun providerBaseUrl() = "https://fakestoreapi.com"
+    @Named("ProductsBaseUrl")
     fun providerBaseUrl() = "http://lb-app-bodega-2115956073.us-east-1.elb.amazonaws.com:81"
 
     @Singleton
     @Provides
-    fun provideRetrofit(@Named("BaseUrl") baseUrl: String): Retrofit {
+    @Named("ProductsRetrofit")
+    fun provideRetrofit(@Named("ProductsBaseUrl") baseUrl: String): Retrofit {
         return Retrofit.Builder()
             .client(getUnsafeOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
@@ -35,8 +34,8 @@ class DataSourceModule {
 
     @Singleton
     @Provides
-    fun restDataSource(retrofit: Retrofit): RestDataSource =
-        retrofit.create(RestDataSource::class.java)
+    fun restDataSource(@Named("ProductsRetrofit") retrofit: Retrofit): ProductsRestDataSource =
+        retrofit.create(ProductsRestDataSource::class.java)
 
     @Provides
     @Singleton

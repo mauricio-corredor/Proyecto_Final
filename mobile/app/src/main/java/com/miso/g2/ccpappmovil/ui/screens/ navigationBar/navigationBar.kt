@@ -1,6 +1,7 @@
 package com.miso.g2.ccpappmovil.ui.screens.products
 
 import android.graphics.Paint.Style
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,11 +17,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.miso.g2.ccpappmovil.MyApplication.Companion.numberOfProductsInCart
 import com.miso.g2.ccpappmovil.MyApplication.Companion.salesmanDefault
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
@@ -42,14 +46,14 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 Text(
                     text = salesmanDefault.nombre,
                     style = MaterialTheme.typography.caption,
-                    fontSize=9.sp,
+                    fontSize = 9.sp,
                     color = Color.White,
                     modifier = Modifier.padding(start = 16.dp),
-                 )
+                )
                 Text(
                     text = salesmanDefault.localizacion.printableName + ", " + salesmanDefault.ciudad,
                     style = MaterialTheme.typography.caption,
-                    fontSize=7.sp,
+                    fontSize = 7.sp,
                     color = Color.LightGray,
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -58,7 +62,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
 
         Box(
             modifier = Modifier
-                .height(40.dp)
+                .height(50.dp)
                 .fillMaxWidth()
                 .background(color = BackgroundMain)
         ) {
@@ -98,16 +102,48 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                         tint = Color.White
                     )
                 }
-                IconButton(onClick = {
-                    //Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
-                    navController.navigate(ScreensRoute.ShoppingCartPage.route)
+
+                BadgedBox(badge = {
+                    Badge() {
+                        Text(numberOfProductsInCart.value.toString(), modifier = Modifier.semantics {
+                            contentDescription = "${numberOfProductsInCart.value.toString()} new notifications"
+                        })
+                    }
                 }) {
-                    Icon(
-                        imageVector = Icons.Filled.ShoppingCart,
-                        contentDescription = stringResource(id = R.string.go_to_shopping_cart),
-                        tint = Color.White
-                    )
+                    IconButton(onClick = {
+                        //Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
+                        navController.navigate(ScreensRoute.ShoppingCartPage.route)
+                    })
+                    {
+                        Icon(
+                            imageVector = Icons.Filled.ShoppingCart,
+                            contentDescription = stringResource(id = R.string.go_to_shopping_cart),
+                            tint = Color.White
+                        )
+                    }
                 }
+
+//            BadgedBox(badge = {
+//                Badge() {
+//                    Text(numberOfProductsInCart.value.toString(), modifier = Modifier.semantics {
+//                        contentDescription = "${numberOfProductsInCart.value.toString()} new notifications"
+//                    })
+//                }
+//            }) {
+//                IconButton(onClick = {
+//                    //Toast.makeText(contextForToast, "Ir a carrito de compras", Toast.LENGTH_SHORT).show()
+//                    navController.navigate(ScreensRoute.ShoppingCartPage.route)
+//                })
+//                {
+//                    Icon(
+//                        imageVector = Icons.Filled.ShoppingCart,
+//                        contentDescription = stringResource(id = R.string.go_to_shopping_cart),
+//                        tint = Color.White
+//                    )
+//                }
+//            }
+//        }
+
                 IconButton(onClick = {
                     //Toast.makeText(contextForToast, "Ir a pantalla home", Toast.LENGTH_SHORT).show()
                     navController.navigate(ScreensRoute.HomePage.route)
@@ -122,6 +158,7 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
         }
     }
 }
+
 
 @Preview
 @Composable

@@ -1,12 +1,15 @@
 package com.miso.g2.ccpappmovil
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.MutableLiveData
 import com.miso.g2.ccpappmovil.model.*
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application(){
-    companion object{
+class MyApplication : Application() {
+    companion object {
         var userDefault = UserAppDetail(
             "Alejandro Magno",
             "Av. Lourdes 4550",
@@ -25,7 +28,9 @@ class MyApplication : Application(){
             CitiesCcp.BOGOTA
         )
 
-        lateinit var orderproductsList : MutableList<ProductoOrden>
+        var orderProductsList: MutableList<ProductoOrden> = mutableListOf()
+        var numberOfProductsInCart: MutableLiveData<Int> = MutableLiveData(orderProductsList.size)
+        var orderActiveNumber: MutableLiveData<String> = MutableLiveData("")
 
     }
 
