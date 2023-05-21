@@ -28,10 +28,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.miso.g2.ccpappmovil.viewModel.ProductsViewModel
+import com.miso.g2.ccpappmovil.viewModel.OrdersViewModel
 
 @Composable
-fun ShoppingCartMainPage(navController: NavController, viewModel: ProductsViewModel = hiltViewModel()) {
+fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewModel = hiltViewModel()) {
 
     var subTotalOrder = 0.0F
     var taxOrder = 0.0F
