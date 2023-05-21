@@ -49,6 +49,8 @@
     <string name="shopping_cart_tax_label">Impuestos:</string>
     <string name="shopping_cart_total_label">TOTAL:</string>
     <string name="create_order_text">Crear Orden</string>
+    <string name="delete_shoppingcart_text">Borrar Carrito</string>
     <string name="cart_is_empty">El carro esta vacio :(</string>
+    <string name="order_created_success">La orden ha sido creada con exito</string>
 
 </resources>

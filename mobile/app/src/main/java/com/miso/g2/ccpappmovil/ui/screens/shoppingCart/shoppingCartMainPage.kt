@@ -1,7 +1,9 @@
 package com.miso.g2.ccpappmovil.ui.screens.shoppingCart
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
@@ -28,8 +30,12 @@ import com.miso.g2.ccpappmovil.ui.screens.products.NavigationBar
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
+import com.miso.g2.ccpappmovil.ui.navigation.navigation
 import com.miso.g2.ccpappmovil.viewModel.OrdersViewModel
 
 @Composable
@@ -41,12 +47,16 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
 
     val contextForToast = LocalContext.current.applicationContext
     val textCartEmpty = R.string.cart_is_empty
+    val textOrderSuccess = stringResource(id = R.string.order_created_success)
+    val showOrderCreatedToast by viewModel.showOrderCreatedToast
+    val orderNumberCreatedforToast by viewModel.orderNumberCreatedforToast
 
     if (orderProductsList.size > 0) {
         for (element in orderProductsList) {
             subTotalOrder += element.valorTotal
             taxOrder = subTotalOrder * 0.19F
             totalOrder = subTotalOrder + taxOrder
+            viewModel.cartIsEmptyState.apply { false }
         }
     }
 
@@ -70,8 +80,10 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
                 }
             }
 
+            var index: Int = 0
             for (product in orderProductsList) {
-                CardItemCart(product)
+                index += 1
+                CardItemCart(product, navController, viewModel)
             }
             Spacer(modifier = Modifier.size(20.dp))
             Divider()
@@ -83,6 +95,12 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
                 onClick = {
                     if (orderProductsList.size > 0) {
                         viewModel.postOrder(subTotalOrder, taxOrder, totalOrder)
+                        Log.d("shopppingMainPage0", showOrderCreatedToast.toString())
+                        //if (showOrderCreatedToast) {
+                        Toast.makeText(contextForToast, textOrderSuccess, Toast.LENGTH_SHORT).show()
+                        viewModel.showOrderCreatedToast.apply { false }
+                        viewModel.showOrderCreatedToast.apply { "" }
+                        //}
                     } else {
                         Toast.makeText(contextForToast, textCartEmpty, Toast.LENGTH_SHORT).show()
                     }
@@ -98,7 +116,7 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
                     .padding(start = 16.dp, top = 5.dp, end = 16.dp, bottom = 5.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.Green,
-                    contentColor = Color.Black
+                    contentColor = Color.DarkGray
                 )
             ) {
                 Text(
@@ -106,6 +124,38 @@ fun ShoppingCartMainPage(navController: NavController, viewModel: OrdersViewMode
                     modifier = Modifier.padding(6.dp)
                 )
             }
+            OutlinedButton(
+                onClick = {
+                    if (orderProductsList.size > 0) {
+                        viewModel.deleteCart()
+                        Log.d("delete_Cart_0_", orderProductsList.toString())
+                        navController.navigate(ScreensRoute.ShoppingCartPage.route)
+                    } else {
+                        Toast.makeText(contextForToast, textCartEmpty, Toast.LENGTH_SHORT).show()
+                        Log.d("delete_Cart_1_", orderProductsList.toString())
+                    }
+
+                },
+                shape = RoundedCornerShape(4.dp),
+                enabled = true,
+                elevation = ButtonDefaults.elevation(
+                    defaultElevation = 10.dp,
+                    pressedElevation = 5.dp,
+                    disabledElevation = 0.dp,
+                ), modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 5.dp, end = 16.dp, bottom = 5.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Red,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.delete_shoppingcart_text),
+                    modifier = Modifier.padding(6.dp)
+                )
+            }
+
         }
     }
 }
@@ -118,7 +168,7 @@ fun PreviewShoppingCartMainPage() {
 }
 
 @Composable
-fun CardItemCart(productInCart: ProductoOrden) {
+fun CardItemCart(productInCart: ProductoOrden, navController: NavController, viewModel: OrdersViewModel) {
     Card(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
@@ -159,7 +209,13 @@ fun CardItemCart(productInCart: ProductoOrden) {
             Icon(
                 imageVector = Icons.Filled.Delete,
                 contentDescription = stringResource(id = R.string.delete_product_text),
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.clickable {
+                    viewModel.deleteOneItemOfCart(productInCart)
+                    Log.d("delete_product_0_", orderProductsList.size.toString())
+                    Log.d("delete_product_3_", orderProductsList.toString())
+                    navController.navigate(ScreensRoute.ShoppingCartPage.route)
+                }
             )
         }
     }

@@ -1,10 +1,15 @@
 package com.miso.g2.ccpappmovil.viewModel
 
 import android.util.Log
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.miso.g2.ccpappmovil.MyApplication.Companion.numberOfProductsInCart
 import com.miso.g2.ccpappmovil.model.*
 import com.miso.g2.ccpappmovil.repository.OrdersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +28,14 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
 
     private val gson: Gson = GsonBuilder().create()
 
+    private val _showOrderCreatedToast = mutableStateOf(false)
+    private val _orderNumberCreatedforToast = mutableStateOf("")
+    private val _cartIsEmptyState = mutableStateOf(true)
+
+    var showOrderCreatedToast: State<Boolean> = _showOrderCreatedToast
+    var orderNumberCreatedforToast: State<String> = _orderNumberCreatedforToast
+    var cartIsEmptyState: State<Boolean> = _cartIsEmptyState
+
     fun getOrders() {
         viewModelScope.launch(Dispatchers.IO) {
             val orders = ordersRepositoryImp.getOrders()
@@ -31,7 +44,6 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
     }
 
     fun postOrder(vSubtotal: Float, vTaxes: Float, vTotal: Float) {
-
         val newOrderToPost = OrderDetail(
             numeroOrden = generateRandomId(8),
             clienteDetalle = ClienteDetalle(
@@ -50,18 +62,38 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
 
         val json = gson.toJson(newOrderToPost)
         val requestBody = json.toRequestBody("application/json".toMediaType())
+        var errorMessage: String by mutableStateOf("")
 
         Log.d("productViewModel_post0", newOrderToPost.toString())
         Log.d("productViewModel_post1", json)
         Log.d("productViewModel_post2", requestBody.toString())
 
         viewModelScope.launch(Dispatchers.IO) {
-            val responseToSendOrder = ordersRepositoryImp.sendOrder(newOrderToPost)
-            Log.d("OrdersViewModel2", responseToSendOrder.toString())
+            try {
+                val responseToSendOrder = ordersRepositoryImp.sendOrder(newOrderToPost)
+                Log.d("OrdersViewModel2", responseToSendOrder.toString())
+                _showOrderCreatedToast.value = true
+                _orderNumberCreatedforToast.value = newOrderToPost.numeroOrden
+            } catch (e: java.lang.Exception) {
+                errorMessage = e.message.toString()
+            }
         }
-
-
     }
+
+    fun deleteCart() {
+        orderProductsList = mutableListOf()
+        numberOfProductsInCart.value = 0
+        //orderProductsList.clear()
+    }
+
+    fun deleteOneItemOfCart(productToDelete: ProductoOrden) {
+        var sizeList = orderProductsList.size
+        if (sizeList > 0) {
+            orderProductsList.remove(productToDelete)
+            numberOfProductsInCart.value = numberOfProductsInCart.value?.minus(1)
+        }
+    }
+
 
     fun generateRandomId(length: Int): String {
         val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9') // Lista de caracteres permitidos
