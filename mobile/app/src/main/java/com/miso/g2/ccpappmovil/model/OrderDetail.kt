@@ -35,7 +35,7 @@ enum class EstadoOrden (val printableName : String) {
 
 data class ProductoOrden(
     val idProducto: String,
-    val codigoProducto: String,
+    val codigoproducto: String,
     val descripcionProducto: String,
     var cantidadVendida: Int,
     val precioProducto: Float,
