@@ -1,10 +1,7 @@
 package com.miso.g2.ccpappmovil.viewModel
 
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
@@ -36,16 +33,27 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
     var showOrderCreatedToast: State<Boolean> = _showOrderCreatedToast
     var cartIsEmptyState: State<Boolean> = _cartIsEmptyState
 
+    private val _ordersList = mutableStateListOf<OrderDetail>()
+    var errorMessage: String by mutableStateOf("")
+    val ordersList: List<OrderDetail>
+        get() = _ordersList
+
     fun getOrders() {
         viewModelScope.launch(Dispatchers.IO) {
-            val orders = ordersRepositoryImp.getOrders()
-            Log.d("OrdersViewModel1", orders.toString())
+            try {
+                _ordersList.clear()
+                _ordersList.addAll(ordersRepositoryImp.getOrders(salesmanDefault.localizacion.printableName))
+                Log.d("OrdersViewModel1", _ordersList.toString())
+                Log.d("OrdersViewModel2", ordersList.toString())
+            } catch (e: java.lang.Exception) {
+                errorMessage = e.message.toString()
+            }
         }
     }
 
     fun postOrder(vSubtotal: Float, vTaxes: Float, vTotal: Float) {
         val newOrderToPost = OrderDetail(
-            numeroOrden =  orderActiveNumber.value.toString(),  //generateRandomId(8),
+            numeroOrden = orderActiveNumber.value.toString(),  //generateRandomId(8),
             clienteDetalle = ClienteDetalle(
                 nombre = userDefault.nombre,
                 direccion = userDefault.direccion,
@@ -84,7 +92,7 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
     fun deleteCart() {
         orderProductsList = mutableListOf()
         numberOfProductsInCart.value = 0
-        orderActiveNumber.value=""
+        orderActiveNumber.value = ""
         //orderProductsList.clear()
     }
 
@@ -95,7 +103,6 @@ class OrdersViewModel @Inject constructor(private val ordersRepositoryImp: Order
             numberOfProductsInCart.value = numberOfProductsInCart.value?.minus(1)
         }
     }
-
 
     fun generateRandomId(length: Int): String {
         val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9') // Lista de caracteres permitidos

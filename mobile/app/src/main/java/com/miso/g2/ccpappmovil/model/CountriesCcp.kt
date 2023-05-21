@@ -4,6 +4,6 @@ enum class CountriesCcp(val printableName: String) {
     ECUADOR("Ecuador"),
     CHILE("Chile"),
     COLOMBIA("Colombia"),
-    MEXICO("México"),
-    PERU("Perú")
+    MEXICO("Mexico"),
+    PERU("Peru")
 }

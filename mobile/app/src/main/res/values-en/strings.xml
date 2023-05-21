@@ -59,5 +59,11 @@
     <string name="customer_address_text">Address:</string>
     <string name="customer_phone_text">Phone:</string>
     <string name="order_data">Order Details</string>
+    <string name="nothing_to_show">No results to show</string>
+
+    <string name="hash_text">#</string>
+    <string name="order_id_text">Order ID</string>
+    <string name="order_customer_text">Customer</string>
+    <string name="order_estatus_text">Status</string>
 
 </resources>
