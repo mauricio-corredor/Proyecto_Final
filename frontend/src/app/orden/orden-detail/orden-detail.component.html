@@ -1,0 +1,71 @@
+<app-menu></app-menu>
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n="@@updateInfo">{{'Update Page'| translate}}</button>
+  <button class="btn btn-standard btn-sm" type="button" routerLink="/ordenes/" i18n>{{'Back to orders'| translate}}</button>
+</div>
+<div class="order-details" *ngIf="ordenDetail">
+  <h2>Order Details</h2>
+  <h3 mb-4><strong>{{ 'Order number' | translate }}:</strong> {{ ordenDetail.numeroOrden }}</h3>
+
+  <div class="section">
+    <h3><strong>{{ 'Summary' | translate }}</strong></h3>
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'Subtotal' | translate }} ID</th>
+          <th>{{ 'Taxes' | translate }}</th>
+          <th>{{ 'Total' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>{{country }} {{ resumenOrden.subtotal | currency }}</td>
+        <td>{{country }} {{ resumenOrden.impuestos | currency }}</td>
+        <td>{{country }} {{ resumenOrden.total | currency }}</td>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3><strong>{{ 'Products' | translate }}</strong></h3>
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'Product' | translate }} ID</th>
+          <th>{{ 'Code' | translate }}</th>
+          <th>{{ 'Description' | translate }}</th>
+          <th>{{ 'Quantity' | translate }}</th>
+          <th>{{ 'Unit price' | translate }}</th>
+          <th>{{ 'Total price' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productosOrden">
+          <td>{{ producto.idProducto }}</td>
+          <td>{{ producto.codigoproducto }}</td>
+          <td>{{ producto.descripcionProducto }}</td>
+          <td>{{ producto.cantidadVendida }}</td>
+          <td>{{country }} {{ producto.precioProducto | currency }}</td>
+          <td>{{country }} {{ producto.valorTotal | currency  }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h3><strong>{{ 'Seller information' | translate }}</strong></h3>
+    <p><strong>{{ 'Name' | translate }}:</strong> {{ vendedor.nombre }}</p>
+    <p><strong>{{ 'Country' | translate }}</strong> {{ vendedor.pais }}</p>
+  </div>
+
+  <div class="section">
+    <h3><strong>{{ 'Summary' | translate }}</strong></h3>
+    <p><strong>{{ 'Subtotal' | translate }}:</strong> {{ resumenOrden.subtotal }}</p>
+    <p><strong>{{ 'Taxes' | translate }}</strong> {{ resumenOrden.impuestos }}</p>
+    <p><strong>{{ 'Total' | translate }}</strong> {{ resumenOrden.total }}</p>
+  </div>
+
+  <div class="section">
+    <h3><strong>{{ 'Order status' | translate }}</strong></h3>
+    <p><strong>{{ 'Status' | translate }}:</strong> {{ ordenDetail.estadoOrden }}</p>
+  </div>
+</div>

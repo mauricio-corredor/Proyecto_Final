@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 
 <div class="container-fluid" *ngIf="!openForm">
   <button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n>{{'Update Page' | translate}}</button>
@@ -15,8 +16,30 @@
           <option *ngFor="let g of paises">{{g}}</option>
         </select>
       </div>
-    </div>
+      <div>
+        <label for="proveedor-filter" class="d-block mt-3 mb-1" i18n>{{ 'Providers' | translate }}</label>
+        <select id="proveedor-filter" class="form-select form-select-sm bg-light" [(ngModel)]="proveedorFilter">
+          <option selected></option>
+          <option *ngFor="let g of inventarios">{{g.proveedor}}</option>
+        </select>
+      </div>
 
+      <div>
+        <label for="fabricante-filter" class="d-block mt-3 mb-1" i18n>{{ 'Manufacturer' | translate }}</label>
+        <select id="fabricante-filter" class="form-select form-select-sm bg-light" [(ngModel)]="fabricanteFilter">
+          <option selected></option>
+          <option *ngFor="let g of inventarios">{{g.fabricanteProducto}}</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="codigo-filter" class="d-block mt-3 mb-1" i18n>{{ 'Code' | translate }}</label>
+        <select id="codigo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="codigoFilter">
+          <option selected></option>
+          <option *ngFor="let g of inventarios">{{g.codigoProducto}}</option>
+        </select>
+      </div>
+    </div>
 
     <div class="inventarios-list col-md">
       <p> {{filteredInventarios.length }} {{'Products found' | translate}}</p>
@@ -29,24 +52,21 @@
           aria-describedby="inventarios-table">
           <thead>
             <tr>
-              <th scope="col" class="text-center" i18n>{{'Id' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Description' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Code' | translate}}</th>
               <th scope="col" class="text-center" i18n>{{'Country' | translate}}</th>
               <th scope="col" class="text-center" i18n>{{'Quantity' | translate}}</th>
-              <th scope="col" class="text-center" i18n>{{'Actions' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Unit price' | translate}}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let c of filteredInventarios" class="p-2">
-              <td class="p-3 align-middle">{{c.id}}</td>
+              <td class="p-3 align-middle">{{c.descripcionProducto}}</td>
+              <td class="p-3 align-middle">{{c.codigoProducto}}</td>
               <td class="p-3 align-middle">{{c.paisInventario}}</td>
               <td class="p-3 align-middle">{{c.cantidadTotal}}</td>
+              <td class="p-3 align-middle">{{c.precioProducto}}</td>
               <td class="p-3 text-center">
-                <button
-                  type="button"
-                  class="btn btn-standard btn-sm"
-                  [ngClass]="{'active': actbtn == c.id}"
-                  (click)="onSelected(c); actbtn = (actbtn == c.id ? null : c.id)"
-                  i18n>{{'More info' | translate}}</button>
               </td>
             </tr>
           </tbody>

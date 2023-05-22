@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
-  private _selectedCountry = new BehaviorSubject<string>('EUR');
+  private _selectedCountry = new BehaviorSubject<string>('');
 
   public get selectedCountry$() {
     return this._selectedCountry.asObservable();

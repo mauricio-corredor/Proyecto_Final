@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../shared/shared.service';
 import { Observable } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
 import { Paises } from './../../models/paises.enum';
 
 @Component({
@@ -23,6 +22,7 @@ export class InventarioComponent implements OnInit{
   display: object = {"display": "none"};
   sub: Subscription = new Subscription;
   inventarios: Inventario[] = [];
+  proveedores: string[] = [];
   paises = Object.values(Paises);
   filteredInventarios: Inventario[] = [];
   filterValues: { [filter: string]: string } = {
@@ -30,6 +30,7 @@ export class InventarioComponent implements OnInit{
   };
   //selectedCurrency: string = 'USD';
   exchangeRate$!: Observable<number>;
+  public language: string = 'en';
 
 
   openForm: boolean = false;
@@ -38,12 +39,21 @@ export class InventarioComponent implements OnInit{
   selectedInventario: Inventario  = new Inventario(
     "123",
     "123",
-    "Colombia",
-    20
+    "",
+    20,
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    500
   );
 
 
-  private _paisFilter: Paises  = Paises.Colombia;
+  private _paisFilter!: Paises;
   get paisFilter(): Paises {
     return this._paisFilter;
   }
@@ -53,6 +63,35 @@ export class InventarioComponent implements OnInit{
     this.filteredInventarios = this.performFilters();
   }
 
+  private _proveedorFilter: string  = '';
+  get proveedorFilter(): string {
+    return this._proveedorFilter;
+  }
+  set proveedorFilter(value: string) {
+    this._proveedorFilter = value;
+    this.filterValues['proveedor'] = value
+    this.filteredInventarios = this.performFilters();
+  }
+
+  private _fabricanteFilter: string  = '';
+  get fabricanteFilter(): string {
+    return this._fabricanteFilter;
+  }
+  set fabricanteFilter(value: string) {
+    this._proveedorFilter = value;
+    this.filterValues['fabricante'] = value
+    this.filteredInventarios = this.performFilters();
+  }
+
+  private _codigoFilter: string  = '';
+  get codigoFilter(): string {
+    return this._codigoFilter;
+  }
+  set codigoFilter(value: string) {
+    this._codigoFilter = value;
+    this.filterValues['codigo'] = value
+    this.filteredInventarios = this.performFilters();
+  }
 
   constructor(private sharedService: SharedService,
     private inventarioService: InventarioService,
@@ -60,8 +99,6 @@ export class InventarioComponent implements OnInit{
     public route: ActivatedRoute,
     public translate: TranslateService
   ) {
-    this.translate.setDefaultLang('en');
-
   }
 
 
@@ -72,12 +109,38 @@ export class InventarioComponent implements OnInit{
       this.performPaisFilter().forEach(x=> inventarios.push(x));
     }
 
+    if (this.filterValues['proveedor'] !== "") {
+      this.performProveedorFilter().forEach(x=> inventarios.push(x));
+    }
+    if (this.filterValues['fabricante'] !== "") {
+      this.performFabricanteFilter().forEach(x=> inventarios.push(x));
+    }
+
+    if (this.filterValues['codigo'] !== "") {
+      this.performCodigoFilter().forEach(x=> inventarios.push(x));
+    }
+
     return [...new Set(inventarios)].sort((a, b) => (a.id < b.id ? -1 : 1));
   }
 
   performPaisFilter(): Inventario[] {
     return this.inventarios.filter((inventario: Inventario) =>
       inventario.paisInventario.includes(this.filterValues['pais']));
+  }
+
+  performProveedorFilter(): Inventario[] {
+    return this.inventarios.filter((inventario: Inventario) =>
+      inventario.proveedor.includes(this.filterValues['proveedor']));
+  }
+
+  performFabricanteFilter(): Inventario[] {
+    return this.inventarios.filter((inventario: Inventario) =>
+      inventario.fabricanteProducto.includes(this.filterValues['fabricante']));
+  }
+
+  performCodigoFilter(): Inventario[] {
+    return this.inventarios.filter((inventario: Inventario) =>
+    inventario.codigoProducto.includes(this.filterValues['codigo']));
   }
 
   onSelected(c: Inventario) {
@@ -105,12 +168,25 @@ export class InventarioComponent implements OnInit{
 
 
   ngOnInit(): void {
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      this.language = storedLanguage;
+    }
+    this.translate.use(this.language);
     this.route.queryParams.subscribe(p => {
-      if (p['pais'] || p['nombre'] || p['ciudad'] || p['zona']) {
+      if (p['pais'] || p['proveedor'] || p['ciudad'] || p['zona']) {
         setTimeout(() => {
 
           if (p['pais']) {
             this.paisFilter = p['pais']
+          }
+
+          if (p['proveedor']) {
+            this.proveedorFilter = p['proveedor']
+          }
+
+          if (p['codigo']) {
+            this.codigoFilter = p['codigo']
           }
 
         }, 1000);
@@ -119,7 +195,10 @@ export class InventarioComponent implements OnInit{
     this.sub = this.inventarioService.getInventarios().subscribe(inventarios => {
       this.inventarios = inventarios.sort((a, b) => a.id.localeCompare(b.id));
       this.filteredInventarios = this.inventarios;
+
    });
+   console.log('Inventory list: ', this.inventarios.length);
+
 
   }
 

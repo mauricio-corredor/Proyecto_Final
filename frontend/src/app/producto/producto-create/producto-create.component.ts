@@ -1,16 +1,12 @@
-import { tap, catchError } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
 import { ProductoService } from 'src/app/producto/producto.service';
 import { Producto } from 'src/models/producto';
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TipoProducto } from 'src/models/tipoProducto1.enum';
 import { Paises } from 'src/models/paises.enum';
 import { Ciudades } from 'src/models/ciudades.enum';
-import { ZonaLocalizacion } from 'src/models/zonaLocalizacion.enum';
-import { fakeAsync } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -28,6 +24,7 @@ export class ProductoCreateComponent implements OnInit {
   paises: Paises[] = [];
   tipos = Object.values(TipoProducto); // array with all the values of TipoProducto enum
   producto: Producto = new Producto('', '', '', '', '', '', '', '', '', 0); // initialize a new product object
+  public language: string = 'en';
 
   @Input()
   openForm: boolean = false;
@@ -40,7 +37,6 @@ export class ProductoCreateComponent implements OnInit {
       private toast: ToastrService,
       public translate: TranslateService
     ) {
-      this.translate.setDefaultLang('en');
     }
 
   hideForm() {
@@ -98,5 +94,9 @@ export class ProductoCreateComponent implements OnInit {
       codigoProducto: ['', Validators.required],
       precioProducto: ['', Validators.required]
     });
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      this.language = storedLanguage;
+    }
   }
 }

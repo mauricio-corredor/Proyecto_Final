@@ -1,0 +1,94 @@
+nav {
+  background-color: white;
+  color: black;
+  border-bottom: #777 solid 1px;
+}
+
+main {
+  background-color: white;
+  color: black;
+  min-height: calc(100vh - 141px);
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+}
+
+main,
+footer {
+  position: relative;
+  top: calc(5rem + 5px);
+}
+
+nav .navbar-nav .nav-link {
+  color: blue;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+nav .navbar-nav .nav-link.active,
+nav .navbar-nav .nav-link:hover {
+  color: black;
+}
+
+nav form input {
+  background-color: white;
+  border: none;
+  border-bottom: black solid 2px;
+  border-radius: 0;
+  color: black
+}
+
+nav form input::placeholder {
+  color: black;
+}
+
+nav form button {
+  color: black;
+  padding: .1rem .25rem;
+}
+
+nav form button > img {
+  height: 2rem;
+}
+
+nav .user-menu > img {
+  height: 2.5rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+
+.globe-dropdown {
+  position: relative;
+}
+
+.globe-icon {
+  font-size: 20px;
+}
+
+.country-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 10px;
+  list-style-type: none;
+  margin: 0;
+  border: 1px solid #ccc;
+}
+
+.country-list li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.country-list li.selected {
+  background-color: #f0f0f0;
+}

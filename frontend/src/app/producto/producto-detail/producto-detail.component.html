@@ -1,41 +1,35 @@
-<div class="container-fluid c-detail">
-  <div class="row">
-    <div class="col">
-      <h1 *ngIf="productoId" class="py-3 text-center">{{productoDetail.descripcionProducto}}</h1>
-      <h2 *ngIf="productoId === undefined" class="py-3 text-center">{{productoDetail.descripcionProducto}}</h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p id="productos" class="text-center" i18n>{{'Product detail' | translate}}</p>
-    </div>
-  </div>
-  <table *ngIf="productoDetail"
-    class="col-lg-8 offset-lg-2 table table-striped"
-    aria-describedby="producto_detail">
-    <thead>
-      <tr>
-        <th scope="col" class="text-center p-3 align-left" i18n>{{'Description' | translate}}</th>
-        <th scope="col" class="text-center p-3 align-left" i18n>{{'Image' | translate}}</th>
-      </tr>
-    </thead>
-    <tbody>
+<app-menu></app-menu>
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n="@@updateInfo">{{'Update Page'| translate}}</button>
+  <button class="btn btn-standard btn-sm" type="button" routerLink="/productos/" i18n>{{'Back to products'| translate}}</button>
+</div>
 
-        <td class="p-2">
-          <div class="image-container text-center">
-            <img src="{{productoDetail.imagenProducto}}" alt="Imagen del producto" class="maxw-10">
+<div class="panel-body">
+  <div class="margin p-3">
+    <h1 *ngIf="productoId" class="p-2">{{productoDetail.descripcionProducto}}</h1>
+    <h2 *ngIf="productoId === undefined" class="p-2">{{productoDetail.descripcionProducto}}</h2>
+      <div class="row">
+
+        <div class="col">
+          <div class="col-4">
+            <div class="card-body">
+            <div class="thumb text-center">
+              <img class="img-thumbnail" src='{{productoDetail.imagenProducto}}' alt="Foto de {{productoDetail.imagenProducto}}" />
+            </div>
           </div>
-        </td>
-        <td class="p-2 text-center align-middle">{{productoDetail.descripcionProducto}}</td>
-        <td class="p-2 text-center align-middle">
-          <button
-            type="button"
-            class="btn btn-standard btn-sm"
-            routerLink="/productos/{{productoDetail.idProducto}}"
-            i18n>{{'Hide' | translate}}</button>
-        </td>
-
-    </tbody>
-  </table>
-
+          <dl>
+            <div *ngIf="productoDetail && productoDetail?.fechaVencimiento; else elseBlock">
+              <dt i18n>{{'Description'| translate}}</dt>
+              <dd>{{productoDetail.descripcionProducto}}</dd>
+              <dt i18n id = @@creationDate>{{'Expiration date'| translate}}</dt>
+            </div>
+            <dd *ngIf="productoDetail">{{ productoDetail.fechaVencimiento |date:"longDate"}}</dd>
+            <ng-template #elseBlock>
+              <dt i18n>{{'Expiration date'| translate}}</dt>
+            </ng-template>
+            <dt i18n id = @@description>{{'Volume'| translate}}</dt>
+            <dd *ngIf="productoDetail">{{productoDetail.volumenProducto}}</dd>
+          </dl>
+        </div>
+      </div>
 </div>

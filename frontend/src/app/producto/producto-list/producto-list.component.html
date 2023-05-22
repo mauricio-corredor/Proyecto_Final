@@ -1,10 +1,11 @@
+<app-menu></app-menu>
 <app-producto-create *ngIf="openForm" [openForm]="openForm" (cancelForm)="hideForm()"></app-producto-create>
 
 <div class="container-fluid" *ngIf="!openForm">
   <button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n="@@updateInfo">{{'Update Page'| translate}}</button>
   <div class="d-flex justify-content-end mt-3 mr-3" *ngIf="filteredProductos.length">
     <button class="btn btn-standard btn-sm ml-3 mr-3" type="button" (click)="showForm()" i18ni18n="@@moreTraded">{{'More traded products'| translate}}</button>
-    <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18ni18n="@@createProducts">{{'+ Create a product'| translate}}</button>
+    <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18ni18n="@@createProducts" *ngIf="esAdmin">{{'+ Create a product'| translate}}</button>
   </div>
   <div class="row">
     <div class="filters col-md-3">
@@ -66,24 +67,25 @@
               <td class="p-3 align-middle">{{c.proveedor}}</td>
               <td class="p-3 align-middle">{{c.tipoProducto}}</td>
               <td class="p-3 align-middle">{{c.codigoProducto}}</td>
-              <td class="p-3 align-middle">{{country }}{{ c.precioProducto | currency:country:'symbol-narrow' }}</td>
+              <td class="p-3 align-middle">{{country }}{{ c.precioProducto | currency }}</td>
               <td class="p-3 text-center">
                 <button
                   type="button"
                   class="btn btn-standard btn-sm"
                   [ngClass]="{'active': actbtn == c.idProducto}"
                   (click)="onSelected(c); actbtn = (actbtn == c.idProducto ? null : c.idProducto)"
-                  i18n>{{'More info' | translate}}</button>
+                  i18n>{{'More info' | translate}}
+                </button>
               </td>
             </tr>
+
+            <div class="producto-list-detail right-col col align-self-center" *ngIf="selected">
+              <app-producto-detail [productoDetail]="selectedProducto"></app-producto-detail>
+            </div>
           </tbody>
         </table>
-        <div class="producto-list-detail right-col col align-self-center" (click)="hideDetails()">
-          <div *ngIf="selected">
-            <app-producto-detail [productoDetail]="selectedProducto"></app-producto-detail>
-          </div>
-        </div>
       </div>
+
       <div class="row no-productos" *ngIf="!filteredProductos.length">
         <div class="col-10 mx-auto d-block mt-5">
           <div class="card text-center" style="height: 30rem;">
@@ -96,6 +98,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </div>

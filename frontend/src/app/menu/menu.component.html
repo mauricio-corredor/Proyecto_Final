@@ -1,0 +1,65 @@
+<header>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand px-2" href="#" title="Home">
+        <img src="assets/logo.png" width="50" alt="Logo CPP">
+      </a>
+      <button class="navbar-toggler" type="button" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div [class.open]="selectOpen">
+        <div class="globe-dropdown" (click)="toggleSelect()">
+            <select id="selectedCountry" class="select-hide" (change)="onSelectCountry($event)">
+              <option value="USD" [selected]="selectedCountry=='USD'">Ecuador</option>
+              <option value="PEN" [selected]="selectedCountry=='PEN'">Perú</option>
+              <option value="COP" [selected]="selectedCountry=='COP'">Colombia</option>
+              <option value="CLP" [selected]="selectedCountry=='CLP'">Chile</option>
+              <option value="ARS" [selected]="selectedCountry=='ARS'">Argentina</option>
+            </select>
+        </div>
+      </div>
+
+      <div [class.open]="selectOpen">
+        <select id="language" class="select-hide" (change)="onSelectLanguage($event)">
+          <option value="en" [selected]="language=='en'">English</option>
+          <option value="es" [selected]="language=='es'">Español</option>
+        </select>
+      </div>
+      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
+          <li class="nav-item">
+            <a id="bodegas-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/bodegas" i18n>{{ 'Warehouse' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a id="inventario-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/inventario" i18n>{{ 'Inventory' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a id="ordenes-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/ordenes" i18n>{{ 'Orders' | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a id="productos-navbar-item" class="nav-link" routerLinkActive="active" routerLink="/productos" i18n>{{ 'Products' | translate }}</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" i18n-placeholder placeholder="{{ 'Search' | translate }}" aria-label="Search">
+          <button class="btn" type="submit"><img src="assets/search.svg" alt="Buscar"></button>
+        </form>
+
+        <form class="form-inline my-2 my-lg-0">
+          <button class="btn btn-outline-success" routerLink="/login" *ngIf="!isLogged"><i class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
+          <button class="btn btn-outline-danger" *ngIf="isLogged" (click)="logOut()"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</button>
+        </form>
+        <!--
+        <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block user-menu p-3" title="Usuario" *ngIf="isCollapsed">
+          <img ngbDropdownToggle tabindex="0" src="assets/user.svg" aria-label="Menú usuario" class="cursor-pointer" alt="Menú de usuario" />
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem i18n>Profile</button>
+            <button ngbDropdownItem i18n>Sign out</button>
+          </div>
+        </div>
+        -->
+        </div>
+      </div>
+  </nav>
+</header>

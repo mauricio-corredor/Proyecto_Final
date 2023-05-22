@@ -1,7 +1,7 @@
 button {
-  background-color: #000000; /* black */
-  border: none;
-  color: white;
+  background-color: white;
+  border: 2px solid blue;
+  color: black;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -9,4 +9,16 @@ button {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+button:focus,
+button:hover {
+  background-color: blue; /* Blue background on focus and hover */
+  color: white; /* White text on focus and hover */
+  outline: none;
+}
+
+.filters.col-md-3 {
+  background-color: #cbe3f5; 
+  margin-right: 50px;
 }

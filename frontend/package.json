@@ -21,6 +21,7 @@
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@npmcli/move-file": "^3.0.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "currency-formatter": "^1.5.9",

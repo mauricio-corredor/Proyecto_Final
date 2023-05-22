@@ -1,0 +1,107 @@
+<app-menu></app-menu>
+
+<div class="container-fluid" *ngIf="!openForm">
+  <button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n="@@updateInfo">{{'Update Page'| translate}}</button>
+  <div class="d-flex justify-content-end mt-3 mr-3" *ngIf="filteredOrdenes.length">
+    <button class="btn btn-standard btn-sm ml-3 mr-3" type="button" (click)="showForm()" i18ni18n="@@moreTraded">{{'More traded products'| translate}}</button>
+  </div>
+  <div class="row">
+    <div class="filters col-md-3">
+      <h1 class="mb-4" i18n>{{ 'Orders' | translate }}</h1>
+      <h2 i18ni18n="@@FilterBy">{{ 'Filter by' | translate }}:</h2>
+      <div>
+        <label for="descripcion-filter" class="d-block mt-3 mb-1" i18ni18n="@@products">{{'Client'| translate}}</label>
+        <select id="descripcion-filter" class="form-select form-select-sm bg-light" [(ngModel)]="clienteFilter">
+          <option selected></option>
+          <option *ngFor="let a of ordenes">{{a.clienteDetalle.nombre}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="producto-filter" class="d-block mt-3 mb-1" i18n>{{ 'Product' | translate }}</label>
+        <select id="producto-filter" class="form-select form-select-sm bg-light" [(ngModel)]="productoFilter">
+          <option selected></option>
+          <option *ngFor="let p of productos">{{p}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="vendedor-filter" class="d-block mt-3 mb-1" i18n>{{ 'Sellers' | translate }}</label>
+        <select id="vendedor-filter" class="form-select form-select-sm bg-light" [(ngModel)]="vendedorFilter">
+          <option selected></option>
+          <option *ngFor="let v of ordenes" >{{v.vendedorDetalle.nombre}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="pais-filter" class="d-block mt-3 mb-1" i18n>{{ 'Seller country' | translate }}</label>
+        <select id="pais-filter" class="form-select form-select-sm bg-light" [(ngModel)]="paisFilter">
+          <option selected></option>
+          <option *ngFor="let p of ordenes" >{{p.vendedorDetalle.pais}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="codigo-filter" class="d-block mt-3 mb-1" i18n>{{'Status' | translate}}</label>
+        <select id="codigo-filter" class="form-select form-select-sm bg-light" [(ngModel)]="estadoFilter">
+          <option selected></option>
+          <option *ngFor="let d of estados">{{d}}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="ordenes-list col-md">
+      <p> {{filteredOrdenes.length }} {{'Orders found' | translate}} </p>
+
+
+      <div class="row filtered-ordenes" *ngIf="filteredOrdenes.length">
+
+        <table *ngIf="filteredOrdenes.length > 0"
+          class="table table-striped"
+          aria-describedby="ordenes-table">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center" i18n>{{'Order number' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Client' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Estatus' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Total' | translate}}</th>
+              <th scope="col" class="text-center" i18n>{{'Actions' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of filteredOrdenes" class="p-2">
+              <td class="p-3 align-middle">{{c.numeroOrden}}</td>
+              <td class="p-3 align-middle">{{c.clienteDetalle.nombre}}</td>
+              <td class="p-3 align-middle">{{c.estadoOrden}}</td>
+              <td class="p-3 align-middle">{{country }}{{ c.resumenOrden.total | currency }}</td>
+              <td class="p-3 text-center">
+                <button
+                  type="button"
+                  class="btn btn-standard btn-sm"
+                  [ngClass]="{'active': actbtn == c.numeroOrden}"
+                  (click)="onSelected(c); actbtn = (actbtn == c.numeroOrden ? null : c.numeroOrden)"
+                  i18n>{{'Order detail' | translate}}
+                </button>
+              </td>
+            </tr>
+
+            <div class="orden-list-detail right-col col align-self-center" *ngIf="selected">
+              <app-orden-detail [ordenDetail]="selectedOrden"></app-orden-detail>
+            </div>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row no-ordenes" *ngIf="!filteredOrdenes.length">
+        <div class="col-10 mx-auto d-block mt-5">
+          <div class="card text-center" style="height: 30rem;">
+            <h5 class="card-header" i18n>{{'0 results' | translate}}</h5>
+            <div class="card-body d-flex flex-column justify-content-center align-items-center">
+              <h5 class="card-title" i18n>{{'There are no orders' | translate}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

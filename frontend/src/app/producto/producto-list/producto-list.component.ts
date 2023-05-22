@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 import { Producto } from '../../../models/producto';
 import { ProductoService } from '../producto.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/models/tipoProducto1.enum';
 import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../../shared/shared.service';
-import { Observable } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
+
 import { AppComponent } from './../../app.component';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-producto',
@@ -16,6 +16,9 @@ import { AppComponent } from './../../app.component';
   styleUrls: ['./producto-list.component.css']
 })
 export class ProductoListComponent implements OnInit{
+
+  esAdmin: boolean | undefined;
+
   country: string ='';
   imageWidth: number = 250;
   imageHeight: number = 230;
@@ -34,8 +37,11 @@ export class ProductoListComponent implements OnInit{
     tipo: "",
     codigo: ""
   };
+  activeIds: string[] = []; // add this property to the class
   //selectedCurrency: string = 'USD';
   exchangeRate$!: Observable<number>;
+  public language: string = 'en';
+  PRODUCTOS: Producto[] = [];
 
 
   openForm: boolean = false;
@@ -74,7 +80,7 @@ export class ProductoListComponent implements OnInit{
     this.filteredProductos = this.performFilters();
   }
 
-  private _tipoFilter: TipoProducto = TipoProducto.Perecederos;
+  private _tipoFilter!: TipoProducto;
   get tipoFilter(): TipoProducto {
     return this._tipoFilter;
   }
@@ -97,15 +103,13 @@ export class ProductoListComponent implements OnInit{
   constructor(private appComponent: AppComponent,
     private sharedService: SharedService,
     private productoService: ProductoService,
+    private tokenService: TokenService,
     public router: Router,
     public route: ActivatedRoute,
     public translate: TranslateService
   ) {
-    this.translate.setDefaultLang('en');
 
   }
-
-
 
   performFilters(): Producto[] {
     let productos: Producto[] = []
@@ -157,7 +161,14 @@ export class ProductoListComponent implements OnInit{
   onSelected(c: Producto) {
     this.selected = true;
     this.selectedProducto = c;
+    this.router.navigate(['/producto/', c.idProducto]);
+
   }
+
+  getBodegaProd(): Producto[]{
+    return this.productos;
+  }
+
   hideDetails(): void {
     this.selected = false; // reset selected to false to hide product details
     this.actbtn = null; // reset actbtn to null to unselect the active button
@@ -167,24 +178,34 @@ export class ProductoListComponent implements OnInit{
     this.openForm = true;
   }
 
-
   hideForm() {
     this.openForm = false;
   }
 
+  isActive(productId: string) {
+    return this.activeIds.indexOf(productId) !== -1;
+  }
 
   refresh() {
+    // Reload the page
     window.location.reload();
   }
 
-
   ngOnInit(): void {
+
+    this.esAdmin = this.tokenService.getEsRolUsuarioAdmin();
+    this.PRODUCTOS = this.productos;
+
+
     this.sharedService.selectedCountry$.subscribe(country => {
       this.country = country;
       console.log('Selected country:', this.country);
-      // do any other processing that depends on the selectedCountry value
     });
-    console.log('Selected country from producto:', this.country);
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      this.language = storedLanguage;
+    }
+    this.translate.use(this.language);
     this.route.queryParams.subscribe(p => {
       if (p['proveedor'] || p['descripcion'] || p['tipo'] || p['codigo']) {
         setTimeout(() => {
@@ -215,9 +236,5 @@ export class ProductoListComponent implements OnInit{
       TipoProducto.Perecederos,
       TipoProducto.Verduras
     ]
-
-
-
   }
-
 }

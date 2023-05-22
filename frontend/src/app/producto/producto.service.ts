@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Producto } from '../../models/producto';
 import { environment } from '../../environments/environment';
+import { ProductoOrden } from 'src/models/productoOrden';
 
 
 @Injectable({
@@ -24,6 +25,5 @@ export class ProductoService {
   addProducto(producto: Producto): Observable<Producto> {
     return this.http.post<Producto>(this.apiUrl, producto);
   }
-  
 
 }

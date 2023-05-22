@@ -7,6 +7,8 @@ import { Ciudades }from '../../../models/ciudades.enum';
 import { Paises }from '../../../models/paises.enum';
 import { ZonaLocalizacion } from 'src/models/zonaLocalizacion.enum';
 import { TranslateService } from '@ngx-translate/core';
+import { AppComponent } from 'src/app/app.component';
+import { SharedService } from 'src/app/shared/shared.service';
 
 
 
@@ -35,7 +37,7 @@ export class BodegaListComponent implements OnInit{
   };
 
   openForm: boolean = false;
-  private _nombreFilter: string = '';
+  public _nombreFilter: string = '';
   actbtn: string | null = null;
   selected: boolean = false;
   selectedBodega: Bodega  = new Bodega(
@@ -44,11 +46,13 @@ export class BodegaListComponent implements OnInit{
     Paises.Colombia,
     Ciudades.Cali,
     "Centro",
-    3.5,
-    0.5,
-    3.0,
+    4,
+    1,
+    3.0
   );
 
+  public language: string = 'en';
+  selectedProd: boolean = false;
 
   get nombreFilter(): string {
     return this._nombreFilter;
@@ -69,7 +73,7 @@ export class BodegaListComponent implements OnInit{
     this.filteredBodegas = this.performFilters();
   }
 
-  private _ciudadFilter: Ciudades = Ciudades.Cali;
+  private _ciudadFilter!: Ciudades;
   get ciudadFilter(): Ciudades {
     return this._ciudadFilter;
   }
@@ -89,13 +93,15 @@ export class BodegaListComponent implements OnInit{
     this.filteredBodegas = this.performFilters();
   }
 
-  constructor(private bodegaService: BodegaService,
+  constructor(
+    private bodegaService: BodegaService,
     public router: Router,
     public route: ActivatedRoute,
     public translate: TranslateService
   ) {
-    this.translate.setDefaultLang('en');
   }
+
+
 
   performFilters(): Bodega[] {
     let bodegas: Bodega[] = []
@@ -147,7 +153,16 @@ export class BodegaListComponent implements OnInit{
   onSelected(c: Bodega) {
     this.selected = true;
     this.selectedBodega = c;
+    this.router.navigate(['/bodega/', c.idBodega]);
   }
+
+  onSelectedProd(c: Bodega) {
+    this.selectedProd = true;
+    this.selectedBodega = c;
+    this.router.navigate(['/bodegaProd/', c.idBodega]);
+  }
+
+
   hideDetails(): void {
     this.selected = false; // reset selected to false to hide product details
     this.actbtn = null; // reset actbtn to null to unselect the active button
@@ -157,7 +172,6 @@ export class BodegaListComponent implements OnInit{
     this.openForm = true;
   }
 
-
   hideForm() {
     this.openForm = false;
   }
@@ -166,8 +180,12 @@ export class BodegaListComponent implements OnInit{
     window.location.reload();
   }
 
-
   ngOnInit(): void {
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      this.language = storedLanguage;
+    }
+    this.translate.use(this.language);
     this.route.queryParams.subscribe(p => {
       if (p['pais'] || p['nombre'] || p['ciudad'] || p['zona']) {
         setTimeout(() => {

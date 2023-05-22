@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <app-bodega-create *ngIf="openForm" [openForm]="openForm" (cancelForm)="hideForm()"></app-bodega-create>
 
 <div class="container-fluid" *ngIf="!openForm">
@@ -68,20 +69,29 @@
               <td class="p-3 align-middle">{{c.zonaLocalizacion}}</td>
               <td class="p-3 text-center">
                 <button
-                  type="button"
-                  class="btn btn-standard btn-sm"
-                  [ngClass]="{'active': actbtn == c.idBodega}"
-                  (click)="onSelected(c); actbtn = (actbtn == c.idBodega ? null : c.idBodega)"
-                  i18n>{{'More info' | translate}}</button>
+                type="button"
+                class="btn btn-standard btn-sm"
+                [ngClass]="{'active': actbtn == c.idBodega}"
+                (click)="onSelected(c); actbtn = (actbtn == c.idBodega ? null : c.idBodega)"
+                i18n>{{'Check room' | translate}}</button>
+                <button
+                type="button"
+                class="btn btn-standard btn-sm"
+                [ngClass]="{'active': actbtn == c.idBodega}"
+                (click)="onSelectedProd(c); actbtn = (actbtn == c.idBodega ? null : c.idBodega)"
+                i18n>{{'Storage capacity' | translate}}</button>
               </td>
             </tr>
+
+            <div class="bodega-room right-col col align-self-center" *ngIf="selected">
+              <app-bodega-room [bodegaRoom]="selectedBodega"></app-bodega-room>
+            </div>
+            <div class="bodega-producto right-col col align-self-center" *ngIf="selectedProd">
+              <app-bodega-producto [bodegaProd]="selectedBodega"></app-bodega-producto>
+            </div>
+
           </tbody>
         </table>
-        <!-- <div class="bodega-list-detail right-col col align-self-center" (click)="hideDetails()">
-          <div *ngIf="selected">
-            <app-bodega-detail [bodegaDetail]="selectedBodega"></app-bodega-detail>
-          </div>
-        </div> -->
       </div>
       <div class="row no-bodegas" *ngIf="!filteredBodegas.length">
         <div class="col-10 mx-auto d-block mt-5">
@@ -93,6 +103,11 @@
               <button class="btn btn-standard btn-sm" type="button" (click)="showForm()" i18n>{{'+ Create a warehouse' | translate}}</button>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="bodega-room right-col col align-self-center" (click)="hideDetails()">
+        <div *ngIf="selected">
+          <app-bodega-room></app-bodega-room>
         </div>
       </div>
     </div>

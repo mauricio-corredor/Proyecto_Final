@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class InventarioService {
 
-  private apiUrl = environment.baseUrl + '/inventario/';
+  private apiUrl = environment.inventarioUrl + '/inventarios/';
   constructor(private http: HttpClient) { }
 
   getInventarios(): Observable<Inventario[]> {

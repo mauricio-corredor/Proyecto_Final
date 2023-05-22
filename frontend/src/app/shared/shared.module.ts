@@ -9,6 +9,7 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
     TranslateModule,
   ],
   exports: [
+    CommonModule,
     TranslateModule,
     TranslatePipe,
   ]

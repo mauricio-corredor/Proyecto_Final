@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../../../models/producto';
 import { ProductoService } from '../producto.service';
@@ -23,15 +23,16 @@ export class ProductoDetailComponent implements OnInit {
     "ABC123",
     9.99
   );
-
+  selected: boolean = false;
+  actbtn: string | null = null;
   productoId: string = '';
+  public language: string = 'en';
 
   constructor(private productoService: ProductoService,
     public router: Router,
     public route: ActivatedRoute,
     public translate: TranslateService
   ) {
-    this.translate.setDefaultLang('en');
   }
 
   getProductoDetail() {
@@ -40,26 +41,21 @@ export class ProductoDetailComponent implements OnInit {
     });
   }
 
+  hideDetails(): void {
+    this.selected = false; // reset selected to false to hide product details
+    this.actbtn = null; // reset actbtn to null to unselect the active button
+  }
 
-  strToCurrency(price: number) {
-    let formatter = new Intl.NumberFormat('es-CO', {
-        style: 'currency',
-        currency: 'COP',
-        maximumFractionDigits: 0,
+  refresh() {
+    window.location.reload();
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(p => {
+      this.productoService.getProductoById(p['id']).subscribe(a => {
+        this.productoDetail = a
       });
+    });
 
-    return formatter.format(price);
   }
-
-  ngOnInit() {
-    if (this.productoDetail === undefined) {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id !== null) {
-        this.productoId = id;
-        this.getProductoDetail();
-      }
-    }
-  }
-
-
 }

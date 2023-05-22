@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="row">
   <div class="col-md-6">
     <div *ngIf="newProductos" id="carouselCcp" class="carousel slide home" data-ride="carousel">
@@ -6,6 +7,7 @@
         <li data-target="#carouselCcp" data-slide-to="1"></li>
         <li data-target="#carouselCcp" data-slide-to="2"></li>
       </ol>
+      <!--
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img src="{{newProductos[0].imagenProducto}}" class="d-block" alt="Product {{newProductos[0].descripcionProducto}}">
@@ -17,6 +19,7 @@
           <img src="{{newProductos[2].imagenProducto}}" class="d-block" alt="Product {{newProductos[2].descripcionProducto}}">
         </div>
       </div>
+      -->
       <a class="carousel-control-prev" href="#carouselCcp" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>

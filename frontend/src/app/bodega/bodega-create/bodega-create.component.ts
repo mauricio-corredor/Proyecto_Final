@@ -38,21 +38,12 @@ export class BodegaCreateComponent implements OnInit {
     private router: Router,
     private toast: ToastrService,
     public translate: TranslateService) {
-      this.translate.setDefaultLang('en');
   }
 
   hideForm() {
     this.cancelForm.emit()
   }
 
-  onTypingUrl() {
-    this.url = (<HTMLInputElement>document.getElementById("bodega-imagen")).value;
-  }
-
-  clearUrl(_$event: any) {
-    (<HTMLInputElement>document.getElementById("bodega-imagen")).value = "";
-    this.url = '';
-  }
 
   createBodega(newBodega: Bodega) {
     this.bodegaService.addBodega(newBodega).subscribe(() => {
@@ -63,9 +54,6 @@ export class BodegaCreateComponent implements OnInit {
     });
   }
 
-  showSuccess(c: Bodega) {
-    this.toast.success(`Bodega created successfully!`);
-  }
 
   ngOnInit(): void {
 

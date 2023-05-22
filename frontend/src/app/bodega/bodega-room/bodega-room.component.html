@@ -1,0 +1,62 @@
+<app-menu></app-menu>
+<button class="btn btn-standard btn-sm" type="button" (click)="refresh()" i18n>{{'Update Page' | translate}}</button>
+<div class="d-flex justify-content-end mt-3">
+  <button class="btn btn-standard btn-sm" type="button" routerLink="/bodegas/" i18n>{{'Back to bodegas'| translate}}</button>
+</div>
+
+<div class="panel-body">
+  <div class="margin p-3">
+    <h1 *ngIf="bodegaId" class="p-2">{{bodegaRoom.nombreBodega}}</h1>
+    <h2 *ngIf="bodegaId === undefined" class="p-2">{{bodegaRoom.nombreBodega}}</h2>
+    <div class="row">
+      <div class="col">
+        <div class="col-4">
+          <div class="card-body">
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <dl>
+                  <dt i18n id = @@description>{{'Total capacity'| translate}}</dt>
+                  <dd *ngIf="bodegaRoom">{{ bodegaRoom.capacidadVolumen}} m3</dd>
+                  <dt i18n id = @@description>{{'Available capacity'| translate}}</dt>
+                  <dd *ngIf="bodegaRoom">{{bodegaRoom.CapacidadDisponible}} m3</dd>
+                  <dt i18n id = @@description>{{'Used capacity'| translate}}</dt>
+                  <dd *ngIf="bodegaRoom">{{bodegaRoom.capacidadUsada}} m3</dd>
+                </dl>
+              </div>
+              <div class="col">
+                <dl>
+                  <dt i18n id = @@description>{{'Sum of Warehouses capacities'| translate}}</dt>
+                  <dd *ngIf="totalRoom">{{ totalRoom}} m3</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+            <!-- Create the grid table -->
+            <div class="grid-container">
+              <div class="col-md-6" style="display: flex; flex-direction: column;">
+
+                <ng-container *ngFor="let row of rows; let i = index">
+                  <div class="col-md-6" style="margin-top: 38px;">{{i+1}}</div>
+                </ng-container>
+              </div>
+
+              <!-- Create the rows and columns of the grid -->
+
+              <div class="grid-container">
+                <ng-container *ngFor="let column of columns; let i = index">
+                  <div class="col-md-6"  style="margin-top: -38px;">{{column}}</div>
+                </ng-container>
+
+                <ng-container *ngFor="let cell of cells; let j = index">
+                  <div class="grid-cell" [ngStyle]="{'background-color': cell.color}"></div>
+                </ng-container>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
