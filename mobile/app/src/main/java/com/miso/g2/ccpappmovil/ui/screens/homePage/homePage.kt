@@ -3,6 +3,8 @@ package com.miso.g2.ccpappmovil.ui.screens.homePage
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -13,12 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.miso.g2.ccpappmovil.ui.navigation.ScreensRoute
 import com.miso.g2.ccpappmovil.ui.theme.BackgroundMain
 import com.miso.g2.ccpappmovil.ui.theme.backgroundSecondary
-
+import com.miso.g2.ccpappmovil.R
 
 @Composable
 fun homePage(navController: NavController) {
@@ -27,8 +30,8 @@ fun homePage(navController: NavController) {
             .background(color = BackgroundMain)
             .fillMaxSize()
     ) {
-        Column {
-            upHomeBar()
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            upHomeBar(navController)
             logoHomeBox()
 
             Row(
@@ -37,7 +40,7 @@ fun homePage(navController: NavController) {
                     .align(Alignment.CenterHorizontally)
             ) {
                 homeButton(
-                    nameButton = "Ver Productos",
+                    nameButton = stringResource(R.string.view_products),
                     backgroundSecondary,
                     navController,
                     ScreensRoute.ProductsMainPage.route,
@@ -45,10 +48,10 @@ fun homePage(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.size(20.dp))
                 homeButton(
-                    nameButton = "Crear orden",
+                    nameButton = stringResource(R.string.view_cart),
                     backgroundSecondary,
                     navController,
-                    ScreensRoute.ActiveOrderPage.route,
+                    ScreensRoute.ShoppingCartPage.route,
                     Icons.Filled.ShoppingCart
                 )
             }
@@ -58,7 +61,7 @@ fun homePage(navController: NavController) {
                     .align(Alignment.CenterHorizontally)
             ) {
                 homeButton(
-                    nameButton = "Ver Ordenes",
+                    nameButton = stringResource(R.string.view_orders),
                     backgroundSecondary,
                     navController,
                     ScreensRoute.OrdersMainPage.route,
@@ -66,10 +69,10 @@ fun homePage(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.size(20.dp))
                 homeButton(
-                    nameButton = "Salir",
+                    nameButton = stringResource(R.string.exit_app),
                     Color.Red,
                     navController,
-                    ScreensRoute.Greeting.route,
+                    ScreensRoute.ExitApp.route,
                     Icons.Filled.ExitToApp
                 )
             }

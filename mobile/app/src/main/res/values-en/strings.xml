@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">ccpAppMovil</string>
+    <string name="cantidad">Availability:</string>
+
+    <string name="pesos">USD$</string>
+    <string name="cart_quantity">%1$sx&#160;</string>
+    <string name="cart_price">$%1$s</string>
+    <string name="orders_page">Purchase Orders</string>
+    <string name="products_page">Products Inventory</string>
+    <string name="shoppingcart_page">Shopping Cart</string>
+    <string name="home_page">Start</string>
+    <string name="ccp_logo_content">CCPs Logo</string>
+
+    <string name="welcome_message">Welcome\u0020</string>
+    <string name="view_products">Products</string>
+    <string name="view_orders">Orders</string>
+    <string name="view_cart">Shopping Cart</string>
+    <string name="exit_app">Exit</string>
+
+    <string name="presentation_settings">Presentation Settings</string>
+    <string name="presentation_page">Configuration Page</string>
+    <string name="user_text">User:\u0020</string>
+    <string name="home_back_button_text">Back to Home</string>
+    <string name="user_predefined_language">Predefined Language:\u0020</string>
+    <string name="user_localization">Localization (country):\u0020</string>
+    <string name="user_city">City:\u0020</string>
+
+    <string name="go_to_orders_query">Go to Orders Query</string>
+    <string name="go_to_products_query">Go to Products Query</string>
+    <string name="go_to_shopping_cart">Go to Shopping Cart</string>
+    <string name="go_to_home_page">Go to Home Page</string>
+
+    <string name="units_text">\u0020unit.</string>
+    <string name="image_product_text">Image</string>
+    <string name="code_product_text">Cod.</string>
+    <string name="description_product_text">Description</string>
+    <string name="price_product_text">Price</string>
+    <string name="availability_product_text">Availability</string>
+    <string name="units">\u0020Units</string>
+    <string name="add_products_text">Select the number of units to add to the order:</string>
+    <string name="add_to_cart_button_text">Add to cart</string>
+    <string name="no_amount_selected_text">You have not selected an amount to add</string>
+    <string name="amount_added_text">Added products to cart:\u0020</string>
+    <string name="back_to_product_list_text">Return to list</string>
+    <string name="delete_product_text">Delete product from cart</string>
+
+    <string name="search_placeholder">Search...</string>
+    <string name="shopping_cart_subtotal_label">Subtotal:</string>
+    <string name="shopping_cart_tax_label">Taxes:</string>
+    <string name="shopping_cart_total_label">TOTAL:</string>
+    <string name="create_order_text">Create Order</string>
+    <string name="delete_shoppingcart_text">Delete Cart</string>
+    <string name="cart_is_empty">The cart is empty :(</string>
+    <string name="nothing_to_delete">Nothing to delete in cart</string>
+    <string name="order_created_success">The order has been created successfully</string>
+    <string name="orden_number_text">Order No.:\u0020</string>
+    <string name="customer_data">Customer Data</string>
+    <string name="customer_name_text">Name:</string>
+    <string name="customer_address_text">Address:</string>
+    <string name="customer_phone_text">Phone:</string>
+    <string name="order_data">Order Details</string>
+    <string name="nothing_to_show">No results to show</string>
+
+    <string name="hash_text">#</string>
+    <string name="order_id_text">Order ID</string>
+    <string name="order_customer_text">Customer</string>
+    <string name="order_estatus_text">Status</string>
+
+</resources>

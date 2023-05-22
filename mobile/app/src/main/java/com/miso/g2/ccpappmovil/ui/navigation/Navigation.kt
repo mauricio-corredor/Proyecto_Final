@@ -9,13 +9,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.miso.g2.ccpappmovil.Greeting
-import com.miso.g2.ccpappmovil.model.ProductDetail
+import com.miso.g2.ccpappmovil.ExitPage
 import com.miso.g2.ccpappmovil.ui.screens.ProductsMainPage
+import com.miso.g2.ccpappmovil.ui.screens.configPage.ConfigPage
 import com.miso.g2.ccpappmovil.ui.screens.homePage.homePage
 import com.miso.g2.ccpappmovil.ui.screens.orders.ActiveOrderPage
 import com.miso.g2.ccpappmovil.ui.screens.orders.OrdersMainPage
 import com.miso.g2.ccpappmovil.ui.screens.products.AddProductToOrderForm
+import com.miso.g2.ccpappmovil.ui.screens.products.ProductDetailPage
+import com.miso.g2.ccpappmovil.ui.screens.shoppingCart.ShoppingCartMainPage
 
 @Composable
 fun navigation() {
@@ -27,8 +29,8 @@ fun navigation() {
         composable(ScreensRoute.ProductsMainPage.route) {
             ProductsMainPage(navController)
         }
-        composable(ScreensRoute.Greeting.route) {
-            Greeting(navController)
+        composable(ScreensRoute.ExitApp.route) {
+            ExitPage()
         }
         composable(ScreensRoute.OrdersMainPage.route) {
             OrdersMainPage(navController)
@@ -36,11 +38,28 @@ fun navigation() {
         composable(ScreensRoute.ActiveOrderPage.route) {
             ActiveOrderPage(navController)
         }
-        composable(ScreensRoute.AddProductToOrder.route, arguments = listOf(
-            navArgument("productCode") { type = NavType.StringType },
-            navArgument("productDesc") { type = NavType.StringType },
-            navArgument("productAvai") { type = NavType.StringType }
-        )
+        composable(ScreensRoute.ShoppingCartPage.route) {
+            ShoppingCartMainPage(navController)
+        }
+        composable(ScreensRoute.ProductViewDetailPage.route,
+            arguments = listOf(navArgument("productId") { type = NavType.StringType })
+        ) {navBackStackEntry ->
+            val productId = navBackStackEntry.arguments?.getString("productId")
+            if (productId != null) {
+                ProductDetailPage(productId,navController = navController)
+            }
+        }
+        composable(ScreensRoute.ConfigPage.route){
+            ConfigPage(navController = navController)
+        }
+
+
+        composable(ScreensRoute.AddProductToOrder.route,
+            arguments = listOf(
+                navArgument("productCode") { type = NavType.StringType },
+                navArgument("productDesc") { type = NavType.StringType },
+                navArgument("productAvai") { type = NavType.StringType }
+            )
         ) { navBackStackEntry ->
             // Extracting exact values and passing it to Profile() screen
             val productCode = navBackStackEntry.arguments?.getString("productCode")

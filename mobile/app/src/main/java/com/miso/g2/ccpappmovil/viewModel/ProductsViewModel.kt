@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.miso.g2.ccpappmovil.model.ProductDetail
+import com.miso.g2.ccpappmovil.model.*
 import com.miso.g2.ccpappmovil.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +26,8 @@ class ProductsViewModel @Inject constructor(private val productsRepositoryImp: P
             try {
                 _productsList.clear()
                 _productsList.addAll(productsRepositoryImp.getProducts())
-                Log.d("ProductsViewModel", _productsList.toString())
-                Log.d("ProductsViewModel", productsList.toString())
+                Log.d("ProductsViewModel1", _productsList.toString())
+                Log.d("ProductsViewModel2", productsList.toString())
             } catch (e: java.lang.Exception) {
                 errorMessage = e.message.toString()
             }
@@ -36,15 +36,3 @@ class ProductsViewModel @Inject constructor(private val productsRepositoryImp: P
     }
 }
 
-//@HiltViewModel
-//class ProductsViewModel @Inject constructor(
-//    private val productsRepositoryImp: ProductsRepository
-//) : ViewModel() {
-//
-//    fun getProducts() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val products = productsRepositoryImp.getProducts()
-//            Log.d("ProductsViewModel", products.toString())
-//        }
-//    }
-//}
