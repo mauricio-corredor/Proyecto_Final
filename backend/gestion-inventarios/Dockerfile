@@ -4,9 +4,11 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install -g npm@8.19.2
+RUN npm install
 RUN npm install --quiet
+RUN npm install lodash
 
 COPY . .
 
+RUN npm run build
 CMD ["npm", "run", "start"]

@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpCode,
   Param,
   Post,
@@ -25,6 +26,7 @@ export class AppController {
   }
 
   @Get()
+  @Header('Access-Control-Allow-Origin', '*') // Or, specify specific origins
   async findAll() {
     return this.appService.findAll();
   }

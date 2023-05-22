@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'bodega' })
 export class AppEntity {
   @PrimaryGeneratedColumn('uuid')
   idBodega: string;
@@ -12,10 +13,10 @@ export class AppEntity {
   ubicacionCiudad: string;
   @Column()
   zonaLocalizacion: string;
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   capacidadVolumen: number;
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   capacidadUsada: number;
-  @Column()
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   CapacidadDisponible: number;
 }

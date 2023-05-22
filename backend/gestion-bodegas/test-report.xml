@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="D:\Veiko\Uniandes\ciclo12\DevOps\CodeCommit\gestion-bodega\src\app.controller.spec.ts">
+    <testCase name="App Controller should be defined" duration="10"/>
+    <testCase name="App Controller findAll should return an array of bodega" duration="3"/>
+    <testCase name="App Controller findOne should return a bodega by id" duration="1"/>
+    <testCase name="App Controller create should create a new bodega" duration="2"/>
+    <testCase name="App Controller update should update a bodega by id" duration="3"/>
+    <testCase name="App Controller delete should remove a bodega by id" duration="4"/>
+  </file>
+</testExecutions>

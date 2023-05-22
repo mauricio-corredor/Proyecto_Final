@@ -149,4 +149,11 @@ describe('App Controller', () => {
       expect(appService.delete).toHaveBeenCalledWith(idProducto);
     });
   });
+
+  describe('GET /health', () => {
+    it('should return "OK"', async () => {
+      const response = await appController.get();
+      expect(response).toBe('OK');
+    });
+  });
 });

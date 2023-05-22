@@ -1,10 +1,11 @@
+/* eslint-disable prettier/prettier */
 import { IsNotEmpty, IsString, IsNumber, IsUrl } from 'class-validator';
 
 export class AppDto {
   @IsString()
   @IsNotEmpty()
   readonly nombreBodega: string;
-  @IsUrl()
+  @IsString()
   @IsNotEmpty()
   readonly ubicacionPais: string;
   @IsString()

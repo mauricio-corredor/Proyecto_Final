@@ -1,5 +1,5 @@
 {
-  "name": "gestion-bodegas",
+  "name": "bodegas",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -21,16 +21,20 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/core": "^9.0.0",
-    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/common": "^9.3.9",
+    "@nestjs/config": "^2.3.1",
+    "@nestjs/core": "^9.3.9",
+    "@nestjs/platform-express": "^9.3.9",
     "@nestjs/typeorm": "^9.0.1",
+    "@ssut/nestjs-sqs": "^1.3.0",
+    "aws-sdk": "^2.1328.0",
     "class-transformer": "^0.5.1",
-    "typeorm": "^0.3.12",
     "class-validator": "^0.13.2",
+    "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.15"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -66,10 +70,10 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
+
+    "collectCoverage":true,
     "coverageDirectory": "../coverage",
+    "coveragePathIgnorePatterns":["/node_modules/","/test/", "/src/app.module.ts", "/src/main.ts", "/src/app.service.ts"],
     "testEnvironment": "node"
   }
 }

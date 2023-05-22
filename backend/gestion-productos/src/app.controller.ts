@@ -21,7 +21,7 @@ export class AppController {
 
   @Get('health')
   async get(){
-    return 'RPTA OK';
+    return 'OK';
   }
 
 
@@ -30,14 +30,8 @@ export class AppController {
   async findAll() {
     return await this.appService.findAll();
   }
-  @Get('/cors')
-  @Header('Access-Control-Allow-Origin', '*')
-  @Header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  @Header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
-  getCors(): string {
-    return 'CORS Enabled';
-  }
 
+  
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.appService.findOne(id);

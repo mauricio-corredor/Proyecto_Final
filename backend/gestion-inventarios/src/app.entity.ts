@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({name:'inventario'})
 export class AppEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

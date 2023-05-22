@@ -1,0 +1,29 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "Install phase ..."
+    runtime-versions:
+      nodejs: 16.14.0
+  pre_build:
+    commands:
+      - echo "Pre build phase ..."
+      - apt-get update
+      - apt-get install -y jq
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+      - echo "Current path is >>>"
+      - sh $pwd
+      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+      - ls $pwd
+      - export PATH=$PATH:./sonar-scanner-3.3.0.1492-linux/bin/
+  build:
+    commands:
+      - echo "Build phase ..."
+      - sonar-scanner -Dsonar.login=$dc391d6b48725ec596e28c7e594a412e648def3b -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=$MsBodega -Dsonar.organization=$vquirozuni
+      - sleep 5
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$MsBodega > analysis.json
+      - cat analysis.json
+      - if [ $(jq -r '.projectStatus.status' analysis.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+  post_build:
+    commands:
+      - echo "Post build phase ..."

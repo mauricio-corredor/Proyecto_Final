@@ -1,38 +1,35 @@
+/* eslint-disable prettier/prettier */
 import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { InjectRepository } from '@nestjs/typeorm';
+
 import { AppEntity } from './app.entity';
 import { Repository } from 'typeorm';
 import { Cron } from '@nestjs/schedule';
 import { CronExpression } from '@nestjs/schedule/dist';
+import { InjectRepository } from '@nestjs/typeorm';
 import { SqsMessageHandler } from '@ssut/nestjs-sqs';
+import { ClientProxy } from '@nestjs/microservices';
+import { lastValueFrom, map } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { map } from 'rxjs/operators';
-import { lastValueFrom } from 'rxjs';
+
 
 @Injectable()
 export class AppService {
+  
   response_default = {
     idProducto: '',
     paisInventario: '',
   };
   private readonly logger = new Logger(AppService.name);
+  private readonly productMicroservice: ClientProxy;
+
   constructor(
     @InjectRepository(AppEntity)
     private readonly appRepository: Repository<AppEntity>,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
-    private readonly httpService: HttpService,
+    @Inject('AXIOS_INSTANCE_TOKEN') private readonly httpService: HttpService,    
   ) {}
-  public getResponseUrl(url: string): any {
-    return lastValueFrom(
-      this.httpService.get<any>(url).pipe(
-        map((response) => {
-          return response.data;
-        }),
-      ),
-    );
-  }
 
   async findOne(paisInventario: string, idProducto: string): Promise<any> {
     const key = `${paisInventario}_${idProducto}`;
@@ -96,7 +93,7 @@ export class AppService {
   }
 
   @Cron(CronExpression.EVERY_5_SECONDS)
-  @SqsMessageHandler(process.env.queue_name, false)
+  @SqsMessageHandler('InventarioCola', false)
   async handleMessage(message: AWS.SQS.Message) {
     try {
       const body = JSON.parse(message.Body);
@@ -133,4 +130,31 @@ export class AppService {
       this.logger.log('DB not found');
     }
   }
+  
+  public async getAllProductosInventario(): Promise<any> {
+    return await this.appRepository.find();
+  }
+
+  public getResponseUrl(url: string): any {
+    return lastValueFrom(
+      this.httpService.get<any>(url).pipe(
+        map((response) => {
+          return response.data;
+        }),
+      ),
+    );
+  }
+
+
+  async findByCountry(country: string): Promise<any> {
+    const values: any[] = [];
+    const keys = await this.cacheManager.store.keys(country + '*');
+    let index: any;
+    for (index in keys) {
+      const value = await this.cacheManager.get(keys[index]);
+      values.push(value);
+    }
+    return values;
+  }
+
 }

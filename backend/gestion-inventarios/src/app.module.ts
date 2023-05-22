@@ -1,35 +1,39 @@
+/* eslint-disable prettier/prettier */
+import { HttpModule, HttpService } from '@nestjs/axios';
 import { CacheModule, Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppEntity } from './app.entity';
 import { redisStore } from 'cache-manager-redis-yet';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqsModule } from '@ssut/nestjs-sqs';
+
 import * as AWS from 'aws-sdk';
 
 AWS.config.update({
-  region: process.env.aws_region,
-  accessKeyId: process.env.aws_access_key_id,
-  secretAccessKey: process.env.aws_secret_access_key,
+  region: 'us-east-1',
+  accessKeyId: 'AKIAWONOFRHV4HRWB3V2',
+  secretAccessKey: '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',
 });
 
 @Module({
   imports: [
+    HttpModule,
     CacheModule.register({
       store: redisStore,
       socket: {
-        host: process.env.redis_host || 'localhost',
-        port: process.env.redis_port || 6379,
+        host: 'redis-inventarios.tqpsxa.ng.0001.use1.cache.amazonaws.com',
+        port: 6379,
       },
     }),
     TypeOrmModule.forFeature([AppEntity]),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.db_postgres_host || 'localhost',
+      host: 'proyecto.cco378ibyevv.us-east-1.rds.amazonaws.com',
       port: 5432,
-      username: process.env.db_postgres_user || 'postgres',
-      password: process.env.db_postgres_password || 'postgres',
-      database: process.env.db_postgres_db || 'postgres',
+      username: 'postgres',
+      password: 'postgres',
+      database: 'proyecto',
       entities: [AppEntity],
       dropSchema: false,
       synchronize: true,
@@ -37,15 +41,19 @@ AWS.config.update({
     SqsModule.register({
       consumers: [
         {
-          name: process.env.queue_name,
-          queueUrl: process.env.queue_url,
-          region: process.env.aws_region,
+          name: 'InventarioCola',
+          queueUrl: 'https://sqs.us-east-1.amazonaws.com/443283769835/InventarioCola',
+          region: 'us-east-1',
         },
       ],
       producers: [],
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: 'AXIOS_INSTANCE_TOKEN', 
+      useExisting: HttpService,
+    },],
 })
 export class AppModule {}

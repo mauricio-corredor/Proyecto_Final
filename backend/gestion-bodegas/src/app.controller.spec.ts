@@ -133,4 +133,11 @@ describe('App Controller', () => {
       expect(appService.delete).toHaveBeenCalledWith(idBodega);
     });
   });
+
+  describe('GET /health', () => {
+    it('should return "RPTA OK"', async () => {
+      const response = await appController.get();
+      expect(response).toBe('RPTA OK');
+    });
+  });
 });

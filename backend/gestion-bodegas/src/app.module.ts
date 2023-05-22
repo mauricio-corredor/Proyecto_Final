@@ -1,19 +1,21 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppEntity } from './app.entity';
+import { CorsOptions } from 'cors';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([AppEntity]),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.db_postgres_host || 'localhost',
+      host: 'proyecto.cco378ibyevv.us-east-1.rds.amazonaws.com',
       port: 5432,
-      username: process.env.db_postgres_user || 'postgres',
-      password: process.env.db_postgres_password || 'postgres',
-      database: process.env.db_postgres_db || 'postgres',
+      username: 'postgres',
+      password: 'postgres',
+      database: 'proyecto',
       entities: [AppEntity],
       dropSchema: false,
       synchronize: true,

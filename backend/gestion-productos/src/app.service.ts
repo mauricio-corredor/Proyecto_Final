@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -40,4 +41,5 @@ export class AppService {
     });
     await this.appRepository.remove(appEntity);
   }
+  
 }

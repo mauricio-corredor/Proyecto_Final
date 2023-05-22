@@ -17,7 +17,7 @@ phases:
       - echo Pushing the Docker image...
       - docker push 443283769835.dkr.ecr.us-east-1.amazonaws.com/bodega_app:latest
       - echo Writing Imagen Definitions file...
-      - printf '[{"name":"contenedor-bodega", "imageUri":"443283769835.dkr.ecr.us-east-1.amazonaws.com/bodega_app:latest"}]' > imagedefinitions.json
+      - printf '[{"name":"Contenedor-Bodega-V2", "imageUri":"443283769835.dkr.ecr.us-east-1.amazonaws.com/bodega_app:latest"}]' > imagedefinitions.json
 
 artifacts:
   files: imagedefinitions.json

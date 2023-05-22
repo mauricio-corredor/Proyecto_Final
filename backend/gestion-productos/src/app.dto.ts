@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsPositive, IsString, IsUrl } from 'class-validator';
+/* eslint-disable prettier/prettier */
+import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUrl } from 'class-validator';
 
 export class AppDto {
   @IsString()
@@ -25,8 +26,8 @@ export class AppDto {
   @IsString()
   @IsNotEmpty()
   readonly codigoProducto: string;
-  @IsString()
-  @IsNotEmpty()  
+  @IsNumber()
+  @IsNotEmpty()
   @IsPositive()
   readonly precioProducto: number;
 }
