@@ -31,6 +31,7 @@ class MyApplication : Application() {
         var orderProductsList: MutableList<ProductoOrden> = mutableListOf()
         var numberOfProductsInCart: MutableLiveData<Int> = MutableLiveData(orderProductsList.size)
         var orderActiveNumber: MutableLiveData<String> = MutableLiveData("")
+        var amountProductInDetail: MutableLiveData<Int> = MutableLiveData(0)
 
     }
 
