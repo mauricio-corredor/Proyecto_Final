@@ -32,6 +32,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.miso.g2.ccpappmovil.MyApplication.Companion.amountProductInDetail
 import com.miso.g2.ccpappmovil.MyApplication.Companion.numberOfProductsInCart
 import com.miso.g2.ccpappmovil.MyApplication.Companion.orderProductsList
 import com.miso.g2.ccpappmovil.R
@@ -122,7 +123,8 @@ fun ProductDetailPage(
                                 style = MaterialTheme.typography.caption,
                             )
                             Text(
-                                text = productDetailConsulted[contentList].precioProducto.toString() + stringResource(id = R.string.units),
+                                //text = productDetailConsulted[contentList].cantidadTotal.toString() + stringResource(id = R.string.units),
+                                text = amountProductInDetail.value.toString() + stringResource(id = R.string.units),
                                 modifier = Modifier.height(24.dp),
                                 style = MaterialTheme.typography.body1,
                                 color = Color.White,
@@ -142,8 +144,7 @@ fun ProductDetailPage(
 
 @Composable
 fun AddCartFooter(productData: ProductDetail, navController: NavController) {
-
-    val numberMaxProduct = productData.precioProducto.toInt()
+    val numberMaxProduct = amountProductInDetail.value?.toInt()
     val amountToAdd: MutableState<Int> = rememberSaveable { mutableStateOf(0) }
     val contextForToast = LocalContext.current.applicationContext
     var textError = stringResource(id = R.string.no_amount_selected_text)
@@ -184,7 +185,7 @@ fun AddCartFooter(productData: ProductDetail, navController: NavController) {
                 )
             }
             IconButton(onClick = {
-                if (amountToAdd.value < numberMaxProduct) {
+                if (amountToAdd.value < numberMaxProduct!!) {
                     amountToAdd.value++
                 }
             })

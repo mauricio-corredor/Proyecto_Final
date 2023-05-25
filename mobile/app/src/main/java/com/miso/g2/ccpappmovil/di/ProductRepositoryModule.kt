@@ -9,8 +9,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class OrdersRepositoryModule {
+abstract class ProductRepositoryModule {
     @Binds
     @Singleton
-    abstract fun ordersRepository(repo: OrdersRepositoryImp): OrdersRepository
+    abstract fun productRepository(repo: ProductRepositoryImp): ProductRepository
 }

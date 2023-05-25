@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.miso.g2.ccpappmovil.model.ProductDetail
 import com.miso.g2.ccpappmovil.repository.ProductRepository
-import com.miso.g2.ccpappmovil.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

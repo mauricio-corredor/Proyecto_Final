@@ -6,13 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ProductsRestDataSource {
-    @GET("productos/{productId}")
-    suspend fun getProductDetail(@Path("productId") productId: String): ProductDetail
-    //fun getProductDetail(productId:String): ProductDetail
-    //suspend fun getProductDetail(@Path("productId") productId: String): MutableList<ProductDetail>
-    //suspend fun getProductDetail(productId: String): MutableList<ProductDetail>
-
     @GET("productos")
     suspend fun getProductsDetail(): MutableList<ProductDetail>
+
+    @GET("inventarios/{pais}")
+    suspend fun getInventoryCountry(@Path("pais") countryName: String): MutableList<ProductDetail>
 
 }
