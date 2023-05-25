@@ -10,13 +10,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class ProductsRepositoryModule {
-
-    @Binds
-    @Singleton
-    abstract fun productRepository(repo: ProductRepositoryImp): ProductRepository
-
     @Binds
     @Singleton
     abstract fun productsRepository(repo: ProductsRepositoryImp): ProductsRepository
-
 }

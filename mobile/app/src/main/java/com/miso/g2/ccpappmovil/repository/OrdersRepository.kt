@@ -1,6 +1,5 @@
 package com.miso.g2.ccpappmovil.repository
 
-import com.miso.g2.ccpappmovil.model.CountriesCcp
 import com.miso.g2.ccpappmovil.model.OrderDetail
 import com.miso.g2.ccpappmovil.networkServiceAdapter.OrdersRestDataSource
 import okhttp3.ResponseBody

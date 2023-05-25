@@ -46,14 +46,14 @@ fun NavigationBar(navController: NavController, tittleBar: String) {
                 Text(
                     text = salesmanDefault.nombre,
                     style = MaterialTheme.typography.caption,
-                    fontSize = 9.sp,
+                    fontSize = 10.sp,
                     color = Color.White,
                     modifier = Modifier.padding(start = 16.dp),
                 )
                 Text(
                     text = salesmanDefault.localizacion.printableName + ", " + salesmanDefault.ciudad,
                     style = MaterialTheme.typography.caption,
-                    fontSize = 7.sp,
+                    fontSize = 8.sp,
                     color = Color.LightGray,
                     modifier = Modifier.padding(start = 16.dp)
                 )

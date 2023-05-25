@@ -20,8 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.miso.g2.ccpappmovil.MyApplication.Companion.amountProductInDetail
+import com.miso.g2.ccpappmovil.MyApplication.Companion.salesmanDefault
 import com.miso.g2.ccpappmovil.R
 import com.miso.g2.ccpappmovil.model.ProductDetail
 import com.miso.g2.ccpappmovil.ui.screens.products.*
@@ -33,7 +36,8 @@ import java.util.Locale
 @Composable
 fun ProductsMainPage(navController: NavController, viewModel: ProductsViewModel = hiltViewModel()) {
     LaunchedEffect(Unit, block = {
-        viewModel.getProducts()
+        //viewModel.getProducts()
+        viewModel.getInventory(salesmanDefault.localizacion.printableName)
     })
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     Column {
@@ -99,6 +103,7 @@ fun CardRow(navController: NavController, productForList: ProductDetail) {
             modifier = Modifier.clickable(onClick = {
                 val productSelected = productForList.idProducto
                 //Toast.makeText(contextForToast, productSelected, Toast.LENGTH_SHORT).show()
+                amountProductInDetail= MutableLiveData(productForList.cantidadTotal)
                 navController.navigate("product_view_detail_page/$productSelected")
 
             })
@@ -145,7 +150,7 @@ fun CardRow(navController: NavController, productForList: ProductDetail) {
                     maxLines = 1
                 )
                 Text(
-                    text = stringResource(id = R.string.cantidad) + " " + productForList.precioProducto.toString() + stringResource(
+                    text = stringResource(id = R.string.cantidad) + " " + productForList.cantidadTotal.toString() + stringResource(
                         id = R.string.units
                     ),
                     style = MaterialTheme.typography.caption,

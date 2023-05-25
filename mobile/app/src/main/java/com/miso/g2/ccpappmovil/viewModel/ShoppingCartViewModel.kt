@@ -7,8 +7,5 @@ import com.miso.g2.ccpappmovil.model.CartItemArticleDetail
 
 class ShoppingCartViewModel : ViewModel() {
     val shoppingCartItems = mutableStateListOf<CartItemArticleDetail>()
-
     val shoppingCartTotalPriceState: State<Float> = TODO()
-
-
 }
